@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/kingduy119/BookApp#readme",
   "dependencies": {
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/styles": "^4.9.6",
     "dotenv-webpack": "^1.7.0",
     "next": "9.1.2",
+    "nprogress": "^0.2.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "typescript": "3.6.4"
@@ -36,6 +39,7 @@
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.19.0",
     "prettier": "^1.18.2"
   }
 }

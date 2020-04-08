@@ -18,3 +18,4 @@ now.json
 compiled/
 production-server/
 
+yarn-error.log

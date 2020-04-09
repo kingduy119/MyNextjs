@@ -1,64 +1,96 @@
 
-import * as http from 'http';
-import * as cors from 'cors';
-import * as helment from 'helmet';
+import './env';
+
 import * as compression from 'compression';
+import * as mongoSessionStore from 'connect-mongo';
+import * as cors from 'cors';
 import * as express from 'express';
+import * as session from 'express-session';
+import * as helmet from 'helmet';
+import * as httpModule from 'http';
 import * as mongoose from 'mongoose';
+import * as path from 'path';
+
+import api from './api';
+// import { setupGoogle } from './google-auth';
+// import { setupPasswordless } from './passwordless-auth';
+import { setup as realtime } from './realtime';
+import { stripeWebHooks } from './stripe';
+
+import logger from './logs';
 
 import {
-    PORT,
+    COOKIE_DOMAIN,
+    IS_DEV,
     MONGO_URL,
-    URL_APP
+    PORT_API as PORT,
+    SESSION_NAME,
+    SESSION_SECRET,
+    URL_API as ROOT_URL,
+    URL_APP,
 } from './consts';
 
-// Mongoose:
-// const options = {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false,
-// }
-// mongoose.connect(MONGO_URL, options);
+const options = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+};
 
-// Express Server:
+mongoose.connect(MONGO_URL, options);
+
 const server = express();
+
 server.use(cors({ origin: URL_APP, credentials: true }));
-server.use(helment());
+
+server.use(helmet());
 server.use(compression());
+
+stripeWebHooks({ server });
 
 server.use(express.json());
 
-// Mongo Store:
+const MongoStore = mongoSessionStore(session);
+const sessionOptions = {
+    name: SESSION_NAME,
+    secret: SESSION_SECRET,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 14 * 24 * 60 * 60, // save session 14 days
+    }),
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
+        domain: COOKIE_DOMAIN,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
+};
 
+if (!IS_DEV) {
+    server.set('trust proxy', 1); // sets req.hostname, req.ip
+    sessionOptions.cookie.secure = true; // sets cookie over HTTPS only
+}
 
-// API:
-server.get('/', (_, res) => {
-    res.send('Index page');
-})
+const sessionMiddleware = session(sessionOptions);
+server.use(sessionMiddleware);
 
-// // Http:
-const httpServer = new http.Server(server);
+// setupGoogle({ server, ROOT_URL });
+// setupPasswordless({ server, ROOT_URL });
 
+api(server);
+
+const http = new httpModule.Server(server);
+realtime({ http, origin: URL_APP, sessionMiddleware });
+
+server.get('/robots.txt', (_, res) => {
+    res.sendFile(path.join(__dirname, '../static', 'robots.txt'));
+});
 
 server.get('*', (_, res) => {
     res.sendStatus(403);
 });
 
-httpServer.listen(PORT, () => {
-    console.log(`Server is running port ${PORT}`)
+http.listen(PORT, () => {
+    logger.info(`> Ready on ${ROOT_URL} ${URL_APP} ${IS_DEV} ${PORT}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

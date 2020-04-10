@@ -12,8 +12,8 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 
 import api from './api';
-// import { setupGoogle } from './google-auth';
-// import { setupPasswordless } from './passwordless-auth';
+import { setupGoogle } from './google-auth';
+import { setupPasswordless } from './passwordless-auth';
 import { setup as realtime } from './realtime';
 import { stripeWebHooks } from './stripe';
 
@@ -75,8 +75,8 @@ if (!IS_DEV) {
 const sessionMiddleware = session(sessionOptions);
 server.use(sessionMiddleware);
 
-// setupGoogle({ server, ROOT_URL });
-// setupPasswordless({ server, ROOT_URL });
+setupGoogle({ server, ROOT_URL });
+setupPasswordless({ server, ROOT_URL });
 
 api(server);
 

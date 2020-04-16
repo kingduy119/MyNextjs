@@ -1,8 +1,12 @@
+import './env';
+
 import express from 'express';
 import next from 'next';
+import helmet from 'helmet';
+// import * as mobxReact from 'mobx-react';
+import * as path from 'path';
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const IS_DEV = NODE_ENV !== 'production';
+import { IS_DEV, PORT_APP, URL_API, URL_APP } from '../lib/consts';
 
 const app = next({ dev: IS_DEV });
 const handle = app.getRequestHandler();
@@ -26,11 +30,8 @@ app.prepare().then(() => {
         handle(req, res);
     });
 
-    console.log(process.env.PORT_APP);
-    server.listen(process.env.PORT_APP, (err) => {
-        if (err) {
-            throw err;
-        }
-        console.log(`> Ready on ${process.env.URL_APP}`);
+    console.log(PORT_APP);
+    server.listen(PORT_APP, () => {
+        console.log(`> Ready on ${URL_APP} ${URL_API} ${IS_DEV} ${PORT_APP}`);
     });
 });

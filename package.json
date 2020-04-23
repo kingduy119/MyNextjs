@@ -5,12 +5,14 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start",
+        "start": "node server/app.js",
         "lint": "eslint pages",
-        "lint-fix": "eslint --fix pages"
+        "lint-fix": "eslint --fix pages",
+        "server": "node server/app.js"
     },
     "dependencies": {
         "bootstrap": "^4.4.1",
+        "express": "^4.17.1",
         "next": "^9.3.5",
         "node-fetch": "^2.6.0",
         "prop-types": "^15.7.2",

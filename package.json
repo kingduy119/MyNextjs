@@ -5,8 +5,8 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "node server/app.js",
-        "lint": "eslint component lib pages server",
+        "start": "NODE_ENV=production node server/app.js",
+        "lint": "eslint components lib pages server",
         "lint-fix": "eslint --fix pages",
         "server": "node server/app.js"
     },

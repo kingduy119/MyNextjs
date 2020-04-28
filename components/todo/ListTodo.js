@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Todo = ({ text, onClick, completed }) => {
+const Todo = ({ text, onClick, completed }) => (
     <li
-        onClick={onclick}
+        onClick={onClick}
         style={{
             textDecoration: completed ? 'line-through' : 'none'
         }}
     >
         {text}
     </li>
-}
+)
 
 Todo.propTypes = {
     text: PropTypes.string,
@@ -18,7 +18,7 @@ Todo.propTypes = {
     onClick: PropTypes.func,
 }
 
-const ListTodo = ({ todos = [], toggleTodo }) => {
+const ListTodo = ({ todos = [], toggleTodo }) => (
     <ul>
         {todos.map(todo => (
             <Todo
@@ -29,7 +29,7 @@ const ListTodo = ({ todos = [], toggleTodo }) => {
             />
         ))}
     </ul>
-}
+)
 
 ListTodo.propTypes = {
     todos: PropTypes.arrayOf(
@@ -44,18 +44,3 @@ ListTodo.propTypes = {
 
 export default ListTodo;
 
-// const getVisibleTodos = (todos = [], fil)
-// const mapStateToProps = (state) => ({
-//     todos: state.todos,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//     toggleTodo: (id) => {
-//         console.log(`Todo ID: ${id}`);
-//         dispatch(toggleTodo(id));
-//     }
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ListTodo);
-
-// export { Todo, ListTodo };

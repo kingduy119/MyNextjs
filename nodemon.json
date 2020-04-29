@@ -1,0 +1,7 @@
+{
+    "env": {
+        "NODE_ENV": "production",
+        "MONGO_URL_TEST": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/TEST?retryWrites=true&w=majority",
+        "MONGO_URL": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/TEST?retryWrites=true&w=majority"
+    }
+}

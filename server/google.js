@@ -1,0 +1,82 @@
+const passport = require("passport");
+const Strategy = require("passport-google-oauth").OAuth2Strategy;
+const User = require("./models/User");
+
+function auth({ ROOT_URL, server }) {
+    const verify = async (accessToken, refreshToken, profile, verified) => {
+        let email;
+        let avatarUrl;
+
+        if (profile.emails) {
+            email = profile.emails[0].value;
+        }
+
+        if (profile.photos && profile.photos.length > 0) {
+            avatarUrl = profile.photos[0].value.replace('sz=50', 'sz=128');
+        }
+
+        try {
+            const user = await User.signInOrSignUp({
+                googleId: profile.id,
+                email,
+                googleToken: {accessToken, refreshToken},
+                displayName: profile.displayName,
+                avatarUrl,
+            });
+            verified(null, user);
+        } catch (err) {
+            verified(err);
+            console.log(err);
+        }
+    }
+
+    passport.use(
+        new Strategy(
+            {
+                clientID: process.env.Google_clientID,
+                clientSecret: process.env.Google_clientSecrect,
+                callbackURL: `${ROOT_URL}/oauth2callback`,
+            },
+            verify,
+        ),
+    );
+
+    /**
+     * Sessions
+     */
+    passport.serializeUser(function (user, done) {
+        done(null, user.id);
+    });
+
+    passport.deserializeUser(function (id, done) {
+        User.findById(id, function (err, user) {
+            done(err, user);
+        });
+    });
+
+    server.use(passport.initialize());
+    server.user(passport.session());
+
+    /**
+     * Route
+     */
+    server.get(
+        '/auth/google',
+        passport.authenticate('google', {
+            scope: ['profile', 'email'],
+            prompt: 'select_account',
+        }),
+    );
+
+    server.get(
+        '/oauth2callback',
+        passport.authenticate('google', {
+            failureRedirect: 'login',
+        }),
+        (req, res) => {
+            res.redirect('/');
+        }
+    );
+}
+
+module.exports = auth;

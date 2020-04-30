@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-// const _ = require("lodash");
-// const generateSlug = 
+const _ = require("lodash");
+const generateSlug = require("../utils/slugify");
 // const sendEmail = require("../aws");
 
 const { Schemna } = mongoose;
@@ -52,6 +52,46 @@ class UserClass {
             'isAdmin',
             'isGithubConnected',
         ];
+    }
+
+    static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
+        const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
+
+        if (user) {
+            let modifier = {};
+
+            if (googleToken.accessToken) {
+                modifier.access_token = googleToken.accessToken;
+            }
+
+            if (googleToken.refreshToken) {
+                modifier.refresh_token = googleToken.refreshToken;
+            }
+
+            if (_.isEmpty(modifier)) {
+                return user;
+            }
+
+            await this.updateOne({ googleId }, { $set: modifier });
+
+            return user;
+        }
+
+        const slug = await generateSlug(this, displayName);
+        const userCount = await this.find().countDocuments();
+
+        const newUser = await this.create({
+            createAt: new Date(),
+            googleId,
+            email,
+            googleToken,
+            displayName,
+            avatarUrl,
+            slug,
+            isAdmin: userCount === 0,
+        });
+
+        return _.pick(newUser, UserClass.publicFields());
     }
 }
 

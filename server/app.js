@@ -1,9 +1,11 @@
 const { createServer } = require("http");
 const express = require("express")
+const session = require("express-session");
 const next = require("next");
 const compression = require("compression");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const mongoConnectSession = require("connect-mongo");
 
 const auth = require("./google");
 
@@ -30,6 +32,11 @@ mongoose
     .catch(err => { console.log(err) });
 
 /**
+ * Sesssion
+ */
+const sessionSecret = process.env.SESSION_SECRET;
+
+/**
  * Server side rendering Nextjs
  */
 app
@@ -42,8 +49,6 @@ app
         server.use(express.json());
 
 
-        auth({ ROOT_URL, server });   // Authentication with google account
-
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
             handle(req, res);
@@ -53,19 +58,32 @@ app
             handle(req, res);
         });
 
+        // Mongo store session
+        const MongoStore = mongoConnectSession(session);
+        const sess = {
+            name: 'marketkingduy.dad',
+            secret: sessionSecret,
+            store: new MongoStore({
+                mongooseConnection: mongoose.connection,
+                ttl: 14 * 24 * 60 * 60, // 14 days
+            }),
+            cookie: {
+                httpOnly: true,
+                maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
+            },
+        };
 
-
-        // ...Mongo store session .....
-        // ...
-
-        // What is this? ->
         if (!dev) {
             server.set('trust proxy', 1);
-            // sessionStorage.cookie.secure = true; 
+            sess.cookie.secure = true;
         }
+        server.use(session(sess));
+        // --session--
 
+        
+        auth({ ROOT_URL, server });   // Authentication with google account
 
-        server.get('*', (req, res) => {
+        server.get('*', (req, res) => { // Redirect error
             handle(req, res);
         });
 

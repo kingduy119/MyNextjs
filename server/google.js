@@ -3,29 +3,35 @@ const Strategy = require("passport-google-oauth").OAuth2Strategy;
 const User = require("./models/User");
 
 function auth({ ROOT_URL, server }) {
-    const verify = async (accessToken, refreshToken, profile, verified) => {
+
+    console.log('GOOGLE AUTH START');
+    const verify = async (accessToken, refreshToken, profile, done) => {
         let email;
         let avatarUrl;
 
+        console.log(`accessToken: ${accessToken}`);
+        console.log(`refreshToken ${refreshToken}`);
         if (profile.emails) {
             email = profile.emails[0].value;
         }
 
         if (profile.photos && profile.photos.length > 0) {
-            avatarUrl = profile.photos[0].value.replace('sz=50', 'sz=128');
+            avatarUrl = profile.photos[0].value;
         }
+
+        console.log(`profile: ${JSON.stringify(profile)}`);
 
         try {
             const user = await User.signInOrSignUp({
                 googleId: profile.id,
                 email,
-                googleToken: {accessToken, refreshToken},
+                googleToken: { accessToken, refreshToken },
                 displayName: profile.displayName,
                 avatarUrl,
             });
-            verified(null, user);
+            done(null, user);
         } catch (err) {
-            verified(err);
+            done(err);
             console.log(err);
         }
     }
@@ -33,9 +39,9 @@ function auth({ ROOT_URL, server }) {
     passport.use(
         new Strategy(
             {
-                clientID: process.env.Google_clientID,
-                clientSecret: process.env.Google_clientSecrect,
-                callbackURL: `${ROOT_URL}/oauth2callback`,
+                clientID: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRECT,
+                callbackURL: `/oauth2callback`,
             },
             verify,
         ),
@@ -55,26 +61,26 @@ function auth({ ROOT_URL, server }) {
     });
 
     server.use(passport.initialize());
-    server.user(passport.session());
+    server.use(passport.session());
 
     /**
      * Route
      */
     server.get(
-        '/auth/google',
+        '/google',
         passport.authenticate('google', {
-            scope: ['profile', 'email'],
-            prompt: 'select_account',
-        }),
+            scope: ['profile']
+        })
     );
 
     server.get(
         '/oauth2callback',
         passport.authenticate('google', {
-            failureRedirect: 'login',
+            failureRedirect: '/login',
         }),
         (req, res) => {
-            res.redirect('/');
+            console.log(req.user);
+            res.send(req.user);
         }
     );
 }

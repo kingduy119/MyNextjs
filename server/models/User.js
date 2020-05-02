@@ -3,9 +3,9 @@ const _ = require("lodash");
 const generateSlug = require("../utils/slugify");
 // const sendEmail = require("../aws");
 
-const { Schemna } = mongoose;
+const { Schema } = mongoose;
 
-const mongoSchema = new Schemna({
+const mongoSchema = new Schema({
     googleId: {
         type: String,
         require: true,
@@ -25,7 +25,7 @@ const mongoSchema = new Schemna({
     email: {
         type: String,
         require: true,
-        unique: true,
+        // unique: true,
     },
     isAdmin: {
         type: Boolean,
@@ -55,7 +55,7 @@ class UserClass {
     }
 
     static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
-        const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
+        const user = await this.findOne({ googleId });//.select(UserClass.publicFields().join(' '));
 
         if (user) {
             let modifier = {};

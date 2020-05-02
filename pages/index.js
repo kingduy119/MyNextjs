@@ -1,3 +1,51 @@
+// import React from "react";
+// import PropTypes from 'prop-types';
+// import Head from 'next/head';
+// import Layout from "../components/layout";
+
+// import withAuth from "../lib/withAuth";
+
+// class Index extends React.Component {
+//   static propTypes = {
+//     user: PropTypes.shape({
+//       displayName: PropTypes.string,
+//       email: PropTypes.string.isRequired,
+//     }),
+//   };
+
+//   static defaultProps = {
+//     user: null,
+//   };
+
+//   render() {
+//     const { user } = this.props;
+//     return (
+//       <div style={{ padding: '10px 45px' }}>
+//         <Head>
+//           <title>Dashboard</title>
+//           <meta name="description" content="List of purchased books." />
+//         </Head>
+//         <Layout>
+//           <p> Dashboard </p>
+//           <p>
+//             Email:&nbsp;
+//           {user.email}
+//           </p>
+//         </Layout>
+//       </div>
+//     );
+//   }
+// }
+
+// export default withAuth(Index);
+
+
+
+
+
+
+
+
 import React from 'react';
 import { connect } from 'react-redux';
 import AddTodo from '../components/todo/AddTodo';

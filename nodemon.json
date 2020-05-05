@@ -4,6 +4,7 @@
         "MONGO_URL_TEST": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority",
         "MONGO_URL": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority",
         "GOOGLE_CLIENT_ID": "672913498119-3ar8seeah2kv98hip8if127j3d959ego.apps.googleusercontent.com",
-        "GOOGLE_CLIENT_SECRECT": "gGbet71BJE9X_Of9Giihbquh"
+        "GOOGLE_CLIENT_SECRECT": "gGbet71BJE9X_Of9Giihbquh",
+        "SESSION_SECRET": "xxxxxxxxx"
     }
 }

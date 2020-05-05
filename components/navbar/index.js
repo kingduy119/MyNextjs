@@ -4,11 +4,14 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 function Navigation() {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar
+            bg="dark"
+            variant="dark"
+        >
             <Navbar.Brand href="/">Home</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link href="/features">Features</Nav.Link>
+                <Nav.Link href="/notify">Notify</Nav.Link>
                 <Nav.Link href="/pricing">Pricing</Nav.Link>
             </Nav>
             <Form inline>

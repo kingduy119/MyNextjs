@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import Header from '../Header';
+import Header from "../Header";
 import Body from "../Body";
+import Footer from "../Footer"
 // import { VerticalMenu } from '../common/Menu';
 // import Confirm from '../notification/Confirm';
 
@@ -13,6 +14,7 @@ class Layout extends React.PureComponent {
       <>
         <Header />
         <Body />
+        <Footer />
       </>
     );
   }

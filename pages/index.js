@@ -30,14 +30,6 @@ class Index extends React.Component {
     let input;
     return (
       <Layout />
-      // <Layout>
-      //   <h2>Todo Page</h2>
-      //   <AddTodo />
-      //   <ShowTodo /> 
-      //   <VisibilityFilter filter={"SHOW_ALL"}>ShowALL</VisibilityFilter>
-      //   <VisibilityFilter filter={"SHOW_ACTIVE"}>Show Active</VisibilityFilter>
-      //   <VisibilityFilter filter={"SHOW_COMPLETED"}>Show Completed</VisibilityFilter>
-      // </Layout>
     );
   }
 }

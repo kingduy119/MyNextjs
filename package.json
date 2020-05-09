@@ -6,8 +6,8 @@
         "dev": "next",
         "build": "next build",
         "start": "nodemon server/app.js",
-        "lint": "eslint components lib pages server",
-        "lint-fix": "eslint --fix pages",
+        "lint": "eslint components pages lib server",
+        "lint-fix": "eslint --fix components pages lib server",
         "server": "node server/app.js"
     },
     "dependencies": {
@@ -45,9 +45,7 @@
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-import": "^2.20.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-prettier": "^3.1.3",
         "eslint-plugin-react": "^7.19.0",
-        "nodemon": "^2.0.3",
-        "prettier": "^2.0.5"
+        "nodemon": "^2.0.3"
     }
 }

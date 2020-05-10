@@ -6,11 +6,11 @@ import Nativigation from './common/Navbar';
 // CSS
 import { headerContainer } from "../lib/stylesheet";
 
-function Header({ user }) {
+function Header() {
   return (
     <Container style={headerContainer}>
       <Nativigation />
-      <Jumbotron style={{ width: "100%"}}>
+      <Jumbotron style={{ width: "100%" }}>
         <h1>Hello, world!</h1>
         <p>
           This is a simple hero unit, a simple jumbotron-style component for calling extra attention

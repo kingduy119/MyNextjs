@@ -1,37 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AddTodo from '../components/todo/AddTodo';
-import ShowTodo from '../components/todo/ShowListTodo';
-import VisibilityFilter from '../components/todo/VisibilityFilter';
+// import AddTodo from '../components/todo/AddTodo';
+// import ShowTodo from '../components/todo/ShowListTodo';
+// import VisibilityFilter from '../components/todo/VisibilityFilter';
 
-import { addTodo } from '../lib/store/todo';
-import Layout from '../components/layout';
+// import { addTodo } from '../lib/store/todo';
+
+import { Container, Row, Col } from "react-bootstrap";
+import Layout from "../components/Layout";
 
 class Index extends React.Component {
-  static propTypes = {
-    user: PropTypes.shape({
-      id: PropTypes.string,
-      isAdmin: PropTypes.bool,
-    }),
-  };
-
-  static defaultProps = {
-    user: null,
-  };
-
-  static async getInitialProps(ctx) {
-    const user = ctx.req ? ctx.req.user && ctx.req.user.toObject() : null;
-
-  }
-
   render() {
-    const { dispatch } = this.props;
-    let input;
     return (
-      <Layout />
+      <Layout>
+        <h2>THE BAND</h2>
+        <p><i>We love music</i></p>
+        <p> We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        <Container>
+          <Row>
+            <Col md="4">
+              <p>Name</p>
+              <img
+                src="assets/bandmember.jpg"
+                width="200"
+                height="200"
+              />
+            </Col>
+
+            <Col md="4">
+              <p>Name</p>
+              <img
+                src="assets/bandmember.jpg"
+                width="200"
+                height="200"
+              />
+            </Col>
+
+            <Col md="4">
+              <p>Name</p>
+              <img
+                src="assets/bandmember.jpg"
+                width="200"
+                height="200"
+              />
+            </Col>
+          </Row>
+        </Container>
+      </Layout>
     );
   }
 }
 
-export default connect()(Index);
+
+export default Index;

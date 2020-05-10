@@ -5,7 +5,6 @@ import { footerContainer } from "../lib/stylesheet";
 function Footer() {
     return (
         <Container style={footerContainer}>
-            {/* <h2 style={{borderStyle}}>Footer</h2> */}
             <h2>Footer</h2>
         </Container>
     );

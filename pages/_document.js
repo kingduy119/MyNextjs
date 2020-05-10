@@ -1,5 +1,6 @@
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { body } from "../lib/stylesheet";
 
 class MyDocument extends Document {
     render() {
@@ -16,7 +17,7 @@ class MyDocument extends Document {
                         crossorigin="anonymous"
                     />
                 </Head>
-                <body>
+                <body style={body}>
                     <Main />
                     <NextScript />
                 </body>

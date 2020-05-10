@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { VerticalMenu } from "./common/Menu";
-// import bandmemeber from "../public/assets/bandmember/jpg";
+import { bodyContainer } from "../lib/stylesheet";
 
 const Content = () => (
     <>
@@ -33,19 +33,31 @@ const Content = () => (
 
         <Container>
             <Row>
-                <Col>
+                <Col md="4">
                     <p>Name</p>
-                    <img src="assets/bandmember.jpg" />
+                    <img
+                        src="assets/bandmember.jpg"
+                        width="200"
+                        height="200"
+                    />
                 </Col>
 
-                <Col>
+                <Col md="4">
                     <p>Name</p>
-                    <img src="assets/bandmember.jpg" />
+                    <img
+                        src="assets/bandmember.jpg"
+                        width="200"
+                        height="200"
+                    />
                 </Col>
 
-                <Col>
+                <Col md="4">
                     <p>Name</p>
-                    <img src="assets/bandmember.jpg" />
+                    <img
+                        src="assets/bandmember.jpg"
+                        width="200"
+                        height="200"
+                    />
                 </Col>
             </Row>
         </Container>
@@ -54,7 +66,7 @@ const Content = () => (
 
 function Body() {
     return (
-        <Container>
+        <Container style={bodyContainer}>
             <Row>
                 {/* Left Layout */}
                 <Col md="2" xs="6">

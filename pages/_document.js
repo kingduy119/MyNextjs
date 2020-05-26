@@ -16,8 +16,13 @@ class MyDocument extends Document {
                         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
                         crossorigin="anonymous"
                     />
+
+                    {/* Icon */}
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+                    <link rel="stylesheet" href="/css/hd-style.css" />
                 </Head>
-                <body style={body}>
+                <body class="light-grey">
                     <Main />
                     <NextScript />
                 </body>

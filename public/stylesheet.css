@@ -1,0 +1,172 @@
+
+.hd-container:after,
+.hd-container:before,
+.hd-row-padding:after,
+.hd-row-padding:before {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+.hd-margin-right {
+    margin-right: 16px!important
+}
+
+.hd-margin-bottom {
+    margin-bottom: 16px;
+}
+
+.hd-large {
+    font-size: 18px;
+}
+.hd-xlagre {
+    font-size: 36px;
+}
+
+.hd-text-teal {
+    color: #009688;
+}
+
+.hd-content,
+.hd-auto {
+    margin-left: auto;
+    margin-right: auto
+}
+
+/* Badge */
+.hd-badge,
+.hd-tag {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+}
+
+/* <!---  Color  ---> */
+.hd-white {
+    color: #000;
+    background-color: #fff;
+}
+
+.hd-light-grey {
+    color: #000!important;
+    background-color: #f1f1f1!important
+}
+
+.hd-teal {
+    color: #fff;
+    background-color: #009688;
+}
+
+/* <!---  Border  ---> */
+.hd-round,
+.hd-round-medium {
+    border-radius: 4px;
+}
+.hd-round-large {
+    border-radius: 8px;
+}
+.hd-round-xlarge {
+    border-radius: 16px;
+}
+.hd-round-xxlarge {
+    border-radius: 32px;
+}
+
+/* <!---  Font  ---> */
+.hd-font-tiny {
+    font-size: 10px;
+}
+.hd-font-small {
+    font-size: 12px;
+}
+.hd-font-medium {
+    font-size: 14px;
+}
+.hd-font-large {
+    font-size: 16px;
+}
+.hd-ont-xlarge {
+    font-size: 32px;
+}
+.hd-font-xxlarge {
+    font-size: 64px;
+}
+.hd-font-xxxlarge {
+    font-size: 128px;
+}
+
+/* <!---  Align  ---> */
+.hd-text-left {
+    text-align: left;
+}
+.hd-text-right {
+    text-align: right;
+}
+.hd-text-center {
+    text-align: center;
+}
+.hd-text-justify {
+    text-align: justify;
+}
+
+.hd-content-margin {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hd-margin-top {
+    margin-top: 16px;
+}
+.hd-margin-right { 
+    margin-right: 16px;
+}
+
+
+/* Padding */
+/* .row-padding>.third {
+    padding: 0 8px
+} */
+
+.hd-row-padding {
+    padding: 0 8px!important;
+}
+
+.hd-padding-16 {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+/* <---  Grid  ---> */
+.hd-col,
+.hd-col-half,
+.hd-col-third,
+.hd-col-twothird {
+    float: left;
+    width: 100%;
+}
+
+/* Text-Color */
+.hd-text-grey {
+    color: #757575;
+}
+
+/* <--- Shadow ---> */
+.hd-card,
+.hd-card-2 {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+}
+
+.hd-card-4 {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+/* Opacity */
+.hd-opacity,
+.hd-hover-opacity:hover {
+    opacity: 0.60;
+}

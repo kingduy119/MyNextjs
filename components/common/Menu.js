@@ -16,5 +16,23 @@ const VerticalMenu = () => (
     </Nav>
 );
 
-export { VerticalMenu };
+const NewVerticalMenu = ({ links, activeKey }) => (
+    <Nav className="flex-column" defaultActiveKey={activeKey}>
+        {links.map(link => (
+            <Nav.link href={link.pathname}>{link.text}</Nav.link>
+        ))}
+    </Nav>
+);
+
+NewVerticalMenu.propType = {
+    links: PropTypes.arrayOf(
+        PropTypes.shape({
+            pathname: PropTypes.string,
+            text: PropTypes.string,
+        }).isRequired,
+    ).isRequired,
+    activeKey: PropTypes.string
+};
+
+export { VerticalMenu, NewVerticalMenu };
 

@@ -1,8 +1,6 @@
-import App from 'next/app';
+import App, {AppInitialProps} from 'next/app';
 import React from 'react';
-// import { Provider } from 'react-redux';
-// import withRedux from 'next-redux-wrapper';
-// import store from '../lib/store';
+import {wrapper} from '../lib/store';
 import { isMobile } from "../lib/isMobile"
 
 class MyApp extends App {
@@ -26,14 +24,11 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps } = this.props;
     return (
-      // <Provider store={store}>
-        <Component {...pageProps} />
-      // </Provider>
+      <Component {...pageProps} />
     );
   }
 }
 
-export default MyApp;
-// export default withRedux(store)(MyApp);
+export default wrapper.withRedux(MyApp);

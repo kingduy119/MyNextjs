@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "npm run build && nodemon server/app.js",
+        "start": "npm run build && node server/app.js",
+        "local-start": "npm run build && nodemon server/app.js",
         "lint": "eslint components pages lib server",
         "lint-fix": "eslint --fix components pages lib server",
         "server": "node server/app.js"

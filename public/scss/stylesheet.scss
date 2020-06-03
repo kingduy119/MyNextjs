@@ -1,0 +1,56 @@
+
+@import "nav";
+
+.container {
+    padding: 0.01em 16px;
+
+    &:before,
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+@mixin margin-col-auto {
+    margin-left: auto;
+    margin-right: auto;;
+}
+
+@mixin row-padding { padding: 0 8px; }
+
+// <!--- Themes --->
+@mixin theme-template($color, $background) {
+    color: $color;
+    background-color: $background;   
+}
+
+@mixin theme-white { @include theme-template(black, white); }
+@mixin them-teal { @include theme-template(white, teal); }
+
+// <!--- Component --->
+.layout {
+    @include margin-col-auto;
+    margin-top: 16px;
+
+    &__header {
+        padding: 0 8px;
+    }
+
+    &__navbar {
+
+    }
+
+    &__content {
+        padding: 0 8px;
+    }
+
+    &__footer {
+        padding: 0 8px;
+    }
+}
+
+.content-left {
+
+}

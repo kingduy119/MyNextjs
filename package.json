@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
+        "build-sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "start": "npm run build && node server/app.js",
         "local-start": "npm run build && nodemon server/app.js",
         "lint": "eslint components pages lib server",
@@ -24,7 +25,7 @@
         "lodash": "^4.17.15",
         "mongoose": "^5.9.10",
         "next": "^9.3.5",
-        "next-redux-wrapper": "^6.0.0-rc.7",
+        "next-redux-wrapper": "^6.0.0",
         "node-fetch": "^2.6.0",
         "node-sass": "^4.14.1",
         "passport": "^0.4.1",
@@ -47,6 +48,7 @@
         "eslint-plugin-import": "^2.20.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-react": "^7.19.0",
-        "nodemon": "^2.0.3"
+        "nodemon": "^2.0.3",
+        "sass": "^1.26.7"
     }
 }

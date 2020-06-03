@@ -1,10 +1,62 @@
 import React from 'react';
 
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
-function Navigation() {
+const navbar = {
+  brand: { href: "/", text: "Home" },
+  links: [
+    { href: "#link", text: "Link" },
+    { href: "#link", text: "Link" },
+    { href: "#link", text: "Link" },
+  ]
+};
+
+const CssNavigation = () => (
+  <nav class="nav-hor">
+    <ul class="nav-hor__list">
+      <li class="nav-hor__item">
+        <a class="nav-hor__link active" href="#link">Link</a>
+      </li>
+      <li class="nav-hor__item">
+        <a class="nav-hor__link" href="#link">Link</a>
+      </li>
+      <li class="nav-hor__item">
+        <a class="nav-hor__link" href="#link">Link</a>
+      </li>
+    </ul>
+  </nav>
+)
+
+const VerticalNav = () => (
+  <ul class="nav-vertical">
+    <li class="nav__link active"><a href="#link">Link</a></li>
+    <li class="nav__link"><a href="#link">Link</a></li>
+    <li class="nav__link"><a href="#link">Link</a></li>
+    <li class="nav__link"><a href="#link">Link</a></li>
+  </ul>
+)
+
+
+class NavigationMenu extends React.PureComponent {
+  render() {
+    return (
+      <Container className="container">
+        <Navbar fixed="top">
+          <Navbar.Brand href="/">Home</Navbar.Brand>
+
+          {navbar.links.map(item => (
+            <Nav.link href={item.href}>{item.text}</Nav.link>
+          ))}
+
+        </Navbar>
+      </Container>
+    );
+  }
+}
+
+function OldNavigation() {
   return (
-    <Navbar bg="dark" variant="dark" fixed="top">
+    <Navbar className="hd-theme-teal" bg="dark" variant="dark" fixed="top">
       <Navbar.Brand href="/">Home</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/login">Login</Nav.Link>
@@ -19,4 +71,5 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export { CssNavigation };
+export default OldNavigation;

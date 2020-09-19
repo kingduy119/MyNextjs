@@ -1,16 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Jumbotron, Button, Row } from 'react-bootstrap';
-import Nativigation from './common/Navbar';
-
-// CSS
-import { headerContainer } from "../lib/stylesheet";
 
 function Header() {
   return (
-    <Container style={headerContainer}>
+    <>
       <Nativigation />
-      <Jumbotron style={{ width: "100%" }}>
+      <Jumbotron className="container">
         <h1>Hello, world!</h1>
         <p>
           This is a simple hero unit, a simple jumbotron-style component for calling extra attention
@@ -20,7 +14,7 @@ function Header() {
           <Button variant="primary">Learn more</Button>
         </p>
       </Jumbotron>
-    </Container>
+    </>
   );
 }
 

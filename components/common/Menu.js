@@ -4,14 +4,15 @@ import { Nav } from "react-bootstrap";
 
 const VerticalMenu = () => (
     <Nav
-        defaultActiveKey="/home"
-        className="flex-column"
+        className="flex-column nav__list"
+        variant="dark"
+        bg="datk"
     >
-        <Nav.Link href="/home">Active</Nav.Link>
-        <Nav.Link href="#link-1">Link</Nav.Link>
-        <Nav.Link href="#link-2">Link</Nav.Link>
-        <Nav.Link href="disabled" disabled>
-            Disabled
+        <Nav.Link className="nav__link nav__active" href="/home">Active</Nav.Link>
+        <Nav.Link className="nav__link" href="#link-1">Link</Nav.Link>
+        <Nav.Link className="nav__link" href="#link-2">Link</Nav.Link>
+        <Nav.Link className="nav__link" href="disabled" disabled>0
+        Disabled
         </Nav.Link>
     </Nav>
 );

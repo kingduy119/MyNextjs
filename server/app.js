@@ -1,99 +1,67 @@
-const { createServer } = require("http");
-const express = require("express")
-const session = require("express-session");
+
 const next = require("next");
+const express = require("express");
+const morgan = require("morgan");
+const session = require("express-session");
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const compression = require("compression");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
-const mongoConnectSession = require("connect-mongo");
+const passport = require("passport");
 
-const auth = require("./google");
+const useSessionMiddleware = require("./middleware/session-middleware");
+const databaseConfig = require("./database/mongo-config");
+const apiREST = require("./api");
 
-const dev = process.env.NODE_ENV !== 'production'
-const port = process.env.PORT || 8000;
-const ROOT_URL = dev ? `https://localhost:${port}` : '';
-const app = next({ dev })
+const { DEV, PORT_API, MONGO_URL } = require("./consts");
+const { createServer } = require("http");
+
+const app = next({ DEV })
 const handle = app.getRequestHandler()
 
-/**
- * Connect to Mongo database
- */
-const MONGO_URL = dev ? process.env.MONGO_URL_TEST : process.env.MONGO_URL;
-const options = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-}
-mongoose
-    .connect(MONGO_URL, options, () => {
-        console.log("Conected to Mongo server");
-    })
-    .catch(err => { console.log(err) });
-
-/**
- * Sesssion
- */
-const sessionSecret = process.env.SESSION_SECRET;
-
-/**
- * Server side rendering Nextjs
- */
+// Server side rendering Nextjs
 app
     .prepare()
     .then(async () => {
         const server = express();
+        server.use(morgan("dev"));
+        if (!DEV) { server.set('trust proxy', 1); }
+
+        databaseConfig(MONGO_URL, mongoose);
+        useSessionMiddleware(server, session, mongoose);
 
         server.use(helmet());
         server.use(compression());
-        server.use(express.json());
-
+        server.use(require('serve-static')(__dirname + '/../../public'));
+        server.use(bodyParser.json());
+        server.use(bodyParser.urlencoded({ extended: true }));
+        server.use(cookieParser());
+        server.use(passport.initialize());
+        server.use(passport.session());
 
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
             handle(req, res);
         });
-
         server.get('/static/*', (req, res) => {
             handle(req, res);
         });
 
-        // Mongo store session
-        const MongoStore = mongoConnectSession(session);
-        const sess = {
-            name: 'marketkingduy.dad',
-            secret: sessionSecret,
-            store: new MongoStore({
-                mongooseConnection: mongoose.connection,
-                ttl: 14 * 24 * 60 * 60, // 14 days
-            }),
-            cookie: {
-                httpOnly: true,
-                maxAge: 14 * 24 * 60 * 60 * 1000, // expires in 14 days
-            },
-        };
-
-        if (!dev) {
-            server.set('trust proxy', 1);
-            sess.cookie.secure = true;
-        }
-        server.use(session(sess));
-        // --session--
-
-        
-        auth({ ROOT_URL, server });   // Authentication with google account
+        apiREST(server);
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);
         });
 
         const http = createServer(server);
-        http.listen(port, (err) => {
+        http.listen(PORT_API, (err) => {
             if (err) throw err;
-            console.log(`> Ready ${port} on https://localhost:${port}`);
+            console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
         });
     })
     .catch(ex => {
         console.error(ex.stack);
         process.exit(1);
     });
+

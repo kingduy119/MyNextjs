@@ -1,56 +1,259 @@
 
-@import "nav";
+@import "./untils";
+@import "./mixins";
+@import "./grid";
+@import "./badge";
+@import "./button";
+@import "./card";
+@import "./navbar";
+@import "./dropdown";
 
+// ************************************************************
+// Layout
 .container {
-    padding: 0.01em 16px;
+    &-navbar {
+        padding: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+    &-body {
+        margin-top: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1400px;
+    }
+}
 
-    &:before,
-    &:after{
-        content: "";
-        display: table;
-        clear: both;
+// ************************************************************
+// Left content
+.profile, .accordion, .interests, .alert {
+    @extend .card, .round, .container;
+    @include theme(black, white);
+}
+
+.profile {
+    &-username { text-align: center !important; }
+    &-avatar {
+        @extend .circle;
+        width: 106px;
+        height: 106px;
+    }
+    &-icon {
+        margin-right: 16px !important;
+        color: $text-theme;
+    }
+}
+
+.accordion {
+    padding: 0;
+    &-btn {
+        @extend .block;
+        @include theme(#fff, #4d636f);
+        text-align: left !important;
+    }
+    &-row {
+        @extend .row-padding;
+        padding-top: 8px!important;
+    }
+    &-col {
+        @extend .m6;
+    }
+    &-img {
+        width: 100%;
+    }
+    &-icon {
+        margin-right: 8px !important;
+    }
+}
+
+.interests {
+    &-tag {
+        @extend .font-small;
+        margin-left: 4px;
+    }
+}
+
+.alert {
+    @extend .card, .round, .border;
+    background-color: $theme-l4;
+
+    &-btn-close {
+        @extend .btn, .display-topright;
+        background-color: $theme-l3;
+    }
+}
+
+// ************************************************************
+// Middle content
+.post {
+    @extend .card, .round, .white;
+    padding: 8px 16px!important;
+    
+    &-opacity {
+        opacity: 0.6;
+    }
+    &-feeling {
+        @extend .border;
+        padding: 4px 8px!important;
+    }
+    &-btn-post {
+        @include theme(#fff, #4d636f);
+    }
+
+    &-avatar {
+        @extend .circle;
+        margin-right: 16px !important;
+        float: left;
+        width: 60px;
+        height: 60px;
+    }
+    &-time {
+        opacity: 0.6;
+        float: right;
     }
 }
 
 
-@mixin margin-col-auto {
-    margin-left: auto;
-    margin-right: auto;;
-}
+// ************************************************************
+// Right Content
+.news-feel {
+    @extend .card, .white, .center;
 
-@mixin row-padding { padding: 0 8px; }
-
-// <!--- Themes --->
-@mixin theme-template($color, $background) {
-    color: $color;
-    background-color: $background;   
-}
-
-@mixin theme-white { @include theme-template(black, white); }
-@mixin them-teal { @include theme-template(white, teal); }
-
-// <!--- Component --->
-.layout {
-    @include margin-col-auto;
-    margin-top: 16px;
-
-    &__header {
-        padding: 0 8px;
-    }
-
-    &__navbar {
-
-    }
-
-    &__content {
-        padding: 0 8px;
-    }
-
-    &__footer {
-        padding: 0 8px;
+    &-btn-info {
+        @extend .block;
+        @include theme(#fff, #4d636f);
     }
 }
 
-.content-left {
+.friend {
+    @extend .card, .round, .white, .center;
+    padding-bottom: 8px;
 
+    &-row {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        opacity: 0.60;
+    }
+    &-col {
+        margin: 0;
+        padding: 0;
+        width: 49.99999%;
+    }
+    &-btn-accept,
+    &-btn-decline { padding: 8px 16px!important; }
 }
+
+// ************************************************************
+// Login
+.login {
+    &-body{
+        // @extend .border; // dev
+        position: relative;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px 0 30px 0;
+        .col {
+            margin: auto;
+            padding: 0 50px;
+            margin-top: 6px;
+        }   
+    }
+
+    &-btn, &-input {
+        @extend .btn;
+        width: 100%;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 5px 0;
+        opacity: 0.85;
+        font-size: 17px;
+        text-align: left;
+    }
+    &-btn {
+        i { margin-right: 4px; }
+        &_facebook { @extend .btn-facebook; }
+        &_twitter { @extend .btn-twitter;}
+        &_google { @extend .btn-google;}
+        &_signup, &_forgot {
+            text-align: center;
+            color: white;
+        }
+    }
+
+    &-input {
+        &:hover { opacity: 1; }
+        &_submit {
+            cursor: pointer;
+            background-color: green;
+            text-align: center;
+        }
+    }
+
+    &-bottom {
+        text-align: center;
+        background-color: #666;
+        border-radius: 0px 0px 4px 4px;
+        .col {  padding: 0; }
+    }
+}
+
+.vl {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    border: 2px solid #ddd;
+    height: 175px;
+
+    &-innertext {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f1f1f1;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        padding: 8px 10px;
+    }
+}
+
+.hide-in-manually {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .vl { display: none;}
+    .hide-in-manually {
+        display: block;
+        text-align: center;
+    }
+}
+
+.signup {
+    @extend .border, .round;
+    margin: auto auto;
+    padding: 16px;
+    background-color: #f2f2f2;
+
+    &-hr {
+        border: 1px solid grey;
+    }
+    &-input {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background-color: #ddd;
+    }
+    
+    &-btn {
+        &_cancel { @extend .btn-red; }
+        &_signup { @extend .btn-green; }
+    }
+
+    &-bottom {
+        padding: 0;
+    }
+}
+

@@ -15,7 +15,7 @@ const databaseConfig = require("./database/mongo-config");
 const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
-const { createServer } = require("http");
+// const { createServer } = require("http");
 
 const app = next({ DEV })
 const handle = app.getRequestHandler()
@@ -54,8 +54,8 @@ app
             handle(req, res);
         });
 
-        const http = createServer(server);
-        http.listen(PORT_API, (err) => {
+        // const http = createServer(server);
+        server.listen(PORT_API, (err) => {
             if (err) throw err;
             console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
         });

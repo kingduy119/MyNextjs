@@ -1,7 +1,7 @@
 
 const dev = process.env.NODE_ENV !== 'production';
 const PORT_APP = process.env.PORT_APP || 3000;
-const PORT_API = process.env.PORT_API || 8000;
+const PORT_API = process.env.PORT || 8000;
 
 exports.DEV = dev;
 exports.PORT_APP = PORT_APP;

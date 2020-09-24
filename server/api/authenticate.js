@@ -5,6 +5,7 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const ProfileMgr = require("../controllers/ProfileManager");
 
 const User = require("../models/User");
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
 
 passport.serializeUser((user, done) => done(null, user.id));
 
@@ -17,8 +18,6 @@ passport.use('login', new LocalStrategy({
     passReqToCallback: true,
 }, async (req, username, password, done) => {
 
-    // console.log(`API::Login: ${JSON.stringify(req.header)}`);
-    // console.log(`API::Login: ${JSON.stringify(req.body)}`);
 
     let info = Object.assign({}, req.query, { username, password });
     let { error, state, data } = await ProfileMgr.onHandleRequest("login", info);
@@ -38,9 +37,6 @@ router.get('/login', passport.authenticate('login', { failureRedirect: '/login' 
 passport.use('signup', new LocalStrategy({
     passReqToCallback: true,
 }, async (req, username, password, done) => {
-
-    // console.log(`API::Signup: ${JSON.stringify(req.header)}`);
-    // console.log(`API::Signup: ${JSON.stringify(req.body)}`);
 
     let info = Object.assign({}, req.body, { userId: username, password });
     let { error, state, data } = await ProfileMgr.onHandleRequest("create", info);
@@ -62,7 +58,6 @@ const verify = async (accessToken, refreshToken, profile, done) => {
     if (profile.emails) { email = profile.emails[0].value; }
     if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
 
-    console.log(`GoogleProfile: ${JSON.stringify(profile)}`);
 
     try {
         let info = Object.assign({}, {
@@ -81,8 +76,8 @@ const verify = async (accessToken, refreshToken, profile, done) => {
 // Google:
 passport.use(new GoogleStrategy(
     {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRECT,
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRECT,
         callbackURL: `/v1/oauth2callback`,
     },
     verify,

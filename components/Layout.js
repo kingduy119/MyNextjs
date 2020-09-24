@@ -3,9 +3,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 // import Header from "./Header";
-import Navigation, { SideBar } from "./Navigation";
-import Body from "./Body";
-import Footer from "./Footer";
+// import Navigation, {  } from "./Navigation";
 
 // fake data:
 const navbar = {
@@ -22,7 +20,7 @@ class Layout extends React.Component {
         return (
             <>
                 <Container style={{ height: "100%", padding: "0" }}>
-                    <Navigation {...navbar} />
+                    {/* <Navigation {...navbar} /> */}
 
                     {/* Content */}
                     <Container className="container container-content">
@@ -30,7 +28,7 @@ class Layout extends React.Component {
                             {/* Left Content */}
                             <Col className="content__left" md="2">
                                 {/* <p>Left</p> */}
-                                <SideBar {...navbar} />
+                                {/* <SideBar {...navbar} /> */}
                             </Col>
 
                             {/* Main Content */}

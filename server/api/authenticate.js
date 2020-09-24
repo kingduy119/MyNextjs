@@ -17,26 +17,30 @@ passport.use('login', new LocalStrategy({
     passReqToCallback: true,
 }, async (req, username, password, done) => {
 
+    // console.log(`API::Login: ${JSON.stringify(req.header)}`);
+    // console.log(`API::Login: ${JSON.stringify(req.body)}`);
+
     let info = Object.assign({}, req.query, { username, password });
-
     let { error, state, data } = await ProfileMgr.onHandleRequest("login", info);
-
     if (error) { return done(null, false); }
 
     return done(null, data, { message: state });
 }));
 
-router.get('/login', passport.authenticate('login', { failureRedirect: 'http://localhost:3000/login' }),
+router.get('/login', passport.authenticate('login', { failureRedirect: '/login' }),
     (req, res) => {
-        console.log(req.query.redirectUrl);
-        res.redirect("http://localhost:3000/");
+        console.log(req.user);
+        res.redirect("/");
     }
 )
 
 // Register:
-passport.use('register', new LocalStrategy({
+passport.use('signup', new LocalStrategy({
     passReqToCallback: true,
 }, async (req, username, password, done) => {
+
+    // console.log(`API::Signup: ${JSON.stringify(req.header)}`);
+    // console.log(`API::Signup: ${JSON.stringify(req.body)}`);
 
     let info = Object.assign({}, req.body, { userId: username, password });
     let { error, state, data } = await ProfileMgr.onHandleRequest("create", info);
@@ -45,10 +49,10 @@ passport.use('register', new LocalStrategy({
     return done(null, data, { message: state });
 }));
 
-router.post('/register', passport.authenticate('register', { failureRedirect: 'http://localhost:3000/login' }),
+router.post('/signup', passport.authenticate('signup', { failureRedirect: '/login' }),
     (req, res) => {
-        console.log(req.query.redirectUrl);
-        res.redirect("http://localhost:3000/");
+        console.log(req.user);
+        res.redirect("/");
     }
 );
 
@@ -57,6 +61,8 @@ const verify = async (accessToken, refreshToken, profile, done) => {
     let email, avatarUrl;
     if (profile.emails) { email = profile.emails[0].value; }
     if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
+
+    console.log(`GoogleProfile: ${JSON.stringify(profile)}`);
 
     try {
         let info = Object.assign({}, {
@@ -82,8 +88,9 @@ passport.use(new GoogleStrategy(
     verify,
 ));
 
-router.get('/google', passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' }));
-
+router.get('/google', passport.authenticate('google', {
+    scope: 'https://www.googleapis.com/auth/plus.login'
+}));
 router.get('/oauth2callback', passport.authenticate('google',
     {
         failureRedirect: '/login',
@@ -91,6 +98,11 @@ router.get('/oauth2callback', passport.authenticate('google',
     }),
 );
 
+router.get('/logout', (req, res) => {
+    console.log(`logout: ${JSON.stringify(req.user)}`);
+    req.logout();
+    res.redirect('/login');
+});
 
 module.exports = router;
 

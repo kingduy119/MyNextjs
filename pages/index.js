@@ -1,11 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import useAuth from "../lib/useAuth"
 import SocialLayout from "../lib/layout/SocialLayout";
 import { Container, Row, Col, Card, Button, Badge } from "../components/common";
-import LoginComponent, { LoginSocialOrManually } from "../components/LoginComponent";
-import Navbar from "../components/common/Navbar";
-import { useRef } from "react";
+import { TopNav } from "../components/Navigation";
 
 function LeftContent(props) {
   let { user } = props;
@@ -27,9 +24,9 @@ function LeftContent(props) {
           />
         </p>
         <hr />
-        <p><i className="profile-icon fa fa-pencil fa-fw" />{user.career}</p>
-        <p><i className="profile-icon fa fa-home fa-fw" />{user.country}</p>
-        <p><i className="profile-icon fa fa-birthday-cake fa-fw" />{user.birthday}</p>
+        {user.career && <p><i className="profile-icon fa fa-pencil fa-fw" />{user.career}</p>}
+        {user.country && <p><i className="profile-icon fa fa-home fa-fw" />{user.country}</p>}
+        {user.birthday && <p><i className="profile-icon fa fa-birthday-cake fa-fw" />{user.birthday}</p>}
       </Card>
       <br />
 
@@ -102,15 +99,15 @@ function LeftContent(props) {
     </>
   );
 }
-LeftContent.defaultProps = {
-  user: {
-    displayName: "DisplayName",
-    avatarUrl: "https://www.w3schools.com/w3images/avatar3.png",
-    career: "Developer",
-    country: "Da Nang, Viet Nam",
-    birthday: "September 11"
-  }
-}
+// LeftContent.defaultProps = {
+//   user: {
+//     displayName: "DisplayName",
+//     avatarUrl: "https://www.w3schools.com/w3images/avatar3.png",
+//     career: "Developer",
+//     country: "Da Nang, Viet Nam",
+//     birthday: "September 11"
+//   }
+// }
 
 
 const MiddleContent = (props) => (
@@ -189,23 +186,15 @@ function IndexPage(props) {
   let { user } = props;
 
   return (
-    <>
-      {user ?
-        // <LoginComponent />
-        <LoginSocialOrManually />
-        :
-        <SocialLayout
-          navbar={<Navbar />}
-          left={<LeftContent user={user} />}
-          middle={<MiddleContent />}
-          right={<RightContent />}
-        />
-      }
-    </>
+    <SocialLayout
+      navbar={<TopNav {...{ user: user }} />}
+      left={<LeftContent user={user} />}
+      middle={<MiddleContent />}
+      right={<RightContent />}
+    />
   );
-
-
 }
+
 export default useAuth(IndexPage);
 
 

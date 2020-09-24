@@ -7,7 +7,7 @@
         "build": "next build",
         "client": "next dev",
         "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
-        "start": "npm run build && node server/app.js",
+        "start": "npm run sass && npm run build && node server/app.js",
         "dev": "npm run build && nodemon server/app.js",
         "lint": "eslint components pages lib server",
         "lint-fix": "eslint --fix components pages lib server",

@@ -10,6 +10,7 @@
         "SESSION_SECRET": "xxxxxxxxx",
         "GMAIL_USER": "hoangduy1192@gmail.com",
         "GMAIL_PWS": "10111001119",
-        "GMAIL_ACCESSTOKEN": "ya29.a0AfH6SMBoPNTWN3YYEPei4gLh_RnvtkeNH-RhfDG3Jfc8N9nfMuaUKzdBwwSZUBFiI9_73uofkNAjtG-eNCifPE4slILg6bNssrc0ime7GhOeLnLbc1oWLY35BfmbYGz_QF3pbmIpibFDBdu4nethfKatHQFR0ImJBHM"
+        "GMAIL_ACCESSTOKEN": "ya29.a0AfH6SMBoPNTWN3YYEPei4gLh_RnvtkeNH-RhfDG3Jfc8N9nfMuaUKzdBwwSZUBFiI9_73uofkNAjtG-eNCifPE4slILg6bNssrc0ime7GhOeLnLbc1oWLY35BfmbYGz_QF3pbmIpibFDBdu4nethfKatHQFR0ImJBHM",
+        "API_URL": "http://localhost:8000"
     }
 }

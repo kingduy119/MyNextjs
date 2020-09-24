@@ -2,11 +2,13 @@
 @import "./untils";
 @import "./mixins";
 @import "./grid";
-@import "./badge";
-@import "./button";
-@import "./card";
 @import "./navbar";
 @import "./dropdown";
+@import "./card";
+@import "./button";
+@import "./badge";
+@import "./input";
+
 
 // ************************************************************
 // Layout
@@ -23,6 +25,45 @@
         margin-left: auto;
         margin-right: auto;
         max-width: 1400px;
+    }
+}
+
+// ************************************************************
+// Topnav
+.topnav {
+    background-color: $theme-d2;
+    &-item {
+        a { 
+            max-height: 42px;
+            color: #fff; 
+        }
+        &:hover:not(.topnav-item_active)>a {
+            color: $theme-d2;
+            background-color: #fff !important;
+            opacity: 1;
+        }
+
+        &_active a {
+            color: #fff !important;
+            background-color: $theme-d4;
+        }
+    }
+
+    &-dropdown {
+        &-toggle { color: #fff; }
+        &:hover>&-toggle {
+            @include theme($theme-d2, #fff);
+            opacity: 1;
+        }
+    }
+
+    &-user {
+        float: right;
+        &-avatar {
+            @extend .circle;
+            max-width: 23px;
+            max-height: 20px;
+        }
     }
 }
 
@@ -148,6 +189,8 @@
 // ************************************************************
 // Login
 .login {
+    max-width: 1080px;
+    margin: 80px auto;
     &-body{
         // @extend .border; // dev
         position: relative;
@@ -186,6 +229,7 @@
         &:hover { opacity: 1; }
         &_submit {
             cursor: pointer;
+            color: white;
             background-color: green;
             text-align: center;
         }
@@ -231,8 +275,8 @@
 
 .signup {
     @extend .border, .round;
-    margin: auto auto;
-    padding: 16px;
+    max-width: 1080px;
+    margin: 80px auto;
     background-color: #f2f2f2;
 
     &-hr {
@@ -248,12 +292,40 @@
     }
     
     &-btn {
+        @extend .round;
+        margin-left: 8px;
+        margin-right: 8px;
         &_cancel { @extend .btn-red; }
         &_signup { @extend .btn-green; }
     }
 
     &-bottom {
         padding: 0;
+        margin-top: 12px;
+        margin-bottom: 12px;
     }
 }
 
+.forgot {
+    @extend .border;
+    max-width: 1080px;
+    margin: 80px auto;
+    padding: 0;
+    background-color: #f2f2f2;
+    &-header {}
+    &-body {
+        padding: 0 15%;
+    }
+    &-bottom {
+        border-top: solid 1px grey;
+    }
+    &-input {
+        width: 100%;
+    }
+    &-btn {
+        @extend .border, .round;
+        float: right;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+}

@@ -1,5 +1,5 @@
-const admin = require("./admin");
 const auth = require("./authenticate");
+const admin = require("./admin");
 
 function api(server) {
     let path = '/v1';

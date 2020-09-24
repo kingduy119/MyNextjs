@@ -10,9 +10,9 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-const useSessionMiddleware = require("./middleware/session-middleware");
-const databaseConfig = require("./database/mongo-config");
-const apiREST = require("./api");
+// const useSessionMiddleware = require("./middleware/session-middleware");
+// const databaseConfig = require("./database/mongo-config");
+// const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
 // const { createServer } = require("http");
@@ -28,8 +28,8 @@ app
         server.use(morgan("dev"));
         if (!DEV) { server.set('trust proxy', 1); }
 
-        databaseConfig(MONGO_URL, mongoose);
-        useSessionMiddleware(server, session, mongoose);
+        // databaseConfig(MONGO_URL, mongoose);
+        // useSessionMiddleware(server, session, mongoose);
 
         server.use(helmet());
         server.use(compression());
@@ -48,7 +48,17 @@ app
             handle(req, res);
         });
 
-        apiREST(server);
+        // apiREST(server);
+        server.get('/', (req, res, next) => {
+            let data = {
+                env: DEV,
+                port: PORT_API,
+                originalUrl: req.originalUrl,
+                hostname: req.hostname,
+            }
+
+            res.send(data);
+        });
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);

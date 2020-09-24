@@ -10,12 +10,12 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-// const useSessionMiddleware = require("./middleware/session-middleware");
-// const databaseConfig = require("./database/mongo-config");
+const useSessionMiddleware = require("./middleware/session-middleware");
+const databaseConfig = require("./database/mongo-config");
 // const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
-const { createServer } = require("http");
+// const { createServer } = require("http");
 
 const app = next({ DEV })
 const handle = app.getRequestHandler()
@@ -28,8 +28,8 @@ app
         server.use(morgan("dev"));
         if (!DEV) { server.set('trust proxy', 1); }
 
-        // databaseConfig(MONGO_URL, mongoose);
-        // useSessionMiddleware(server, session, mongoose);
+        databaseConfig(MONGO_URL, mongoose);
+        useSessionMiddleware(server, session, mongoose);
 
         server.use(helmet());
         server.use(compression());
@@ -55,6 +55,7 @@ app
                 port: PORT_API,
                 originalUrl: req.originalUrl,
                 hostname: req.hostname,
+                MONGO_URL: MONGO_URL
             }
 
             res.send(data);
@@ -64,8 +65,8 @@ app
             handle(req, res);
         });
 
-        const http = createServer(server);
-        http.listen(PORT_API, (err) => {
+        // const http = createServer(server);
+        server.listen(PORT_API, (err) => {
             if (err) throw err;
             console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
         });

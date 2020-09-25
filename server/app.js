@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 
 const useSessionMiddleware = require("./middleware/session-middleware");
-const databaseConfig = require("./database/mongo-config");
+// const databaseConfig = require("./database/mongo-config");
 // const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
@@ -28,8 +28,9 @@ app
         server.use(morgan("dev"));
         if (!DEV) { server.set('trust proxy', 1); }
 
-        databaseConfig(MONGO_URL, mongoose);
+
         useSessionMiddleware(server, session, mongoose);
+        // databaseConfig(MONGO_URL, mongoose);
 
         server.use(helmet());
         server.use(compression());

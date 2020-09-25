@@ -9,6 +9,9 @@ const options = {
 
 module.exports = function mongoConfig(MONGO_URL, mongoose) {
     mongoose
-        .connect(MONGO_URL, options, () => logger.info("Connected Mongo Database!"))
-        .catch(err => logger.error(err));
+        .connect(
+            MONGO_URL,
+            options,
+            () => logger.info("Connected Mongo Database!"))
+    // .catch(err => logger.error(err));
 }

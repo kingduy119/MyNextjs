@@ -35,9 +35,6 @@ function TopNav(props) {
             </Dropdown>
 
             {user &&
-                // <NavbarItem className="topnav-item topnav-btn-user">
-                //     <img src={user.avatarUrl} />
-                // </NavbarItem>
                 <Dropdown className="topnav-dropdown topnav-user">
                     <DropdownToggle className="topnav-dropdown-toggle">
                         <img

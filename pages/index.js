@@ -1,10 +1,13 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import useAuth from "../lib/useAuth"
 import SocialLayout from "../lib/layout/SocialLayout";
 import { Container, Row, Col, Card, Button, Badge } from "../components/common";
 import { TopNav } from "../components/Navigation";
+import { createPost, findPosts, updatePost, deletePost } from "../lib/api/post";
 
 function LeftContent(props) {
+
   let { user } = props;
 
   let [showGroups, setShowGroups] = React.useState(false);
@@ -15,18 +18,18 @@ function LeftContent(props) {
     <>
       {/* Profile */}
       <Card className="profile">
-        <h4 classname="profile-username">{user.displayName || "displayNmae"}</h4>
+        <h4 classname="profile-username">{user ? user.displayName : "displayNmae"}</h4>
         <p className="center">
           <img
             className="profile-avatar"
-            src={user.avatarUrl || "https://www.w3schools.com/w3images/avatar3.png"}
+            src={user ? user.avatarUrl : "https://www.w3schools.com/w3images/avatar3.png"}
             alt="avatarUrl"
           />
         </p>
         <hr />
-        {user.career && <p><i className="profile-icon fa fa-pencil fa-fw" />{user.career}</p>}
-        {user.country && <p><i className="profile-icon fa fa-home fa-fw" />{user.country}</p>}
-        {user.birthday && <p><i className="profile-icon fa fa-birthday-cake fa-fw" />{user.birthday}</p>}
+        {/* {career && <p><i className="profile-icon fa fa-pencil fa-fw" />{career}</p>}
+        {country && <p><i className="profile-icon fa fa-home fa-fw" />{ountry}</p>}
+        {birthday && <p><i className="profile-icon fa fa-birthday-cake fa-fw" />{birthday}</p>} */}
       </Card>
       <br />
 
@@ -99,47 +102,137 @@ function LeftContent(props) {
     </>
   );
 }
-// LeftContent.defaultProps = {
-//   user: {
-//     displayName: "DisplayName",
-//     avatarUrl: "https://www.w3schools.com/w3images/avatar3.png",
-//     career: "Developer",
-//     country: "Da Nang, Viet Nam",
-//     birthday: "September 11"
-//   }
-// }
 
+/**
+ * Middle Content:
+ * @param {*} props 
+ */
+function CreatePost(props) {
+  let [content, setContent] = React.useState("");
 
-const MiddleContent = (props) => (
-  <>
+  function onPostNewFeel(e) {
+    e.preventDefault();
+    setContent("");
+    return props.onCreatePost({ content });
+  }
+  return (
     <Container className="post">
       <h6 className="post-opacity">Social Media template by hd.css</h6>
-      <p className="post-feeling">Status: Feeling today</p>
-      <Button className="post-btn-post"><i className="fa fa-pencil" /> Post</Button>
+      <input
+        placeholder="News Feel"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      /> <br />
+      <Button
+        className="post-btn-post"
+        onClick={onPostNewFeel}
+      >
+        <i className="fa fa-pencil" /> Post
+      </Button>
     </Container>
+  );
+}
+
+const Post = (props) => (
+  <Container className="post">
+    <img className="post-avatar" src={props.avatarUrl} alt="Avatar" />
+    <span className="post-time">16 min</span>
+    <h4>{props.displayName}</h4>
     <br />
 
-    <Container className="post">
-      <img className="post-avatar" src="https://www.w3schools.com/w3images/avatar5.png" alt="Avatar" />
-      <span className="post-time">16 min</span>
-      <h4>Jan Doe</h4>
-      <br />
+    <hr className="post-hr" />
+    <p>{props.content}</p>
+    <Button className="post-btn-like">Like</Button>
+    <Button className="post-btn-comment">Comment</Button>
+    <Button
+      className="btn-green"
+      onClick={props.onUpdate}
+    >Update</Button>
+    <Button
+      className="btn-red"
+      onClick={props.onDelete}
+    >Delete Post</Button>
+  </Container>
+)
+Post.defaultProps = {
+  avatarUrl: "",
+  displayName: "",
+  content: "",
+  onUpdate: () => { },
+  onDelete: () => { }
+}
 
-      <hr className="post-hr" />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-      <Button className="post-btn-like">Like</Button>
-      <Button className="post-btn-comment">Comment</Button>
-    </Container>
-    <br />
+function ShowPosts(props) {
+  let { posts } = props;
+  if (!posts) return null;
 
-    <Container className="post">
-      Post 2
-    </Container>
-  </>
-);
+  return (
+    <>
+      {posts.map((post) => (post &&
+        <Post
+          avatarUrl={post.postBy.avatarUrl}
+          displayName={post.postBy.displayName}
+          content={post.content}
+          onUpdate={(content) => updatePost({ id: post._id })}
+          onDelete={() => props.onDeletePost(post._id)}
+        />
+      ))}
+    </>
+  );
+}
 
+class MiddleContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    };
+
+    this.onDeletePost = this.onDeletePost.bind(this);
+    this.onCreatePost = this.onCreatePost.bind(this);
+  }
+
+  async componentDidMount() {
+    let data = await findPosts();
+    if (data) this.setState({ posts: data.posts });
+  }
+
+  async onCreatePost(content) {
+    let { error, post } = await createPost(content);
+    if (error) { return alert(JSON.stringify(error)); }
+    if (post) {
+      this.setState((state) => ({ posts: [...state.posts, post] }));
+    }
+  }
+
+  async onDeletePost(id) {
+    let { error, post } = await deletePost({ id });
+    if (error) { return alert(JSON.stringify(error)); }
+    let posts = this.state.posts.map(item => { if (item && (item._id != post._id)) return item; });
+    this.setState({ posts: posts });
+  }
+
+  render() {
+    let posts = this.state.posts;
+    return (
+      <>
+        <CreatePost
+          onCreatePost={this.onCreatePost}
+        />
+        <br />
+        <ShowPosts
+          posts={posts}
+          onDeletePost={this.onDeletePost}
+        />
+      </>
+    );
+  }
+}
+
+/**
+ * Right Content
+ * @param {*} props 
+ */
 const RightContent = (props) => (
   <>
     <Container className="news-feel">
@@ -195,6 +288,8 @@ function IndexPage(props) {
   );
 }
 
-export default useAuth(IndexPage);
 
+
+export default useAuth(IndexPage);
+// export default IndexPage;
 

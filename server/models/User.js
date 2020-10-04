@@ -20,6 +20,7 @@ const mongoSchema = new Schema({
         expiry_date: Number,
     },
     currency: { type: Schema.Types.ObjectId, ref: "Currency", unique: true },
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
 });
 
 

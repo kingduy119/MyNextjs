@@ -434,6 +434,9 @@ progress {
 .topnav-user {
   float: right;
 }
+.topnav-user .dropdown-toggle {
+  padding-bottom: 7px;
+}
 .topnav-user-avatar {
   max-width: 23px;
   max-height: 20px;
@@ -487,6 +490,7 @@ progress {
 
 .post {
   padding: 8px 16px !important;
+  margin-bottom: 10px !important;
 }
 .post-opacity {
   opacity: 0.6;

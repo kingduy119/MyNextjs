@@ -5,12 +5,11 @@
     "scripts": {
         "next": "next",
         "build": "next build",
-        "client": "next dev",
-        "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "start": "npm run build && node server/app.js",
-        "dev": "npm run build && nodemon server/app.js",
         "lint": "eslint components pages lib server",
         "lint-fix": "eslint --fix components pages lib server",
+        "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
+        "ssr": "npm run build && nodemon server/app.js",
         "server": "nodemon server/app.js",
         "test": "jest"
     },
@@ -32,6 +31,7 @@
         "cookie-parser": "^1.4.5",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
+        "express-validator": "^6.6.1",
         "googleapis": "^49.0.0",
         "helmet": "^3.23.3",
         "isomorphic-unfetch": "^3.0.0",

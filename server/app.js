@@ -49,17 +49,6 @@ app
         });
 
         apiREST(server);
-        // server.get('/', (req, res, next) => {
-        //     let data = {
-        //         env: DEV,
-        //         port: PORT_API,
-        //         originalUrl: req.originalUrl,
-        //         hostname: req.hostname,
-        //         MONGO_URL: MONGO_URL
-        //     }
-
-        //     res.send(data);
-        // });
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);

@@ -50,7 +50,9 @@
     }
 
     &-dropdown {
-        &-toggle { color: #fff; }
+        &-toggle { 
+            color: #fff; 
+        }
         &:hover>&-toggle {
             @include theme($theme-d2, #fff);
             opacity: 1;
@@ -59,6 +61,7 @@
 
     &-user {
         float: right;
+        .dropdown-toggle { padding-bottom: 7px; }
         &-avatar {
             @extend .circle;
             max-width: 23px;
@@ -131,6 +134,7 @@
 .post {
     @extend .card, .round, .white;
     padding: 8px 16px!important;
+    margin-bottom: 10px !important;
     
     &-opacity {
         opacity: 0.6;

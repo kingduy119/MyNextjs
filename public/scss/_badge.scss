@@ -1,0 +1,16 @@
+.badge {
+    @include theme(white, black);
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+
+    &.red { background-color: red; }
+    &.green { background-color: green; }
+    &.blue { background-color: blue; }
+    &.theme-d1 { background-color: #57707d; }
+    &.theme-d2 { background-color: #4d636f; }
+    &.theme-d3 { background-color: #9da1a3; }
+    &.theme-d4 { background-color: #3a4b53; }
+    &.theme-d5 { background-color: #303e45; }
+}

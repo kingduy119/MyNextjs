@@ -1,0 +1,36 @@
+$font-tiny: 10px!important;
+$font-small: 12px!important;
+$font-medium: 15px!important;
+$font-large: 18px!important;
+
+@mixin margin-right {
+    margin-right: 16px!important;
+}
+
+@mixin theme($color, $bg) {
+    color: $color;
+    background: $bg;
+}
+
+@mixin theme-white-grey {
+    color: white;
+    background: grey;
+}
+@mixin theme-d2 {
+    color: white;
+    background-color: #4d636f;
+}
+@mixin theme-d4 {
+    color: white;
+    background-color: #3a4b53;
+}
+
+@mixin theme-black-white {
+    color: black;
+    background: white;
+}
+
+@mixin text-align-left { text-align: left; }
+@mixin text-align-right { text-align: right; }
+
+

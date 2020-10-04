@@ -1,0 +1,15 @@
+
+exports.UserState = {
+    USERNAME_EXISTED: "USERNAME_EXISTED",
+    USERNAME_NOT_EXITED: "USERNAME_NOT_EXITED",
+    WRONG_PASSWORD: "WRONG_PASSWORD",
+    SAME_PASSWORD: "SAME_PASSWORD",
+    DELETED: "DELETED",
+    SUCCESS: "SUCCESS",
+    ERROR: "ERROR",
+}
+
+// module.exports = {
+//     UserState,
+// }
+

@@ -1,0 +1,16 @@
+{
+    "env": {
+        "NODE_ENV": "dev",
+        "MONGO_URL_DEV": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority",
+        "MONGO_URL": "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority",
+        "GOOGLE_CLIENT_ID": "672913498119-3ar8seeah2kv98hip8if127j3d959ego.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRECT": "gGbet71BJE9X_Of9Giihbquh",
+        "FACEBOOK_CLIENT_ID": "191424528822654",
+        "FACEBOOK_CLIENT_SECRECT": "4e3a6fed6cda2dd5c29490d519ee135c",
+        "SESSION_SECRET": "xxxxxxxxx",
+        "GMAIL_USER": "hoangduy1192@gmail.com",
+        "GMAIL_PWS": "10111001119",
+        "GMAIL_ACCESSTOKEN": "ya29.a0AfH6SMBoPNTWN3YYEPei4gLh_RnvtkeNH-RhfDG3Jfc8N9nfMuaUKzdBwwSZUBFiI9_73uofkNAjtG-eNCifPE4slILg6bNssrc0ime7GhOeLnLbc1oWLY35BfmbYGz_QF3pbmIpibFDBdu4nethfKatHQFR0ImJBHM",
+        "API_URL": "http://localhost:8000"
+    }
+}

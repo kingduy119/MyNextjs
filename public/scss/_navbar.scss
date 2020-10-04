@@ -1,0 +1,27 @@
+.navbar {
+    background-color: #aaa;
+    overflow: hidden;
+
+    &-item {
+        a {
+            float: left;
+            font-size: 16px;
+            padding: 12px 24px;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+        }
+        &:hover:not(.navbar-item_active)>a {
+            color: white;
+            background-color: black;
+            opacity: 0.7;
+        }
+
+        &_active a {
+            color: white;
+            background-color: black;
+        }
+    }
+}
+
+

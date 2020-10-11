@@ -50,24 +50,24 @@ function auth(server) {
     });
 
 
-    // Verify callback:
-    const verify = async (accessToken, refreshToken, profile, done) => {
-        let email, avatarUrl;
-        if (profile.emails) { email = profile.emails[0].value; }
-        if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
+    // // Verify callback:
+    // const verify = async (accessToken, refreshToken, profile, done) => {
+    //     let email, avatarUrl;
+    //     if (profile.emails) { email = profile.emails[0].value; }
+    //     if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
 
-        try {
-            const user = await User.signInOrSignUp({
-                provider: profile.provider,
-                userId: profile.id,
-                email,
-                token: { accessToken, refreshToken },
-                displayName: profile.displayName,
-                avatarUrl,
-            });
-            done(null, user);
-        } catch (err) { done(err); }
-    }
+    //     try {
+    //         const user = await User.signInOrSignUp({
+    //             provider: profile.provider,
+    //             userId: profile.id,
+    //             email,
+    //             token: { accessToken, refreshToken },
+    //             displayName: profile.displayName,
+    //             avatarUrl,
+    //         });
+    //         done(null, user);
+    //     } catch (err) { done(err); }
+    // }
 
     // Google:
     passport.use(new GoogleStrategy(

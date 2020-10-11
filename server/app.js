@@ -1,24 +1,24 @@
 
 const next = require("next");
 const express = require("express");
-const morgan = require("morgan");
 const session = require("express-session");
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const compression = require("compression");
+const morgan = require("morgan");
 const helmet = require("helmet");
+const compression = require("compression");
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const passport = require("passport");
 
 const useSessionMiddleware = require("./middleware/session-middleware");
-const databaseConfig = require("./database/mongo-config");
+const connectToMongoDB = require("./database/mongo-config");
 const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
 // const { createServer } = require("http");
 
-const app = next({ DEV })
-const handle = app.getRequestHandler()
+const app = next({ DEV });
+const handle = app.getRequestHandler();
 
 // Server side rendering Nextjs
 app
@@ -29,16 +29,16 @@ app
         if (!DEV) { server.set('trust proxy', 1); }
 
         useSessionMiddleware(server, session, mongoose);
-        databaseConfig(MONGO_URL, mongoose);
+        connectToMongoDB(MONGO_URL, mongoose);
 
         server.use(helmet());
         server.use(compression());
-        server.use(require('serve-static')(__dirname + '/../../public'));
+        server.use(cookieParser());
         server.use(bodyParser.json());
         server.use(bodyParser.urlencoded({ extended: true }));
-        server.use(cookieParser());
         server.use(passport.initialize());
         server.use(passport.session());
+        server.use(require('serve-static')(__dirname + '/../../public'));
 
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
@@ -48,6 +48,7 @@ app
             handle(req, res);
         });
 
+        // Customer handle request
         apiREST(server);
 
         server.get('*', (req, res) => { // Redirect error

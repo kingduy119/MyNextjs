@@ -3,18 +3,14 @@ const Post = require("../models/Post");
 
 exports.createPost = async (req, res) => {
     try {
-        let post = await Post.create({
-            content: req.body.content,
-            postBy: req.user._id,
-        });
-
+        let post = await Post.create({ content: req.body.content, postBy: req.user._id });
         let user = await User.findByIdAndUpdate(
             { _id: req.user._id },
             { $push: { posts: post._id } }
         ).select('displayName avatarUrl');
 
-        let doc = Object.assign(post, { postBy: user });
-        return res.json({ post: doc })
+        let docs = Object.assign(post, { postBy: user });
+        return res.json({ post: docs })
     } catch (err) {
         return res.status(400).json({
             error: "Failed to create post!"
@@ -22,7 +18,7 @@ exports.createPost = async (req, res) => {
     }
 }
 
-exports.readPost = async (req, res) => {
+exports.readPost = (req, res) => {
     res.json({
         message: "readPost connect successfully!",
         query: req.query,
@@ -30,7 +26,7 @@ exports.readPost = async (req, res) => {
     });
 }
 
-exports.updatePost = async (req, res) => {
+exports.updatePost = (req, res) => {
     res.json({
         message: "update connect successfully!",
         query: req.query,

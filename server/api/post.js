@@ -5,7 +5,7 @@ const { createPostValidator } = require("../validators/post");
 const { runValidator } = require("../validators");
 
 
-router.post('/create', verifyToken, /**createPostValidator, runValidator, */ createPost);
+router.post('/create', verifyToken, createPostValidator, runValidator, createPost);
 router.get('/read', verifyToken, readPost);
 router.put('/update', verifyToken, updatePost);
 router.delete('/delete', verifyToken, deletePost);

@@ -4,13 +4,13 @@ const {
     passportSignup, signup,
     passportSignin, signin,
     signout,
-    google, googlecallback,
+    passportGoogle, passpassGoogleCallback,
 } = require("../controllers/auth");
 
 router.post('/signup', passportSignup, signup);
 router.get('/signin', passportSignin, signin);
 router.get('/signout', verifyToken, signout);
-router.get('/google', google);
-router.get('/oauth2callback', googlecallback, signin);
+router.get('/google', passportGoogle);
+router.get('/oauth2callback', passpassGoogleCallback, signin);
 
 module.exports = router;

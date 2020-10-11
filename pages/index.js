@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import useAuth from "../lib/useAuth"
 import SocialLayout from "../lib/layout/SocialLayout";
 import { Container, Row, Col, Card, Button, Badge } from "../components/common";
@@ -277,7 +276,7 @@ const RightContent = (props) => (
 
 function IndexPage(props) {
   let { user } = props;
-
+  console.log(`User: ${JSON.stringify(user)}`);
   return (
     <SocialLayout
       navbar={<TopNav {...{ user: user }} />}

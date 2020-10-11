@@ -3,7 +3,7 @@ import React from "react";
 const Container = (props) => (
     <div
         {...props}
-        className={`container ${props.className}`}
+        className={`container ${props.className || ''}`}
     >
         {props.children}
     </div>
@@ -12,7 +12,7 @@ const Container = (props) => (
 const Row = (props) => (
     <div
         {...props}
-        className={`row ${props.className}`}
+        className={`row ${props.className || ''}`}
     >
         {props.children}
     </div>
@@ -21,7 +21,7 @@ const Row = (props) => (
 const Col = (props) => (
     <div
         {...props}
-        className={`col ${props.className}`}
+        className={`col ${props.className || ''}`}
     >
         {props.children}
     </div>

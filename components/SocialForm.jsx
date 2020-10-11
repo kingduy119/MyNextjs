@@ -1,11 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button, Input } from "./common";
-
-
-// dev local
-let testFunc = () => { }
-
-/////////////////////////////////
+import { Container, Row, Col, Button, Input, Card, Link } from "./common";
 
 const SocialButton = (props) =>
     <a className={props.className} href={props.href}><i className={props.icon} />
@@ -16,7 +10,7 @@ function LoginFormComponent(props) {
     return (
         <Container className="login">
             <Container className="login-body">
-                <form action="/v1/login" method="get">
+                <form action="/v1/signin" method="get">
                     <Row className="login-grid">
                         <h2 className="center">Login with Social Media or Manually</h2>
                         <div className="vl">
@@ -158,6 +152,70 @@ function ForgotFormComponent(props) {
     );
 }
 
-export { LoginFormComponent, SignupFormComponent, ForgotFormComponent };
+const SigninForm = (props) => {
+    let inputUsername = <Input className="signin-input" name="username" type="text" placeholder="Username" required />;
+    let inputPassword = <Input className="signin-input" name="password" type="password" placeholder="Password" required />;
+    let btnSignin = <Button className="signin-btn signin-btn-signin" type="submit">Signin</Button>;
+
+    let linkSignup = <Link className="signin-btn signin-btn-signup" onClick={props.onSignup}>Create Account</Link>
+    let linkForget = <Link href="#forgetpwd" onClick={props.onForgetPwd}>Forget password?</Link>
+    let linkTwitter = <Link className="signin-link signin-link_twitter" href="#"><i className="fa fa-twitter fa-fw"></i></Link>
+    let linkFacebook = <Link className="signin-link signin-link_facebook" href="#"><i className="fa fa-facebook fa-fw"></i></Link>
+    let linkGoogle = <Link className="signin-link signin-link_google" href="/v1/google"><i className="fa fa-google fa-fw"></i></Link>
+    return (
+        <Card className="signin">
+            <Container className="signin-container">
+                <form action="/v1/signin" method="GET">
+                    <Row>
+                        <Col className="signin-col">{inputUsername}</Col>
+                        <Col className="signin-col">{inputPassword}</Col>
+                        <Col className="signin-col">{btnSignin}</Col>
+                        <Col className="signin-col">{linkForget}</Col>
+                        <hr />
+                        <Col className="signin-col">{linkSignup}</Col>
+                        <Col className="signin-col">{linkGoogle}{linkFacebook}{linkTwitter}</Col>
+                    </Row>
+                </form>
+            </Container>
+        </Card>
+    );
+};
+
+// ????????????????????????????????????????????????????????????????????????????????????????
+
+const Modal = (props) =>
+    (<div className="modal" id={props.id}>
+        <div className={`modal-content ${props.className || ''}`}>
+            {props.children}
+        </div>
+    </div>)
+
+function SigninModal(props) {
+
+    let handleClose = id => e => { e.preventDefault(); document.getElementById(id).style = 'none'; }
+
+    let inputUsername = <Input className="signin-input" name="username" type="text" placeholder="Username" required />;
+    let inputPassword = <Input className="signin-input" name="password" type="password" placeholder="Password" required />;
+    let btnSignup = <Button className="signin-btn signin-btn-signin" type="submit">Signup</Button>;
+    let btnClose = <span className="modal-close" onClick={handleClose('signup-modal')}>&times;</span>
+    return (
+        <Modal className="signin-modal" id='signup-modal'>
+            <form action="/v1/signup" method="post" style={{ width: '296px', margin: 'auto' }}>
+                <Container className="card round">
+                    <Col className="signin-col">{btnClose}</Col>
+                    <Col className="signin-col">{inputUsername}</Col>
+                    <Col className="signin-col">{inputPassword}</Col>
+                    <Col className="signin-col">{btnSignup}</Col>
+                </Container>
+            </form>
+        </Modal>
+    )
+}
+
+export {
+    LoginFormComponent, SignupFormComponent, ForgotFormComponent,
+    SigninForm,
+    SigninModal,
+};
 
 

@@ -1,6 +1,6 @@
 
 .container,
-.row-padding
+// .row-padding
 .row {
     &:after, &:before {
         content: "";
@@ -13,15 +13,15 @@
     padding: 0.1em 16px;
 }
 
-.row-padding,
-.row-padding>.half,
-.row-padding>.third,
-.row-padding>.twothird,
-.row-padding>.threequarter,
-.row-padding>.quarter,
-.row-padding>.col {
-    padding: 0 8px;
-}
+// .row-padding,
+// .row-padding>.half,
+// .row-padding>.third,
+// .row-padding>.twothird,
+// .row-padding>.threequarter,
+// .row-padding>.quarter,
+// .row-padding>.col {
+//     padding: 0 8px;
+// }
 
 @media (min-width: 600px) {
     .col.m1 {

@@ -12,7 +12,8 @@ function api(server) {
 }
 
 function customServer(req, res, next) {
-    if (req.path == '/login' && req.user) {
+    if (req.user && (req.path == '/login' || req.path == '/google')) {
+        console.log("Call customServer");
         return res.redirect('/');
     }
     next();

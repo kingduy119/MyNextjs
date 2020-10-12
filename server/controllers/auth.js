@@ -10,9 +10,6 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
  * #1 Verify function:
  */
 async function verifyGoogle(accessToken, refreshToken, profile, done) {
-    console.log(`
-    profile: ${JSON.stringify(profile)}\n
-    `);
     let email, avatarUrl;
     if (profile.emails) { email = profile.emails[0].value; }
     if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
@@ -122,7 +119,7 @@ exports.signin = (req, res) => {
         expiresIn: '1d', //algorithm: 'RS256',
     });
     res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: '1d' })
-        .redirect(`/?${req.user.userId}`);
+        .redirect(`/`);
 }
 exports.signout = (req, res) => {
     req.logout();

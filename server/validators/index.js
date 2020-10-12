@@ -11,10 +11,9 @@ const runValidator = (req, res, next) => {
 }
 
 module.exports = {
-    runValidator: runValidator,
     // auth
     validateSignup: [username, password, runValidator],
     validateSignin: [username, password, runValidator],
     // post
-    createPostValidator: [content],
+    createPostValidator: [content, runValidator],
 }

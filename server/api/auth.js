@@ -7,9 +7,9 @@ const {
     passportGoogle, passpassGoogleCallback,
 } = require("../controllers/auth");
 
-router.post('/signup', passportSignup, signup);
+router.post('/signup', passportSignup, signin);
 router.get('/signin', passportSignin, signin);
-router.get('/signout', verifyToken, signout);
+router.get('/signout', signout);
 router.get('/google', passportGoogle);
 router.get('/oauth2callback', passpassGoogleCallback, signin);
 

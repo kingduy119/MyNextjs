@@ -5,6 +5,9 @@ import { Container, Row, Col, Card, Button, Badge } from "../components/common";
 import { TopNav } from "../components/Navigation";
 import { createPost, findPosts, updatePost, deletePost } from "../lib/api/post";
 
+const tempAvatar =
+  "https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.30497-1/c47.0.160.160a/p160x160/84241059_189132118950875_4138507100605120512_n.jpg?_nc_cat=1&_nc_sid=dbb9e7&_nc_ohc=81vsEa2epdwAX9TWkbr&_nc_ht=scontent.fsgn2-4.fna&_nc_tp=27&oh=af8c1df0db8fcebed7208574c7672f99&oe=5FA230A4";
+
 function LeftContent(props) {
 
   let { user } = props;
@@ -21,7 +24,7 @@ function LeftContent(props) {
         <p className="center">
           <img
             className="profile-avatar"
-            src={user ? user.avatarUrl : "https://www.w3schools.com/w3images/avatar3.png"}
+            src={(user && user.avatarUrl) ? user.avatarUrl : tempAvatar}
             alt="avatarUrl"
           />
         </p>
@@ -134,7 +137,7 @@ function CreatePost(props) {
 
 const Post = (props) => (
   <Container className="post">
-    <img className="post-avatar" src={props.avatarUrl} alt="Avatar" />
+    <img className="post-avatar" src={props.avatarUrl} />
     <span className="post-time">16 min</span>
     <h4>{props.displayName}</h4>
     <br />
@@ -169,7 +172,7 @@ function ShowPosts(props) {
     <>
       {posts.map((post) => (post &&
         <Post
-          avatarUrl={post.postBy.avatarUrl}
+          avatarUrl={post.postBy.avatarUrl || tempAvatar}
           displayName={post.postBy.displayName}
           content={post.content}
           onUpdate={(content) => updatePost({ id: post._id })}

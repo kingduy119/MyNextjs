@@ -4,11 +4,10 @@ const { check } = require("express-validator");
 //     .not().isEmpty().withMessage({ access_token: 'Access denied' });
 
 exports.username = check('username')
-    .not().isEmpty().withMessage({ username: "Required" })
-    .isLength({ min: 6 }).withMessage({ username: "Too short!" });
+    .isLength({ min: 6 }).withMessage("The Username must be 5+ chars long");
 
 exports.password = check('password')
-    .not().isEmpty().withMessage({ password: "Required" });
+    .isLength({ min: 6 }).withMessage("The Password must be 5+ chars long");
 
 
 

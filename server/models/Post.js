@@ -4,7 +4,9 @@ const postSchema = new mongoose.Schema({
     createAt: { type: Date, default: new Date() },
     updateAt: { type: Date, default: new Date() },
     postBy: {
-        ref: "User", type: mongoose.Types.ObjectId, required: true
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: true
     },
     content: { type: String, min: 1, }
 });

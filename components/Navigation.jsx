@@ -43,7 +43,7 @@ function TopNav(props) {
                         />
                     </DropdownToggle>
                     <DropdownMenu className="topnav-dropdown-menu">
-                        <DropdownItem className="topnav-dropdown-item" href="/v1/logout">Log out</DropdownItem>
+                        <DropdownItem className="topnav-dropdown-item" href="/v1/signout">Log out</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             }

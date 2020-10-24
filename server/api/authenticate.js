@@ -7,6 +7,17 @@ const ProfileMgr = require("../controllers/ProfileManager");
 const User = require("../models/User");
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
 
+function showlogRequest(path, req) {
+    console.log(`
+    ${path}
+        query: ${JSON.stringify(req.query)} /n
+        body: ${JSON.stringify(req.body)} /n
+        cookie: ${JSON.stringify(req.cookie)} /n
+        user: ${JSON.stringify(req.user)} /n
+        token: ${JSON.stringify(req.header["token"])} /n
+    `);
+}
+
 passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser((id, done) => {
@@ -37,7 +48,8 @@ router.get('/login', passport.authenticate('login', { failureRedirect: '/login' 
 passport.use('signup', new LocalStrategy({
     passReqToCallback: true,
 }, async (req, username, password, done) => {
-
+    showlogRequest('signup', req);
+    console.log(`USER-PWD: ${username} - ${password}`)
     let info = Object.assign({}, req.body, { userId: username, password });
     let { error, state, data } = await ProfileMgr.onHandleRequest("create", info);
     if (error) return done(null, false);

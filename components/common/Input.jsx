@@ -3,7 +3,7 @@ import React from "react";
 const Input = (props) => (
     <input
         {...props}
-        className={`input ${props.classname || ""}`}
+        className={`input ${props.className || ''}`}
     />
 )
 

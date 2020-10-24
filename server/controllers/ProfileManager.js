@@ -63,11 +63,11 @@ class ProfileManager {
                     if (info.newPassword === info.password) throw SAME_PASSWORD;
 
                     let hashPassword = await hash(info.newPassword);
-                    await user.changePassword(hashPassword);
+                    // await user.changePassword(hashPassword);
                     return { state: SUCCESS, data: user };
                 }
                 case "update": {
-                    await user.updateInfo({ displayName: displayName });
+                    // await user.updateInfo({ displayName: displayName });
                     return { state: SUCCESS };
                 }
                 case "delete": {

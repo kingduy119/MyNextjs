@@ -1,14 +1,14 @@
 const router = require("express").Router();
-const { createPost, readPost, updatePost, deletePost, posts } = require("../controllers/post");
-const { createPostValidator } = require("../validators/post");
-const { runValidator } = require("../validators");
+const { verifyToken } = require('../controllers/auth');
+const { validateCreatePost } = require("../validators/post");
+const { createPost, readPost, updatePost, deletePost, findPosts } = require("../controllers/post");
 
 
-router.post('/create', createPostValidator, runValidator, createPost);
-router.get('/read', readPost);
-router.put('/update', updatePost);
-router.delete('/delete', deletePost);
+router.post('/create', verifyToken, validateCreatePost, createPost);
+router.get('/read', verifyToken, readPost);
+router.put('/update', verifyToken, updatePost);
+router.delete('/delete', verifyToken, deletePost);
 
-router.get('/posts', posts);
+router.get('/posts', verifyToken, findPosts);
 
 module.exports = router;

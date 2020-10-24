@@ -10,7 +10,7 @@
         "lint-fix": "eslint --fix components pages lib server",
         "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "ssr": "npm run build && nodemon server/app.js",
-        "client": "npm run next",
+        "dev": "npm run next",
         "server": "nodemon server/app.js",
         "test": "jest"
     },

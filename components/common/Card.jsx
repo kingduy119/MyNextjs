@@ -3,7 +3,7 @@ import React from "react";
 const Card = (props) => (
     <div
         {...props}
-        className={`card ${props.className}`}
+        className={`card ${props.className || ""}`}
     >
         {props.children}
     </div>

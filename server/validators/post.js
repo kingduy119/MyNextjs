@@ -1,9 +1,12 @@
 const { check } = require("express-validator");
+const { runValidator } = require("./index");
 
-exports.content = check('content')
+const content = check('content')
     .not().isEmpty().withMessage('content is required')
-    .isLength({ min: 5 }).withMessage({ content: "Too short" });
+    .isLength({ min: 5 }).withMessage("Too short");
 
-
-
+module.exports = {
+    content,
+    validateCreatePost: [content, runValidator]
+}
 

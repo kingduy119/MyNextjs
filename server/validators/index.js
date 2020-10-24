@@ -1,6 +1,4 @@
 const { validationResult } = require("express-validator");
-const { /**token, */ username, password } = require("./auth");
-const { content } = require("./post");
 
 const runValidator = (req, res, next) => {
     const errors = validationResult(req);
@@ -20,9 +18,5 @@ const runAuthValidator = (req, res, next) => {
 
 
 module.exports = {
-    // auth
-    validateSignup: [username, password, runAuthValidator],
-    validateSignin: [username, password, runAuthValidator],
-    // post
-    createPostValidator: [content, runValidator],
+    runValidator, runAuthValidator,
 }

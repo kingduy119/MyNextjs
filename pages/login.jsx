@@ -1,6 +1,8 @@
 import React from "react";
-import { Container, Row, Col } from "../components/common";
-import { SigninForm, SigninModal } from "../components/SocialForm";
+import { Container, Row, Col, Modal, Card } from "../components/common";
+// import { SigninForm } from "../components/SocialForm";
+import SigninForm from "../components/login/SigninForm";
+import SignupForm from "../components/login/SignupForm";
 
 // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
 let urlAvatar =
@@ -16,34 +18,22 @@ const RecentUser = (props) => (
         </Col>
     </Row>
 )
-
-// const RecentAdd = (props) => (
-//     <Row className="recent">
-//         <Col className="recent-top">
-//             <img src={urlAvatar} style={{ width: '160px', height: '160px' }} />
-//         </Col>
-//         <Col className="recent-bottom">
-//             <Link>Add Account</Link>
-//         </Col>
-//     </Row>
-// )
-
 function RecentList(props) {
     let onClick = () => alert("onClick");
 
     return (
         <Row className="list">
             <Col className="list-item"> <RecentUser onClick={onClick} /> </Col>
-            {/* <Col className="list-item"> <RecentAdd /> </Col> */}
         </Row>
     );
 }
 
 // TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
 
-function LoginPage(props) {
-    const onForgetPwd = () => alert('onForgetPwd');
-    const onSignup = () => { document.getElementById('signup-modal').style.display = 'block' };
+function Page(props) {
+    let [showModal, setShowModal] = React.useState(false);
+    let styleModal = { width: '300px', marginLeft: 'auto', marginRight: 'auto' }
+
     return (
         <>
             <Container className="register">
@@ -57,40 +47,30 @@ function LoginPage(props) {
                                 <RecentList />
                             </Container>
                         </Col>
+
+                        {/* Signin */}
                         <Col className="register-right">
-                            <SigninForm
-                                onForgetPwd={onForgetPwd}
-                                onSignup={onSignup}
-                            />
+                            <SigninForm onForgetPwd={() => alert('onForgetPwd')} onSignup={() => setShowModal(true)} />
                         </Col>
                     </Row>
                 </Container>
-                <SigninModal />
             </Container>
+
+            {/* Signup */}
+            <Modal isShow={showModal}>
+                <Modal.Content className="card round white" style={styleModal}>
+                    <Col>
+                        <Modal.Close onClick={() => setShowModal(false)} />
+                        <h2>Signin Quickly</h2>
+                    </Col>
+                    <hr />
+                    <SignupForm />
+                </Modal.Content>
+            </Modal>
         </>
     );
 }
 
-export default LoginPage;
+export default Page;
 
-
-// function SocialAuthenticateComponent(props) {
-//     let [showSignup, setShowSignup] = React.useState(false);
-//     let [showForgot, setShowForgot] = React.useState(false);
-//     let onSigupShowOrClose = () => setShowSignup(!showSignup);
-//     let onForgotShowOrClose = () => setShowForgot(!showForgot);
-
-//     if (showSignup && !showForgot)
-//         return <SignupFormComponent onCancel={onSigupShowOrClose} />;
-//     if (!showSignup && showForgot)
-//         return <ForgotFormComponent onCancel={onForgotShowOrClose} />;
-
-//     return (
-//         <LoginFormComponent
-//             onShowSignupForm={onSigupShowOrClose}
-//             onShowForgotForm={onForgotShowOrClose}
-//         />
-//     )
-// }
-// export default SocialAuthenticateComponent;
 

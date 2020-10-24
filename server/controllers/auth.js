@@ -52,7 +52,9 @@ const verifySignup = async (req, username, password, done) => {
             email: req.body.email,
         });
         return done(null, user);
-    } catch (err) { return done(null, false, { error: err }); }
+    } catch (err) {
+        return done(null, false, { error: err });
+    }
 }
 
 const verifySignin = async (req, username, password, done) => {

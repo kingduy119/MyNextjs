@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const bcryptjs = require("bcryptjs");
-const salt = bcryptjs.genSaltSync(10);
-
 const userSchema = new Schema({
     provider: { type: String, require: true, default: "local" },
-    userId: { type: String, require: true, unique: true, },
+    userId: {
+        type: String,
+        require: true,
+        unique: [true, 'Username is exited']
+    },
     password: { type: String, require: true },
     createAt: { type: Date, require: true, default: new Date().toISOString(), },
     email: { type: String, require: true, },
@@ -24,8 +25,6 @@ const userSchema = new Schema({
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }]
 });
 
-// userSchema.virtual('public_types')
-//     .get(() => { return 'userId displayName avatarUrl'; });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

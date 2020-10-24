@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const { validateSignup, validateSignin } = require("../validators");
+const { validateSignup, validateSignin } = require("../validators/auth");
 const {
-    passportSignup, /**signup, */
-    passportSignin, signin,
-    signout,
+    passportSignup, passportSignin,
+    signin, signout,
     passportGoogle, passpassGoogleCallback,
 } = require("../controllers/auth");
 

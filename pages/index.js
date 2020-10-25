@@ -111,6 +111,6 @@ function IndexPage(props) {
 }
 
 
-// export default useAuth(IndexPage);
-export default IndexPage;
+export default useAuth(IndexPage);
+// export default IndexPage;
 

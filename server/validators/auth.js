@@ -1,6 +1,5 @@
 const { check } = require("express-validator");
-const { runValidator, runAuthValidator } = require("./index");
-const User = require("../models/User");
+const { runAuthValidator } = require("./index");
 
 const username = check('username')
     .isLength({ min: 6 }).withMessage("The Username must be 5+ chars long");

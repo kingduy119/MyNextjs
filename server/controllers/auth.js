@@ -33,11 +33,30 @@ async function verifyGoogle(accessToken, refreshToken, profile, done) {
     } catch (err) { return done(null, false); }
 }
 
+function isToken(req) {
+    let token = req.cookies['access_token'];
+    if (!token) return null;
+
+    return jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, result) => {
+        if (err) return null;
+        return result;
+    });
+}
+exports.isToken = isToken;
 exports.verifyToken = (req, res, next) => {
-    if (!req.cookies['access_token'] ||
-        !jwt.verify(req.cookies['access_token'].split(` `)[1], process.env.JWT_SECRET)
-    )
+    if (!isToken(req))
         return res.status(404).json({ error: "Access denied!" });
+    next();
+}
+exports.requireToken = (req, res, next) => {
+    if (!isToken(req))
+        return res.clearCookie('access_token').redirect('/login');
+    next();
+}
+
+exports.passToken = (req, res, next) => {
+    if (isToken(req))
+        return res.redirect('/');
     next();
 }
 
@@ -117,10 +136,11 @@ exports.signup = (req, res) => {
     res.redirect(`/?${req.user.userId}`);
 }
 exports.signin = (req, res) => {
+    let exprireTime = 6 * 60 * 60; // 6hour - 60s - 60ms
     let access_token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1d', //algorithm: 'RS256',
+        expiresIn: exprireTime,
     });
-    res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: '1d' })
+    res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: exprireTime })
         .redirect(`/`);
 }
 exports.signout = (req, res) => {

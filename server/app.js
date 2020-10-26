@@ -49,7 +49,7 @@ app
         });
 
         // Customer handle request
-        apiREST(server);
+        apiREST(server, app);
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);

@@ -8,7 +8,6 @@ router.post('/create', verifyToken, validateCreatePost, createPost);
 router.get('/read', verifyToken, readPost);
 router.put('/update', verifyToken, updatePost);
 router.delete('/delete', verifyToken, deletePost);
-
 router.get('/posts', verifyToken, findPosts);
 
 module.exports = router;

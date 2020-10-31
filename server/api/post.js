@@ -1,13 +1,12 @@
 const router = require("express").Router();
-const { verifyToken } = require('../controllers/auth');
-const { validateCreatePost } = require("../validators/post");
+const { mdwPostCreate } = require("../validators/post");
 const { createPost, readPost, updatePost, deletePost, findPosts } = require("../controllers/post");
 
 
-router.post('/create', verifyToken, validateCreatePost, createPost);
-router.get('/read', verifyToken, readPost);
-router.put('/update', verifyToken, updatePost);
-router.delete('/delete', verifyToken, deletePost);
-router.get('/posts', verifyToken, findPosts);
+router.post('/create', mdwPostCreate, createPost);
+router.get('/read', readPost);
+router.put('/update', updatePost);
+router.delete('/delete', deletePost);
+router.get('/posts', findPosts);
 
 module.exports = router;

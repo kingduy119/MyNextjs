@@ -33,33 +33,6 @@ async function verifyGoogle(accessToken, refreshToken, profile, done) {
     } catch (err) { return done(null, false); }
 }
 
-function isToken(req) {
-    let token = req.cookies['access_token'];
-    if (!token) return null;
-
-    return jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, result) => {
-        if (err) return null;
-        return result;
-    });
-}
-exports.isToken = isToken;
-exports.verifyToken = (req, res, next) => {
-    if (!isToken(req))
-        return res.status(404).json({ error: "Access denied!" });
-    next();
-}
-exports.requireToken = (req, res, next) => {
-    if (!isToken(req))
-        return res.clearCookie('access_token').redirect('/login');
-    next();
-}
-
-exports.passToken = (req, res, next) => {
-    if (isToken(req))
-        return res.redirect('/');
-    next();
-}
-
 const verifySignup = async (req, username, password, done) => {
     try {
         let pwd_hashed = await hash(password);
@@ -127,7 +100,7 @@ exports.passportSignin = passport.authenticate('signin', { failureRedirect: '/lo
 exports.passportGoogle = passport.authenticate('google', {
     scope: 'https://www.googleapis.com/auth/plus.login'
 });
-exports.passpassGoogleCallback = passport.authenticate('google', { failureRedirect: '/login' });
+exports.passportGoogleCallback = passport.authenticate('google', { failureRedirect: '/login' });
 
 /**
  * Service
@@ -136,7 +109,7 @@ exports.signup = (req, res) => {
     res.redirect(`/?${req.user.userId}`);
 }
 exports.signin = (req, res) => {
-    let exprireTime = 6 * 60 * 60; // 6hour - 60s - 60ms
+    let exprireTime = 6 * 60 * 60; // 6hour 
     let access_token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
         expiresIn: exprireTime,
     });

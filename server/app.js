@@ -25,12 +25,13 @@ app
     .prepare()
     .then(async () => {
         const server = express();
-        server.use(morgan("dev"));
+
         if (!DEV) { server.set('trust proxy', 1); }
 
         useSessionMiddleware(server, session, mongoose);
         connectToMongoDB(MONGO_URL, mongoose);
 
+        server.use(morgan("dev"));
         server.use(helmet());
         server.use(compression());
         server.use(cookieParser());
@@ -38,7 +39,9 @@ app
         server.use(bodyParser.urlencoded({ extended: true }));
         server.use(passport.initialize());
         server.use(passport.session());
-        server.use(require('serve-static')(__dirname + '/../../public'));
+        server.use(express.static('public'));
+
+        // server.use();
 
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
@@ -49,7 +52,7 @@ app
         });
 
         // Customer handle request
-        apiREST(server, app);
+        apiREST({ server, app });
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);

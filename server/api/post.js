@@ -1,12 +1,16 @@
 const router = require("express").Router();
 const { mdwPostCreate } = require("../validators/post");
-const { createPost, readPost, updatePost, deletePost, findPosts } = require("../controllers/post");
-
+const {
+    onParamPostId, onFindPostId, onPostEdit, onPostDelete,
+    createPost, findPosts
+} = require("../controllers/post");
 
 router.post('/create', mdwPostCreate, createPost);
-router.get('/read', readPost);
-router.put('/update', updatePost);
-router.delete('/delete', deletePost);
 router.get('/posts', findPosts);
+
+router.param('postId', onParamPostId);
+router.get('/:postId/', onFindPostId);
+router.put('/:postId/edit', onPostEdit);
+router.delete('/:postId/delete', onPostDelete);
 
 module.exports = router;

@@ -4,10 +4,12 @@ import SocialLayout from "../lib/layout/SocialLayout";
 import { Container, Card, Button } from "../components/common";
 import { TopNav } from "../components/Navigation";
 import {
-  Profile, Accordion, Interests, Alert,
-  PostNewsFeel, PostShow, FriendRequest,
+  Profile, Accordion, Interests, Alert, // Left col of body
+  PostNewsFeel, PostShow, // Midlle col of body
+  FriendRequest, // Right col of body
 } from "../components/index";
 import { createPost, findPosts, updatePost, deletePost } from "../lib/api/post";
+import { sendUserCreatePost } from "../lib/api/user";
 
 function LeftContent(props) {
   let { user } = props;
@@ -37,15 +39,16 @@ class MiddleContent extends React.Component {
 
   async componentDidMount() {
     let data = await findPosts();
-    if (data) this.setState({ posts: data.posts });
+    if (data) this.setState({ posts: data.posts.reverse() });
   }
 
   async onCreatePost(content) {
-    let { error, post } = await createPost(content);
-    if (error) { return alert("Create Post Failed!"); }
-    if (post) {
-      this.setState((state) => ({ posts: [...state.posts, post] }));
-    }
+    try {
+      let data = await sendUserCreatePost(this.props.user._id, content);
+      if (data && data.post) {
+        this.setState((state) => ({ posts: [data.post, ...state.posts] }));
+      }
+    } catch (err) { alert("CreatePost Error!"); }
   }
 
   async onDeletePost(id) {
@@ -104,7 +107,7 @@ function IndexPage(props) {
     <SocialLayout
       navbar={<TopNav {...{ user: user }} />}
       left={<LeftContent user={user} />}
-      middle={<MiddleContent />}
+      middle={<MiddleContent user={user} />}
       right={<RightContent />}
     />
   );

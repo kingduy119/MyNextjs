@@ -1,6 +1,37 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 
+// [GET]post/posts
+exports.findPosts = async (req, res) => {
+    try {
+        let posts = await Post
+            .find()
+            .select('createAt postBy content')
+            .populate('postBy', 'avatarUrl displayName')
+            .exec();
+        // .limit(30);
+
+        return res.json({ posts });
+    } catch (err) {
+        return res.status(400).json({ error: err });
+    }
+}
+
+/**
+ * [pram]post/:postId
+ */
+exports.onParamPostId = (req, res, next, id) => {
+    console.log("Called API: onParamPostId");
+    Post.findById(id, (err, post) => {
+        if (err) return res.status(404).send('PostId not found');
+        req.post = post;
+        next();
+    });
+}
+// [GET]post/:postId
+exports.onFindPostId = (req, res) => { return res.json(req.post); }
+
+// [POST]post/crete
 exports.createPost = async (req, res) => {
     try {
         let post = await Post.create({ content: req.body.content, postBy: req.user._id });
@@ -18,51 +49,28 @@ exports.createPost = async (req, res) => {
     }
 }
 
-exports.readPost = (req, res) => {
-    res.json({
-        message: "readPost connect successfully!",
-        query: req.query,
-        body: req.body,
-    });
+// [PUT]post/:postId/edit
+exports.onPostEdit = (req, res) => {
+    Post.findByIdAndUpdate(
+        { _id: req.post._id },
+        { $set: req.post },
+        (err, doc) => {
+            if (err) return res.status(500).send('ERROR');
+            return res.json(doc);
+        }
+    );
 }
 
-exports.updatePost = (req, res) => {
-    res.json({
-        message: "update connect successfully!",
-        query: req.query,
-        body: req.body,
-    });
+// [DELETE]post/:postId/delete
+exports.onPostDelete = (req, res) => {
+    Post.findByIdAndRemove(
+        { _id: req.post._id },
+        (err, doc) => {
+            if (err) return res.status(500).send('ERROR');
+            return res.json(doc);
+        }
+    );
 }
 
-exports.deletePost = (req, res) => {
-    Post.findByIdAndRemove({ _id: req.body.id }, (err, item) => {
-        if (err) return res.status(404).json({ error: err });
-        return res.json({ post: item });
-    })
-}
 
-exports.findPosts = async (req, res) => {
-    try {
-        let data = await Post
-            .find()
-            .select('createAt postBy content')
-            .populate('postBy', 'avatarUrl displayName')
-            .limit(10);
-
-        return res.json({ posts: data });
-    } catch (err) {
-        return res.status(400).json({ error: err });
-    }
-}
-
-// function showlogRequest(path, req) {
-//     console.log(`
-//     ${path}
-//         query: ${JSON.stringify(req.query)} /n
-//         body: ${JSON.stringify(req.body)} /n
-//         cookie: ${JSON.stringify(req.cookie)} /n
-//         user: ${JSON.stringify(req.user)} /n
-//         token: ${JSON.stringify(req.header["token"])} /n
-//     `);
-// }
 

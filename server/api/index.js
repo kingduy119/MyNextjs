@@ -1,11 +1,13 @@
 const { tokenRequire, tokenLogin } = require("../validators/auth")
 const auth = require("./auth");
+const user = require("./user.route");
 const post = require("./post");
 
 
 function api({ server, app }) {
     let path = '/v1';
     server.use(`${path}/`, auth);
+    server.use(`${path}/user`, user);
     server.use(`${path}/post`, post);
 
     // Router with custom special

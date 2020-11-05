@@ -60,14 +60,27 @@ class SignupForm extends React.Component {
                 totalDay = getNumberArray(1, 31);
         }
 
+
         return (
             <Form onSubmid={this.onHandleSubmit}>
                 <Row>
                     <Col className="signup__col">
-                        <Form.Input name="lastname" type="text" onChange={this.onHandleChange}
-                            className="signup__input--lastname" placeholder="Last Name" style={{ float: "right" }} required />
-                        <Form.Input name="firstname" type="text" onChange={this.onHandleChange}
-                            className="signup__input--lastname" placeholder="First Name" style={{ float: "left" }} required />
+                        <Form.Input
+                            type="text"
+                            name="lastname"
+                            placeholder="Last Name"
+                            onChange={this.onHandleChange}
+                            style={{ float: "right", width: '49%' }}
+                            required
+                        />
+                        <Form.Input
+                            type="text"
+                            name="firstname"
+                            placeholder="First Name"
+                            onChange={this.onHandleChange}
+                            style={{ float: "left", width: '49%' }}
+                            required
+                        />
                     </Col>
                     <Col className="signup__col">
                         <Form.Input name="username" type="text" placeholder="Username" onChange={this.onHandleChange} required />

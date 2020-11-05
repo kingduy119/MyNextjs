@@ -80,7 +80,11 @@ progress {
 }
 
 .font-small {
-  font-size: 12px;
+  font-size: 8px;
+}
+
+.font-medium {
+  font-size: 16px;
 }
 
 .green {
@@ -126,7 +130,8 @@ progress {
 }
 
 .theme-l1 {
-  background-color: #4d636f !important;
+  color: white;
+  background-color: #4d636f;
 }
 
 .theme-d1 {
@@ -463,6 +468,10 @@ progress {
   cursor: pointer;
 }
 
+.icon_l1 {
+  color: #4d636f !important;
+}
+
 .container-navbar {
   padding: 0;
   position: fixed;
@@ -628,23 +637,9 @@ progress {
   }
 }
 .register {
-  padding: 0;
-}
-.register-content {
-  padding: 92px 0 132px 0;
+  padding: 92px 16px 132px 16px;
+  min-width: 400px;
   background: #f0f2f5;
-  display: block;
-}
-.register-grid {
-  margin: auto;
-  width: 980px;
-}
-.register-left {
-  width: 66.66666%;
-  padding-right: 48px;
-}
-.register-right {
-  width: 33.33333%;
 }
 
 .signup__col {

@@ -11,7 +11,8 @@ const Accordion = (props) => {
             <Button className="theme-l1 block left-align"
                 onClick={() => setShowGroups(!isGroups)}
             >
-                <i className="accordion-icon fa fa-circle-o-notch fa-fw" />Groups
+                <i className="accordion-icon fa fa-circle-o-notch fa-fw font-medium"
+                /> Groups
             </Button>
             {isGroups &&
                 <Container id="accordion-groups">
@@ -23,7 +24,8 @@ const Accordion = (props) => {
             <Button className="theme-l1 block left-align"
                 onClick={() => setShowEvents(!isEvents)}
             >
-                <i className="accordion-icon fa fa-calendar-check-o fa-fw" />Events
+                <i className="accordion-icon fa fa-calendar-check-o fa-fw font-medium"
+                /> Events
             </Button>
             {isEvents &&
                 <Container id="accordion-events">
@@ -35,7 +37,8 @@ const Accordion = (props) => {
             <Button className="theme-l1 block left-align"
                 onClick={() => setShowPhotos(!isPhotos)}
             >
-                <i className="accordion-icon fa fa-users fa-fw" />Photos
+                <i className="accordion-icon fa fa-users fa-fw font-medium"
+                /> Photos
             </Button>
             {isPhotos &&
                 <Container id="accordion-photos">

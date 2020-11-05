@@ -17,9 +17,9 @@ const Profile = (props) => {
                         src={avatarUrl} />
                 </p>
                 <hr />
-                <p><i className="profile-icon fa fa-pencil fa-fw" />career</p>
-                <p><i className="profile-icon fa fa-home fa-fw" />country</p>
-                <p><i className="profile-icon fa fa-birthday-cake fa-fw" />birthday</p>
+                <p><i className="profile-icon fa fa-pencil fa-fw icon_l1 font-medium" /> career</p>
+                <p><i className="profile-icon fa fa-home fa-fw icon_l1 font-medium" /> country</p>
+                <p><i className="profile-icon fa fa-birthday-cake fa-fw icon_l1 font-medium" /> birthday</p>
             </Container>
         </Card>
     );

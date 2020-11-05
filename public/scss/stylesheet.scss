@@ -11,6 +11,7 @@
 @import "./badge";
 @import "./input";
 @import "./modal";
+@import "./icon";
 
 
 // ************************************************************
@@ -199,35 +200,6 @@
         display: block;
         text-align: center;
     }
-}
-
-.register {
-    padding: 0;
-
-    &-content {
-        padding: 92px 0 132px 0;
-        background: #f0f2f5;
-        display: block;
-    }
-    &-grid { 
-        margin: auto;
-        width: 980px;
-    }
-    &-left {
-        // @extend .m8;
-        width: 66.66666%;
-        padding-right: 48px;
-    }
-    &-right {
-        // @extend .m4;
-        width: 33.33333%;
-    }
-
-
-    // DEV
-    // &-grid, &-left, &-right {
-    //     @extend .border;
-    // }
 }
 
 .signup {

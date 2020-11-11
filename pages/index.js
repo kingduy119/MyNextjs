@@ -39,7 +39,7 @@ class MiddleContent extends React.Component {
 
   async componentDidMount() {
     let data = await findPosts();
-    if (data) this.setState({ posts: data.posts.reverse() });
+    if (data && data.post) this.setState({ posts: data.posts.reverse() });
   }
 
   async onCreatePost(content) {
@@ -114,6 +114,6 @@ function IndexPage(props) {
 }
 
 
-export default useAuth(IndexPage);
-// export default IndexPage;
+// export default useAuth(IndexPage);
+export default IndexPage;
 

@@ -1,6 +1,7 @@
 .btn,
 .button {
     display: inline-block;
+    background-color: inherit;
     text-align: center;
     text-decoration: none;
     border: none;
@@ -18,6 +19,7 @@
     &-green { @include theme(white, green); }
     &-red { @include theme(white, red); }
     &-blue { @include theme(white, blue); }
+    &-white-darkgrey { @include theme(#fff, #616161); }
 
     &-facebook { @include theme(white, #3B5998); }
     &-twitter { @include theme(white, #55ACEE); }

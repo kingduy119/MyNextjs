@@ -1,11 +1,10 @@
+.tag,
 .badge {
     @include theme(white, black);
     display: inline-block;
     padding-left: 8px;
     padding-right: 8px;
     text-align: center;
-    margin-right: 2px;
-    margin-bottom: 2px;
 
     &-red { background-attachment: red; }
 }

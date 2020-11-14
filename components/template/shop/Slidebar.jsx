@@ -1,7 +1,7 @@
 // Slidebar of Clothing Store template
 
 import React from "react";
-import { Container, Link } from "../common";
+import { Container, Link } from "../../common";
 
 const Slidebar = (props) => {
     let [jeans, setJeans] = React.useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
-import Slidebar from "../../components/analytics/Slidebar";
-import Topnav from "../../components/analytics/Topnar";
-import Content from "../../components/analytics/Content";
+import Slidebar from "../../components/template/analytics/Slidebar";
+import Topnav from "../../components/template/analytics/Topnar";
+import Content from "../../components/template/analytics/Content";
 
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Link } from "../common";
+import { Container, Row, Col, Link } from "../../common";
 
 const Slidebar = (props) => (
     <nav className="slidebar animate-left" id="slidebar"

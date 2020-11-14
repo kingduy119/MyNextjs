@@ -1,7 +1,7 @@
 import React from "react";
-import Slidebar from "../../components/shop/Slidebar";
-import Topbar from "../../components/shop/Topbar";
-import Content from "../../components/shop/Content";
+import Slidebar from "../../components/template/shop/Slidebar";
+import Topbar from "../../components/template/shop/Topbar";
+import Content from "../../components/template/shop/Content";
 
 
 class Page extends React.Component {

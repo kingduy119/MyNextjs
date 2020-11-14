@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button } from "../common";
+import { Container, Row, Col, Button } from "../../common";
 
 export default function Content(props) {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "../../common";
+import { Container, Row, Col } from "../../../common";
 
 const onCloseNewsLetter = () => {
     document.getElementById('newsletter').style.display = 'none';

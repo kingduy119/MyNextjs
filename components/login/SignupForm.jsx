@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form } from "../common"
+import { Row, Col, Form, Button, Input } from "../common"
 
 function getNumberArray(from, to, operator) {
     let numbers = [];
@@ -60,12 +60,12 @@ class SignupForm extends React.Component {
                 totalDay = getNumberArray(1, 31);
         }
 
-
         return (
             <Form onSubmid={this.onHandleSubmit}>
                 <Row>
-                    <Col className="signup__col">
-                        <Form.Input
+                    <Col className="mg-b4">
+                        <Input
+                            className="round"
                             type="text"
                             name="lastname"
                             placeholder="Last Name"
@@ -73,7 +73,8 @@ class SignupForm extends React.Component {
                             style={{ float: "right", width: '49%' }}
                             required
                         />
-                        <Form.Input
+                        <Input
+                            className="round"
                             type="text"
                             name="firstname"
                             placeholder="First Name"
@@ -82,23 +83,54 @@ class SignupForm extends React.Component {
                             required
                         />
                     </Col>
-                    <Col className="signup__col">
-                        <Form.Input name="username" type="text" placeholder="Username" onChange={this.onHandleChange} required />
+                    <Col className="mg-b4">
+                        <Input
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            className="block round"
+                            onChange={this.onHandleChange}
+                            required />
                     </Col>
-                    <Col className="signup__col">
-                        <Form.Input name="password" type="password" placeholder="Password" onChange={this.onHandleChange} required />
+                    <Col className="mg-b4">
+                        <Input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            className="block round"
+                            onChange={this.onHandleChange}
+                            required />
                     </Col>
-                    <Col className="signup__col">
-                        <Form.Input name="repeatpwd" type="password" placeholder="Repeat Password" onChange={this.onHandleChange} required />
+                    <Col className="mg-b4">
+                        <Input
+                            type="password"
+                            name="repeatpwd"
+                            placeholder="Password"
+                            className="block round"
+                            onChange={this.onHandleChange}
+                            required />
                     </Col>
-                    <Col className="signup__col">
+                    <Col className="mg-b4">
                         <label>Birthday:</label>
-                        <Form.Select name="day" list={totalDay} onChange={this.onHandleChange} />
-                        <Form.Select name="month" list={totalMonth} onChange={this.onHandleChange} />
-                        <Form.Select name="year" list={totalYear} onChange={this.onHandleChange} />
+                        <Form.Select
+                            name="day"
+                            list={totalDay}
+                            onChange={this.onHandleChange} />
+                        <Form.Select
+                            name="month"
+                            list={totalMonth}
+                            onChange={this.onHandleChange} />
+                        <Form.Select
+                            name="year"
+                            list={totalYear}
+                            onChange={this.onHandleChange} />
                     </Col>
-                    <Col className="signup__col">
-                        <Form.Button className="signup__btn--submit" type="submit">Signup</Form.Button>
+                    <Col className="mg-b4 text-center">
+                        <Button
+                            type="submit"
+                            className="round white-bluedark"
+                        >Signup
+                        </Button>
                     </Col>
                 </Row>
             </Form>

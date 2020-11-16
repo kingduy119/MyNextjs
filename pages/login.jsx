@@ -1,19 +1,21 @@
 import React from "react";
-import { Container, Row, Col, Modal, Card } from "../components/common";
+import { Container, Row, Col, Modal } from "../components/common";
 import SigninForm from "../components/login/SigninForm";
 import SignupForm from "../components/login/SignupForm";
 import RecentUser from "../components/login/RecentUser";
 
 function Page(props) {
     let [showModal, setShowModal] = React.useState(false);
-    let styleModal = {
-        width: '300px', marginLeft: 'auto', marginRight: 'auto',
-        padding: '5px'
-    }
     let stylePage = {
         minWidth: '350px',
         background: '#f0f2f5',
         padding: '92px 16px 132px 16px',
+    }
+    let styleModal = {
+        width: '300px',
+        padding: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
 
     return (
@@ -31,7 +33,9 @@ function Page(props) {
 
                     {/* Signin */}
                     <Col className="col-4">
-                        <SigninForm onForgetPwd={() => alert('onForgetPwd')} onSignup={() => setShowModal(true)} />
+                        <SigninForm
+                            onForgetPwd={() => alert('onForgetPwd')}
+                            onSignup={() => setShowModal(true)} />
                     </Col>
                 </Row>
             </Container>

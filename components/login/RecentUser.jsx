@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "../common";
 
 const User = (props) => (
-    < Row className="recent" onClick={props.onClick} >
+    <Row className="recent" onClick={props.onClick} >
         <Col className="recent-top">
             <img
                 src={props.avatarUrl || '/assets/avatar.jpg'}

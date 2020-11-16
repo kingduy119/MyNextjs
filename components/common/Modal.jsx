@@ -6,7 +6,8 @@ class Modal extends React.Component {
 
     render() {
         return (
-            <div className="modal" style={{ display: this.props.isShow ? 'block' : 'none' }}>
+            <div className="modal"
+                style={{ display: this.props.isShow ? 'block' : 'none' }}>
                 {this.props.children}
             </div>
         )

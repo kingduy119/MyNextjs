@@ -1,28 +1,19 @@
 .btn,
 .button {
+    border: none;
     display: inline-block;
-    background-color: inherit;
+    padding: 8px 16px;
+    vertical-align: middle;
     text-align: center;
     text-decoration: none;
-    border: none;
-    padding: 8px 16px;
+    color: inherit;
+    background-color: inherit;
+    white-space: nowrap;
+    cursor: pointer;
 
     &:hover {
-        opacity: 0.6;
-        cursor: pointer;
+        color: #000;
+        background-color: #ccc;
     }
-    &:focus {
-        outline: none;
-    }
-    
-    &-dark-teal {@include theme(white, #4d636f); }
-    &-green { @include theme(white, green); }
-    &-red { @include theme(white, red); }
-    &-blue { @include theme(white, blue); }
-    &-white-darkgrey { @include theme(#fff, #616161); }
-
-    &-facebook { @include theme(white, #3B5998); }
-    &-twitter { @include theme(white, #55ACEE); }
-    &-google { @include theme(white, #dd4b39); }
 }
 

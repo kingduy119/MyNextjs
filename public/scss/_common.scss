@@ -41,8 +41,8 @@ summary { display: list-item; }
 progress { vertical-align: baseline; }
 
 @mixin theme($color, $bachground) {
-    color: $color!important;
-    background-color: $bachground!important;
+    color: $color !important;
+    background-color: $bachground !important;
 }
 
 
@@ -83,6 +83,7 @@ progress { vertical-align: baseline; }
 .black { color: #000!important; }
 .yellow { color: #d2be0e!important; }
 .grey { color: #757575!important; }
+.lightgrey { color: #f1f1f1!important; }
 
 // #background
 .bg-red { background-color: #f44336 !important; }
@@ -92,6 +93,10 @@ progress { vertical-align: baseline; }
 .bg-black { background-color: #000!important; }
 .bg-yellow { background-color: #d2be0e!important; }
 .bg-grey { background-color: #757575!important; }
+
+.bg-google { background-color: #dd4b39 !important; }
+.bg-facebook { background-color: #3B5998 !important; }
+.bg-twitter { background-color: #55ACEE !important; }
 
 // #theme
 .theme-l1 { @include theme(white, #4d636f) }
@@ -108,6 +113,7 @@ progress { vertical-align: baseline; }
 .white-green { @include theme(#fff, #4CAF50); }
 .white-teal { @include theme(#fff, #009688); }
 .white-orange { @include theme(#fff, #ff9800); }
+.white-bluedark { @include theme(#fff, #3B5998); }
 .white-greydark { @include theme(#fff, #616161); }
 .black-white { @include theme(#000, #fff); }
 .black-grey {@include theme(#000, #9e9e9e); }
@@ -124,12 +130,23 @@ progress { vertical-align: baseline; }
 .jumbo { font-size: 64px!important; }
 
 // #opacity
+.hover-w-b:hover { @extend .white-black; }
+.hover-opacity-off:hover { opacity: 1;}
 .hover-opacity:hover,
 .opacity { opacity: 0.60; }
 
 // #margin
 .mg  {
-    margin: 16px !important;
+    &-t4 { margin-top: 4px !important; }
+    &-r4 { margin-right: 4px !important; }
+    &-b4 { margin-bottom: 4px !important; }
+    &-l4 { margin-left: 4px !important; }
+
+    &-t8 { margin-top: 8px !important; }
+    &-r8 { margin-right: 8px !important; }
+    &-b8 { margin-bottom: 8px !important; }
+    &-l8 { margin-left: 8px !important; }
+
     &-t16 { margin-top: 16px !important; }
     &-r16 { margin-right: 16px !important; }
     &-b16 { margin-bottom: 16px !important; }
@@ -139,25 +156,34 @@ progress { vertical-align: baseline; }
 .margin-right { margin-right: 16px!important; }
 .margin-bottom { margin-bottom: 16px!important; }
 .section {
-	margin-top: 16px!important;
-	margin-bottom: 16px!important;
+	margin-top: 16px;
+	margin-bottom: 16px;
 }
 .content {
     margin-left: auto;
     margin-right: auto;
+    max-width: 980px;
 }
 
 
 // #padding
+@mixin pd_t_b($top, $bottom) {
+    padding-top: $top !important;
+    padding-bottom: $bottom !important;
+}
 .pd {
     &-s { padding: 4px 8px !important; }
     &-m { padding: 8px 16px !important; }
     &-l { padding: 12px 24px !important; }
-    &-16 { padding: 16px 16px !important; }
-    &-24 { padding: 24px 24px !important; }
-    &-32 { padding: 32px 32px !important; }
-    &-48 { padding: 48px 48px !important; }
-    &-64 { padding: 64px 64px !important; }
+    &-8 { padding: 8px 0 !important; }
+
+    &-16 { @include pd_t_b(16px, 16px); }
+    &-24 { @include pd_t_b(25px, 24px); }
+    &-32 { @include pd_t_b(32px, 32px); }
+    &-48 { @include pd_t_b(48px, 48px); }
+    &-64 { @include pd_t_b(64px, 64px); }
+
+    &-4-2 { padding: 4px 2px !important; }
 }
 .padding { padding: 8px 16px !important; }
 .padding-large { padding: 12px 24px !important; }
@@ -297,59 +323,6 @@ progress { vertical-align: baseline; }
     background-size: cover;
 }
 
-// analytics.scss
-.slidebar {
-    height: 100%;
-    width: 200px;
-    background-color: #fff;
-    position: fixed!important;
-    z-index: 1;
-    overflow: auto;
-    @media (min-width: 993px) {
-        &.collapse{
-            display: block!important;
-        }
-    }
-    @media (max-width: 992px) {
-        &.collapse{
-            display: none;
-        }
-    }
-}
-
-.bar {
-    width: 100%;
-    overflow: hidden;
-    &:before, &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    &-item {
-        padding:8px 16px;
-        float:left;
-        width:auto;
-        max-height: 42px;
-        border:none;
-        display:block;
-        outline:0;
-    }
-}
-.bar-block {
-    .bar-item {
-        display: block;
-        padding: 8px 16px;
-        text-align: left;
-        border: none;
-        white-space: normal;
-        float: none;
-        outline: 0;
-    }
-}
-
-
-
 // shop.scss
 .display-container { position: relative; }
 .display-topright {
@@ -407,5 +380,13 @@ progress { vertical-align: baseline; }
     to { transform: scale(1); }
 }
 
+.image {
+    max-width: 100%;
+    height: auto;
+}
 
+#mainPortfolio { margin-left: 120px; }
+@media only screen and (max-width: 600px) {
+    #mainPortfolio { margin-left: 0; }
+}
 

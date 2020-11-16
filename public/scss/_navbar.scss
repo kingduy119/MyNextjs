@@ -24,4 +24,56 @@
     }
 }
 
+// analytics.scss
+.slidebar {
+    height: 100%;
+    width: 200px;
+    background-color: #fff;
+    position: fixed!important;
+    z-index: 1;
+    overflow: auto;
+    @media (min-width: 993px) {
+        &.collapse{
+            display: block!important;
+        }
+    }
+    @media (max-width: 992px) {
+        &.collapse{
+            display: none;
+        }
+    }
+}
+
+.bar {
+    width: 100%;
+    overflow: hidden;
+    &:before, &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    &-item {
+        padding:8px 16px;
+        float:left;
+        width:auto;
+        border:none;
+        display:block;
+        outline:0;
+    }
+}
+
+.bar-block {
+    .bar-item {
+        display: block;
+        padding: 8px 16px;
+        text-align: left;
+        border: none;
+        white-space: normal;
+        float: none;
+        outline: 0;
+    }
+}
+
+
 

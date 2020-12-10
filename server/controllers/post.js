@@ -6,7 +6,7 @@ exports.findPosts = async (req, res) => {
     try {
         let posts = await Post
             .find()
-            .select('createAt postBy content')
+            .select('createAt postBy content likes')
             .populate('postBy', 'avatarUrl displayName')
             .exec();
         // .limit(30);
@@ -31,7 +31,7 @@ exports.onParamPostId = (req, res, next, id) => {
 // [GET]post/:postId
 exports.onFindPostId = (req, res) => { return res.json(req.post); }
 
-// [POST]post/crete
+// [POST]post/crete(userId, content)
 exports.createPost = async (req, res) => {
     try {
         let post = await Post.create({ content: req.body.content, postBy: req.user._id });
@@ -51,14 +51,43 @@ exports.createPost = async (req, res) => {
 
 // [PUT]post/:postId/edit
 exports.onPostEdit = (req, res) => {
+    let post = req.body.post;
+    let query = {};
+    if (post.action === "like") { query = { $push: { likes: 'id' } }; }
+
     Post.findByIdAndUpdate(
-        { _id: req.post._id },
-        { $set: req.post },
+        { _id: post._id },
+        query,
         (err, doc) => {
             if (err) return res.status(500).send('ERROR');
             return res.json(doc);
         }
     );
+}
+
+// [PUT]/:postId/like
+exports.onPostLike = (req, res) => {
+    let { postId } = req.params;
+    let { user, action } = req.body;
+
+    let isLike = (action === 'like');
+    let field = { likes: user._id };
+    let update = isLike ? { $push: field } : { $pull: field }
+
+    Post
+        .findByIdAndUpdate({ _id: postId }, update, /**option, callback, */)
+        // .populate('likes', 'avatarUrl displayName')
+        .exec((err, doc) => {
+            if (err) { return res.status(500).send(null); };
+
+            if (isLike) {
+                doc.likes.push(user._id);
+            } else {
+                let index = doc.likes.indexOf(item => item === user._id);
+                doc.likes.splice(index, 1);
+            }
+            res.json({ likes: doc.likes });
+        });
 }
 
 // [DELETE]post/:postId/delete

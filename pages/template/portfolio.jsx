@@ -2,7 +2,7 @@ import React from "react";
 
 // #1 Slidebar
 const slidebar = [
-    { href: '#', icon: 'fa fa-home xxlarge', text: 'HOME', active: true },
+    { href: '#', icon: 'fa fa-home xxlarge', text: 'HOME', active: false },
     { href: '#aboutPortfolio', icon: 'fa fa-user xxlarge', text: 'ABOUT', active: false },
     { href: '#photosPortfolio', icon: 'fa fa-eye xxlarge', text: 'PHOTOS', active: false },
     { href: '#contactPortfolio', icon: 'fa fa-envelope xxlarge', text: 'CONTACT', active: false },
@@ -19,7 +19,7 @@ const Slidebar = (props) => (
             <a
                 href={item.href}
                 className={`${item.active ? 'bg-black' : 'hover-w-b'}
-                bar-item btn pd-l text-center`}
+                bar-item btn pad-32 text-center`}
             >
                 <i className={item.icon} />
                 <p>{item.text}</p>
@@ -52,7 +52,7 @@ const NavbarSmallScreen = (props) => (
 // #2 Page content
 
 const Content = (props) => (
-    <div className="pd-l" id="mainPortfolio">
+    <div className="pd-32" id="mainPortfolio">
         {/* <!-- Header/Home --> */}
         <header className="container pd-32 text-center white-black" id="homePortfolio">
             <h1 className="xxlarge"><span className="hide-small">I'm</span> Duy Hoang</h1>
@@ -105,7 +105,7 @@ const Content = (props) => (
             </div>
             </div>
 
-            <button className="btn black-lightgrey pd-l section">
+            <button className="btn black-lightgrey pad-32 section">
                 <i className="fa fa-download" /> Download Resume
             </button>
 
@@ -124,7 +124,7 @@ const Content = (props) => (
                             <span class="opacity">per month</span>
                         </li>
                         <li className="black-lightgrey pd-24">
-                            <button className="btn black-white pd-l hover-w-b">Sign Up</button>
+                            <button className="btn black-white pad-32 hover-w-b">Sign Up</button>
                         </li>
                     </ul>
                 </div>
@@ -140,7 +140,7 @@ const Content = (props) => (
                             <span class="opacity">per month</span>
                         </li>
                         <li className="black-lightgrey pd-24">
-                            <button className="btn black-white pd-l hover-w-b">Sign Up</button>
+                            <button className="btn black-white pad-32 hover-w-b">Sign Up</button>
                         </li>
                     </ul>
                 </div>
@@ -196,7 +196,7 @@ const Content = (props) => (
                 <p><input className="input pd-16 block" type="text" placeholder="Subject" name="subject" required /></p>
                 <p><input className="input pd-16 block" type="text" placeholder="Message" name="message" required /></p>
                 <p>
-                    <button className="btn black-lightgrey pd-l" type="submit">
+                    <button className="btn black-lightgrey pad-32" type="submit">
                         <i className="fa fa-paper-plane" /> SEND MESSAGE
                     </button>
                 </p>

@@ -27,7 +27,8 @@
     float: left;
     width: 100%;
 }
-
+.rest { overflow: hidden; }
+.row-pd,
 .row-padding { 
     padding: 0 8px;
     >{ .half,

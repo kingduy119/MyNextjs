@@ -1,118 +1,107 @@
 import React from "react";
 import useAuth from "../lib/useAuth"
-import SocialLayout from "../lib/layout/SocialLayout";
-import { Container, Card, Button } from "../components/common";
-import { TopNav } from "../components/Navigation";
-import {
-  Profile, Accordion, Interests, Alert, // Left col of body
-  PostNewsFeel, PostShow, // Midlle col of body
-  FriendRequest, // Right col of body
-} from "../components/index";
-import { createPost, findPosts, updatePost, deletePost } from "../lib/api/post";
-import { sendUserCreatePost } from "../lib/api/user";
 
-function LeftContent(props) {
-  let { user } = props;
-  return (
-    <>
-      <Profile user={user} />
-      <br />
-      <Accordion />
-      <br />
-      <Interests />
-      <br />
-      <Alert />
-    </>
-  );
-}
+import Topbar from "../components/index/Topbar";
+import CreatePost from "../components/post/CreatePost";
+import Post from "../components/post/Post";
+// APIS:
+import { sendCreatePost, sendFillPosts, postUpdate, sendPostLike, deletePost } from "../lib/api/post";
 
-class MiddleContent extends React.Component {
+// #3 Post CRRUD
+class SocialContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: []
-    };
+    }
+    this.onUserLikePost = this.onUserLikePost.bind(this);
+    this.onHandleEvent = this.onHandleEvent.bind(this);
+  }
+  /**
+   * Handle Event
+   */
+  onUserLikePost = async (index, user, isLiked) => {
+    let { posts } = this.state;
 
-    this.onDeletePost = this.onDeletePost.bind(this);
-    this.onCreatePost = this.onCreatePost.bind(this);
+    let data = await sendPostLike(
+      posts[index]._id,
+      { user, action: isLiked ? 'unlike' : 'like' });
+
+    if (data) {
+      posts[index].likes = data.likes;
+      this.setState({ posts });
+    }
   }
 
-  async componentDidMount() {
-    let data = await findPosts();
-    if (data && data.post) this.setState({ posts: data.posts.reverse() });
+  onHandleEvent = (name) => {
+    if (name === 'post-like') {
+      return (index, user, liked) => { alert(`${index} - ${user} - ${liked}`); }
+    }
+    else if (name === 'post-viewlikes') {
+      return (likes) => { alert(JSON.stringify(likes)); }
+    }
+    else if (name === 'comment-send') {
+      return (index) => { alert(`comment: ${index}`) }
+    }
+    else if (name === 'comment-like') {
+      return (index) => { alert(`comment: ${index}`) }
+    }
+    else if (name === 'comment-viewlikes') {
+      return (likes) => { alert(`comment: ${JSON.stringify(likes)}`) }
+    }
   }
 
-  async onCreatePost(content) {
-    try {
-      let data = await sendUserCreatePost(this.props.user._id, content);
-      if (data && data.post) {
-        this.setState((state) => ({ posts: [data.post, ...state.posts] }));
-      }
-    } catch (err) { alert("CreatePost Error!"); }
+  /**
+   * Lifecycle
+   */
+  componentDidMount = async () => {
+    let data = await sendFillPosts();
+    if (data) { this.setState({ posts: data.posts }); }
   }
 
-  async onDeletePost(id) {
-    let { error, post } = await deletePost({ id });
-    if (error) { return alert(JSON.stringify(error)); }
-    let posts = this.state.posts.map(item => { if (item && (item._id != post._id)) return item; });
-    this.setState({ posts: posts });
-  }
-
-  render() {
+  render = () => {
+    let { posts } = this.state;
     return (
-      <Container className="row-padding">
-        <PostNewsFeel onCreatePost={this.onCreatePost} />
-        <br />
-        <PostShow posts={this.state.posts} />
-      </Container>
-    );
+      <div className="pd-32" id="socialContent" style={{ marginTop: '90px' }} >
+        {/* <!--- Create New Post ---> */}
+        <CreatePost onCreate={() => alert("createPost")} />
+
+        {/* <!--- Show Post ---> */}
+        {posts && posts.map((post, index) =>
+          <Post
+            {...post}
+            index={index}
+            user={this.props.user}
+            onPostLike={this.onHandleEvent('post-like')}
+            onPostViewLikes={this.onHandleEvent('post-viewlikes')}
+            onPostComment={this.onHandleEvent('comment-send')}
+            onPostCommentLike={this.onHandleEvent('comment-like')}
+            onPostCommentViewLikes={this.onHandleEvent('comment-viewlikes')}
+          />
+        )}
+
+        <Post
+          onPostLike={this.onHandleEvent('post-like')}
+          onPostViewLikes={this.onHandleEvent('post-viewlikes')}
+          onPostComment={this.onHandleEvent('comment-write')}
+          onPostCommentLike={this.onHandleEvent('comment-like')}
+          onPostCommentViewLikes={this.onHandleEvent('comment-viewlikes')}
+        />
+      </div>
+    )
   }
 }
-
-const RightContent = (props) => (
-  <>
-    <Card>
-      <Container>
-        <p>Upcoming Events:</p>
-        <img src="https://www.w3schools.com/w3images/forest.jpg" alt="Forest" style={{ width: "100%" }} />
-        <p><strong>Holiday</strong></p>
-        <p>Friday 15:00</p>
-        <p><Button className="news-feel-btn-info">Info</Button></p>
-      </Container>
-    </Card>
-    <br />
-
-    <FriendRequest />
-    <br />
-
-    <Card className="round center" style={{ padding: `16px` }}>
-      <Container >
-        <p>ADS</p>
-      </Container>
-    </Card>
-    <br />
-
-    {/* className="card round white center" */}
-    <Card className="round center" style={{ padding: `32px` }}>
-      <Container >
-        <p><i className="fa fa-bug xxlarge"></i></p>
-      </Container>
-    </Card>
-  </>
-);
+SocialContent.defaultProps = { posts: [] }
 
 function IndexPage(props) {
-  let { user } = props;
   return (
-    <SocialLayout
-      navbar={<TopNav {...{ user: user }} />}
-      left={<LeftContent user={user} />}
-      middle={<MiddleContent user={user} />}
-      right={<RightContent />}
-    />
+    <>
+      <Topbar />
+      {/* <Slidebar /> */}
+      <SocialContent user={props.user} />
+    </>
   );
 }
-
 
 // export default useAuth(IndexPage);
 export default IndexPage;

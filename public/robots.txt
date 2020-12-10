@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /template/analytic
+Allow: /template/restaurant
+Allow: /template/portfolio
+

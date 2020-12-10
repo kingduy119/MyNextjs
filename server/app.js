@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const passport = require("passport");
+const path = require('path');
 
 const useSessionMiddleware = require("./middleware/session-middleware");
 const connectToMongoDB = require("./database/mongo-config");
@@ -41,8 +42,6 @@ app
         server.use(passport.session());
         server.use(express.static('public'));
 
-        // server.use();
-
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
             handle(req, res);
@@ -53,6 +52,10 @@ app
 
         // Customer handle request
         apiREST({ server, app });
+
+        server.get('/robots.txt', (req, res) => {
+            res.sendFile(path.join(__dirname, '../static', 'robots,txt'));
+        })
 
         server.get('*', (req, res) => { // Redirect error
             handle(req, res);

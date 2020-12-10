@@ -61,6 +61,11 @@
         display:block;
         outline:0;
     }
+
+    .dropdown-hover {
+        position: static;
+        float: left;
+    }
 }
 
 .bar-block {
@@ -73,6 +78,7 @@
         float: none;
         outline: 0;
     }
+    .dropdown-hover { width: 100%; }
 }
 
 

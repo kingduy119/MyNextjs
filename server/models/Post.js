@@ -8,7 +8,8 @@ const postSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    content: { type: String, min: 1, }
+    content: { type: String, min: 1, },
+    likes: [{ ref: 'User', unique: true, type: mongoose.Schema.Types.ObjectId }],
 });
 
 

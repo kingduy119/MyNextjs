@@ -14,11 +14,11 @@ const PostNewsFeel = (props) => {
     }
 
     return (
-        <Card className="news-feel round white round-large">
-            <Row>
-                <Col className="news-feel__col">
+        <Card className="round white round-16">
+            <Row className="pd-8">
+                <Col className="pd-8">
                     <Input
-                        className="news-feel__input block round-large"
+                        className="block bor-hide round-16"
                         name="content"
                         placeholder={`User, What are you thinking?`}
                         value={content}
@@ -26,8 +26,8 @@ const PostNewsFeel = (props) => {
                     />
                 </Col>
                 <hr className="opacity" style={{ width: '97%' }} />
-                <Col className="news-feel__col">
-                    <Button className="btn-dark-teal round-large"
+                <Col className="pd-s">
+                    <Button className="round-16 white-darkteal"
                         onClick={onHandleSubmit}>
                         <i className="fa fa-pencil" /> Post
                     </Button>

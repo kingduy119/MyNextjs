@@ -3,11 +3,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     provider: { type: String, require: true, default: "local" },
-    userId: {
-        type: String,
-        require: true,
-        unique: [true, 'Username is exited']
-    },
+    userId: { type: String, required: true, unique: [true, 'Username is exited'] },
     password: { type: String, require: true },
     createAt: { type: Date, require: true, default: new Date().toISOString(), },
     email: { type: String, require: true, },

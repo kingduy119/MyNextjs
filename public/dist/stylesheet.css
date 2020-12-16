@@ -53,10 +53,6 @@ progress {
   float: right !important;
 }
 
-.bor-hide {
-  border: none;
-}
-
 .border, .recent, .signup {
   border: 1px solid #ccc !important;
 }
@@ -73,22 +69,45 @@ progress {
   border-color: #ff9800 !important;
 }
 
+.bor-hide {
+  border: none;
+}
+.bor-l {
+  border-left: 5px solid black !important;
+}
+.bor-r {
+  border-right: 5px solid black !important;
+}
+.bor-t {
+  border-top: 5px solid black !important;
+}
+.bor-b {
+  border-bottom: 5px solid black !important;
+}
+
 .circle {
   border-radius: 50%;
 }
 
-.round, .recent, .signup {
+.rd,
+.round,
+.recent,
+.signup {
   border-radius: 4px;
 }
+.rd-8,
 .round-8 {
   border-radius: 8px;
 }
+.rd-16,
 .round-16 {
   border-radius: 16px;
 }
+.rd-32,
 .round-32 {
   border-radius: 32px;
 }
+.rd-64,
 .round-64 {
   border-radius: 64px;
 }
@@ -125,11 +144,11 @@ progress {
 }
 
 .white {
-  color: #fff !important;
+  color: #ffffff !important;
 }
 
 .black {
-  color: #000 !important;
+  color: #000000 !important;
 }
 
 .yellow {
@@ -153,7 +172,7 @@ progress {
 }
 
 .bg-green {
-  background-color: #4CAF50 !important;
+  background-color: #f44336 !important;
 }
 
 .bg-blue {
@@ -161,11 +180,11 @@ progress {
 }
 
 .bg-white {
-  background-color: #fff !important;
+  background-color: #ffffff !important;
 }
 
 .bg-black {
-  background-color: #000 !important;
+  background-color: #000000 !important;
 }
 
 .bg-yellow {
@@ -341,35 +360,35 @@ progress {
 .mg-t4 {
   margin-top: 4px !important;
 }
-.mg-r4 {
-  margin-right: 4px !important;
-}
-.mg-b4 {
-  margin-bottom: 4px !important;
-}
-.mg-l4 {
-  margin-left: 4px !important;
-}
 .mg-t8 {
   margin-top: 8px !important;
-}
-.mg-r8 {
-  margin-right: 8px !important;
-}
-.mg-b8 {
-  margin-bottom: 8px !important;
-}
-.mg-l8 {
-  margin-left: 8px !important;
 }
 .mg-t16 {
   margin-top: 16px !important;
 }
+.mg-r4 {
+  margin-right: 4px !important;
+}
+.mg-r8 {
+  margin-right: 8px !important;
+}
 .mg-r16 {
   margin-right: 16px !important;
 }
+.mg-b4 {
+  margin-bottom: 4px !important;
+}
+.mg-b8 {
+  margin-bottom: 8px !important;
+}
 .mg-b16 {
   margin-bottom: 16px !important;
+}
+.mg-l4 {
+  margin-left: 4px !important;
+}
+.mg-l8 {
+  margin-left: 8px !important;
 }
 .mg-l16 {
   margin-left: 16px !important;
@@ -535,10 +554,6 @@ progress {
 
 .dp-container:hover > .dp-hover {
   display: block !important;
-}
-
-.bottombar {
-  border-bottom: 6px solid #ccc !important;
 }
 
 .ul {
@@ -754,6 +769,10 @@ progress {
 .quarter {
   float: left;
   width: 100%;
+}
+
+.rest {
+  overflow: hidden;
 }
 
 .row-pd,
@@ -1021,6 +1040,10 @@ progress {
   width: 100%;
 }
 
+.bar-bottom {
+  border-bottom: 6px solid #ccc !important;
+}
+
 .dropdown-hover {
   position: relative;
   display: inline-block;
@@ -1080,15 +1103,13 @@ progress {
 
 .btn,
 .button {
-  border: none;
   display: inline-block;
-  padding: 8px 16px;
-  vertical-align: middle;
-  text-align: center;
-  text-decoration: none;
+  border: none;
   color: inherit;
   background-color: inherit;
-  white-space: nowrap;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
 }
 .btn:hover,
@@ -1124,6 +1145,7 @@ progress {
   text-align: center;
 }
 
+.in,
 .input {
   display: inline-block;
   padding: 8px 8px;

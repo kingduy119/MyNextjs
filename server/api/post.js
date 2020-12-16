@@ -1,18 +1,21 @@
 const router = require("express").Router();
 const { mdwPostCreate } = require("../validators/post");
-const {
-    onParamPostId, onFindPostId, onPostEdit, onPostDelete,
-    createPost, findPosts,
-    onPostLike,
-} = require("../controllers/post");
+const Post = require("../controllers/post");
 
-router.post('/create', mdwPostCreate, createPost);
-router.get('/posts', findPosts);
+const postId = '/:postId/';
+router.post('/create', mdwPostCreate, Post.onCreate);
+router.get('/posts', Post.onFindMany);
 
-router.put('/:postId/like', onPostLike);
-// router.param('postId', onParamPostId);
-router.get('/:postId/', onFindPostId);
-router.put('/:postId/edit', onPostEdit);
-router.delete('/:postId/delete', onPostDelete);
+// POST
+router.param('postId', Post.onPostId);
+router.get(postId, Post.onPostRead);
+router.put(postId, Post.onPostUpdate);
+router.delete(postId, Post.onPostDelete);
+
+// Comment
+router.post(`${postId}comment`, Post.onPostCommentCreate);
+router.get(`${postId}comment`, Post.onPostCommentRead);
+router.put(`${postId}comment`, Post.onPostCommentUpdate);
+router.delete(`${postId}comment`, Post.onPostCommentDelete);
 
 module.exports = router;

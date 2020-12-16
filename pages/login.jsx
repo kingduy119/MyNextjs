@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router"
 import { Container, Row, Col, Modal } from "../components/common";
 import SigninForm from "../components/login/SigninForm";
 import SignupForm from "../components/login/SignupForm";
@@ -17,6 +18,10 @@ function Page(props) {
         marginLeft: 'auto',
         marginRight: 'auto',
     }
+
+    React.useEffect(() => {
+        if (props.user) { return Router.push('/'); }
+    });
 
     return (
         <>

@@ -46,7 +46,7 @@ exports.GOOGLE_CLIENT_SECRECT =
     process.env.GOOGLE_CLIENT_SECRECT
     ||
     "gGbet71BJE9X_Of9Giihbquh";
-    
+
 exports.FACEBOOK_CLIENT_ID =
     process.env.FACEBOOK_CLIENT_ID
     ||

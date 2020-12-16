@@ -33,6 +33,13 @@ exports.onFindMany = async (req, res) => {
             .find()
             .select('createAt postBy content likes comments')
             .populate('postBy', 'avatarUrl displayName')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'postBy',
+                    select: 'avatarUrl displayName'
+                }
+            })
             .exec();
 
         return res.json({ posts });

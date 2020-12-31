@@ -1,60 +1,19 @@
 
+@import "./varible-mixins.scss";
 @import "./common";
-@import "./mixins";
+@import "./link";
+@import "./tooltip";
 @import "./grid";
 @import "./navbar";
 @import "./dropdown";
 @import "./table";
 @import "./card";
 @import "./button";
-@import "./link";
 @import "./badge";
 @import "./input";
 @import "./modal";
 
 @import "./portpolio.scss";
-
-// ************************************************************
-// Topnav
-// .topnav {
-//     background-color: $theme-d2;
-//     &-item {
-//         a { 
-//             max-height: 42px;
-//             color: #fff; 
-//         }
-//         &:hover:not(.topnav-item_active)>a {
-//             color: $theme-d2;
-//             background-color: #fff !important;
-//             opacity: 1;
-//         }
-
-//         &_active a {
-//             color: #fff !important;
-//             background-color: $theme-d4;
-//         }
-//     }
-
-//     &-dropdown {
-//         &-toggle { 
-//             color: #fff; 
-//         }
-//         &:hover>&-toggle {
-//             @include theme($theme-d2, #fff);
-//             opacity: 1;
-//         }
-//     }
-
-//     &-user {
-//         float: right;
-//         .dropdown-toggle { padding-bottom: 7px; }
-//         &-avatar {
-//             @extend .circle;
-//             max-width: 23px;
-//             max-height: 20px;
-//         }
-//     }
-// }
 
 // ************************************************************
 .post {
@@ -80,80 +39,6 @@
     }
 }
 
-// ************************************************************
-// Login
-// .login {
-//     max-width: 1080px;
-//     margin: 80px auto;
-//     &-body{
-//         // @extend .border; // dev
-//         position: relative;
-//         border-radius: 5px;
-//         background-color: #f2f2f2;
-//         padding: 20px 0 30px 0;
-//         .col {
-//             margin: auto;
-//             padding: 0 50px;
-//             margin-top: 6px;
-//         }   
-//     }
-
-//     &-btn, &-input {
-//         @extend .btn;
-//         width: 100%;
-//         padding: 12px;
-//         border-radius: 4px;
-//         margin: 5px 0;
-//         opacity: 0.85;
-//         font-size: 17px;
-//         text-align: left;
-//     }
-//     &-btn {
-//         i { margin-right: 4px; }
-//         &_facebook { @extend .btn-facebook; }
-//         &_twitter { @extend .btn-twitter;}
-//         &_google { @extend .btn-google;}
-//         &_signup, &_forgot {
-//             text-align: center;
-//             color: white;
-//         }
-//     }
-
-//     &-input {
-//         &:hover { opacity: 1; }
-//         &_submit {
-//             cursor: pointer;
-//             color: white;
-//             background-color: green;
-//             text-align: center;
-//         }
-//     }
-
-//     &-bottom {
-//         text-align: center;
-//         background-color: #666;
-//         border-radius: 0px 0px 4px 4px;
-//         .col {  padding: 0; }
-//     }
-// }
-
-// .vl {
-//     position: absolute;
-//     left: 50%;
-//     transform: translate(-50%);
-//     border: 2px solid #ddd;
-//     height: 175px;
-
-//     &-innertext {
-//         position: absolute;
-//         top: 50%;
-//         transform: translate(-50%, -50%);
-//         background-color: #f1f1f1;
-//         border: 1px solid #ccc;
-//         border-radius: 50%;
-//         padding: 8px 10px;
-//     }
-// }
 
 .signin {
     margin-top: 24px;
@@ -201,4 +86,16 @@
     }
 }
 
+// #Page
+#topbarNew {
+    span {
+        padding: 0 4px;
+        transform: translate(-4px);
+    }
+}
 
+#topbarFriends {
+    span {
+        padding: 0 4px;
+    }
+}

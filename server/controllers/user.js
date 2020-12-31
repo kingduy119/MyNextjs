@@ -1,15 +1,14 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Notification = require("../models/Notification");
 const STT_ERROR = 500;
 // /:userId
 exports.onPramUserId = async (req, res, next, id) => {
-    try {
-        let user = await User.findById(id).select('avatarUrl displayName');
+    User.findById(id, (err, user) => {
+        if (err) return res.status(404);
         req.user = user;
         next();
-    } catch (err) {
-        res.status(404).send('Not Found');
-    }
+    })
 }
 
 // /:postId
@@ -21,6 +20,39 @@ exports.onPramPostId = (req, res, next, id) => {
         next();
     })
 }
+
+// CRUD :: userId ::
+exports.onIdCreate = (req, res) => {
+    return res.send("userId Create");
+}
+exports.onIdRead = (req, res) => {
+    User.findById(req.user._id)
+        .pplPosts()
+        .pplNotifications()
+        .exec(async (err, user) => {
+            if (err) return res.status(404);
+
+            return res.json(user);
+        })
+}
+exports.onIdUpdate = async (req, res) => {
+    let { action } = req.body;
+    try {
+        if (action === 'NOTIFICATIONS') {
+            let notif = await Notification.findOneAndUpdate(
+                { _id: req.body.notifId },
+                { $set: { state: req.body.state } },
+                { new: true }
+            );
+            return res.json({ notification: notif });
+        }
+        else { throw 'Action"s not support!'; }
+    } catch (err) { return res.status(500).send(err); }
+}
+exports.onIdDelete = (req, res) => {
+    return res.send("userId Delete");
+}
+
 
 /**
  * [POST]/create-post => response{post}
@@ -38,13 +70,6 @@ exports.onPostCreate = async (req, res) => {
         Object.assign(post, { postBy: user })
         return res.json({ post });
     } catch (err) { return res.status(500).send(err); }
-}
-
-/**
- * [GET]/:userId => return User docs
- */
-exports.onFindUser = async (req, res) => {
-    return res.json(req.user);
 }
 
 /**

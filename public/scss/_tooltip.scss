@@ -1,34 +1,109 @@
-.tooltip {
+// #tooltip original
+.itooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
+    &:hover { 
+        .itooltip__text { 
+            visibility: visible;
+            opacity: 1;
+         }
+    }
 
     &__text {
-        visibility: hidden;
-        width: 120px;
-        background-color: black;
-        color: #ffffff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        &:hover { visibility: visible; }
-
-        // position
-        position: absolute;
         z-index: 1;
+        position: absolute;
 
-        &--left {
+        visibility: hidden;
+        min-width: 50px;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 5px;
+        color: $white;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+// BEM modify
+.itooltip {
+    &__text {
+        // Text Left
+        &--l {
+            right: 100%;
             top: -5px;
-            right: 105%;
         }
-        &--right {
+        &--l-arrow {
+            right: 110%;
             top: -5px;
-            left: 105%;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 100%;
+                margin-top: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent transparent black;
+            }
         }
-        &--top {
+
+        // Text Right
+        &--r {
+            left: 100%;
+            top: -5px;
+        }
+        &--r-arrow {
+            left: 110%;
+            top: -5px;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 100%;
+                margin-top: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent black transparent transparent;
+            }
+        }
+
+        // Text Top
+        &--t {
             bottom: 100%;
-            left: 50%;
-            margin-left: -60px;
+            left: 0;
+        }
+        &--t-arrow {
+            bottom: 150%;
+            left: 0;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+            }
+        }
+
+        // Text Bottom
+        &--b {
+            top: 100%;
+            left: 0;
+        }
+        &--b-arrow {
+            top: 150%;
+            left: 0;
+            &:after {
+                content: "";
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent black transparent;
+            }
         }
     }
 }

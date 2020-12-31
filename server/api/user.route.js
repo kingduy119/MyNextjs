@@ -1,21 +1,13 @@
 const router = require("express").Router();
-const {
-    onPramUserId, onPramPostId,
-    onPostCreate, onPostFindOnce, onPostFindMany, onPostUpdate, onPostDelete,
-    onFindUser,
-} = require('../controllers/user');
+const User = require('../controllers/user');
 
-router.param('userId', onPramUserId);
+router.param('userId', User.onPramUserId);
 
-router.post('/:userId/create-post', onPostCreate);
-router.get('/:userId', onFindUser);
-router.get('/:userId/posts', onPostFindMany);
-
-router.param('postId', onPramPostId);
-router.get('/:userId/post/:postId', onPostFindOnce);
-router.put('/:userId/post/:postId/update', onPostUpdate);
-router.delete('/:userId/post/:postId/delete', onPostDelete);
-
+// router.post('/:userId/create-post', User.onPostCreate);
+router.post('/:userId/', User.onUserIdRead);
+router.get('/:userId/', User.onIdRead);
+router.put('/:userId/', User.onUserIdRead);
+router.delete('/:userId/', User.onUserIdRead);
 
 
 module.exports = router;

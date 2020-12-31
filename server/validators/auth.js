@@ -5,11 +5,14 @@ const { runAuthValidator } = require("./index");
 function verifyToken(req) {
     let token = req.cookies['access_token'];
     if (!token) return { error: "require token" };
-
-    return jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, result) => {
-        if (err) return { error: err };
-        return { result };
-    });
+    return jwt.verify(
+        token.split(' ')[1],
+        process.env.JWT_SECRET,
+        (err, result) => {
+            if (err) return { error: err };
+            return { result };
+        }
+    );
 }
 
 // Validate Token
@@ -20,7 +23,7 @@ const token = (req, res, next) => {
 }
 const tokenRequire = (req, res, next) => {
     let { error, result } = verifyToken(req);
-    console.log(`tokenRequire: ${JSON.stringify(result)}`);
+    if (error) console.log(JSON.stringify(error));
     if (!result) return res.redirect('/login');
     next();
 }

@@ -49,7 +49,6 @@ exports.onPostId = (req, res, next, id) => {
         .exec((err, post) => {
             if (err) return res.status(404).send(null);
             req.post = post;
-            console.log(`POST ${JSON.stringify(post)}`);
             next();
         });
 }
@@ -67,15 +66,13 @@ exports.onPostIdCreate = async (req, res) => {
                 .createComment(req.post, comment)
                 .pplComments();
 
-            // if (post) post.onNotification(req.body);
-            if (post.by !== req.body.by) {
+            if (post.by != req.body.by) {
                 post.onNotification({...req.body, comment});
             }
 
             return res.json({ comments: post.comments });
         }
         else {
-            // throw { message: `Update's Post haven't support this action!` };
             throw new Error("Post create action error!");
         }
     } catch (err) { return res.status(500).send(err); }

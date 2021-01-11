@@ -13,7 +13,7 @@ export default useAuth(IndexPage);
 function IndexPage(props) {
   return (
     <>
-      <Topbar />
+      <Topbar user={props.user} />
       {/* <Slidebar /> */}
       <SocialContent user={props.user} />
     </>

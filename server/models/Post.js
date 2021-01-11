@@ -56,11 +56,9 @@ class Post {
             by: body.by,
             post: this._id,
             comment: body.comment._id,
-        })
-        .exec((err, notif) => {
-            if(err) return {error: err};
-            User.findOneAndUpdate({_id: this.by}, 
-                {$push: { notifications: notif._id } } );
+        }, (err, notif) => {
+            if(err) return "ERROR: Notification unable to create!";
+            User.findOneAndUpdate({_id: this.by}, {$push: { notifications: notif._id } });
         })
         return this;
     }

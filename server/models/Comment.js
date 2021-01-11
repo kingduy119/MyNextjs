@@ -31,8 +31,12 @@ const schema = new mongoose.Schema({
 schema.query.pplBy = function () {
     return this.populate('by', 'avatarUrl displayName');
 }
-schema.query.pplFeeling = function () {
-    return this.populate('feelings.by', 'avatarUrl displayName');
+schema.query.pplFeelings = function () {
+    return this.populate({
+        path: "feelings",
+        model: "User",
+        populate: {path: "by", select: "avatarUrl displayName"},
+    });
 }
 
 
@@ -44,15 +48,18 @@ class Comment {
     }
 
     // :: STATICS ::
-    static onFeelings(feelings, data) {
-        let { idxFls, commentId, by, feel } = data;
-        let query = { _id: commentId }, update;
+    static onIdUpdateFeelings(comment, data) {
+        let { by, feel } = data;
+        let update, query = { _id: comment._id };
 
-        if (idxFls == -1) {
-            update = { $push: { 'feelings': { by, kind: feel } } }
+        let index = comment.feelings.findIndex(fls =>
+            fls.by.toString() === by
+        );
+        if (index === -1) {
+            update = { $push: { feelings: { by, kind: feel } } }
         }
         else {
-            let newFeel = feelings[idxFls].kind != feel ? feel : 'none';
+            let newFeel = comment.feelings[index].kind != feel ? feel : 'none';
             query = { ...query, 'feelings.by': by };
             update = { $set: { 'feelings.$.kind': newFeel } };
         }

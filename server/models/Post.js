@@ -50,9 +50,19 @@ schema.query.pplComments = function () {
 
 class Post {
     // :: METHODS ::
-    async onNotification(data) {
-        let notif = await Notification.onPost(this, data);
-        await User.onNotification({ _id: this.by }, notif);
+    onNotification(body) {
+        Notification.create({
+            action: body.action,
+            by: body.by,
+            post: this._id,
+            comment: body.comment._id,
+        })
+        .exec((err, notif) => {
+            if(err) return {error: err};
+            User.findOneAndUpdate({_id: this.by}, 
+                {$push: { notifications: notif._id } } );
+        })
+        return this;
     }
 
     // :: STATICS ::
@@ -61,7 +71,7 @@ class Post {
 
         let query = { _id: post._id }, update;
         if (idxFls == -1) {
-            update = { $push: { feelings: { by, feel } } };
+            update = { $push: { feelings: { by, kind: feel } } };
         } else {
             let newFeel = post.feelings[idxFls].kind !== feel ? feel : 'none';
             query = { ...query, 'feelings.by': by };
@@ -70,8 +80,7 @@ class Post {
         return this.findOneAndUpdate(query, update, { new: true });
     }
     // comments
-    static onComment(json) {
-        let { post, comment } = json;
+    static createComment(post, comment) {
         let query = { _id: post._id };
         let update = { $push: { comments: comment._id } };
         return this.findOneAndUpdate(query, update, { new: true });

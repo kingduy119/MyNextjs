@@ -1,38 +1,48 @@
-import react from "react";
-import Comment, { CommentInput } from "./Comment";
+import React from 'react'
+import Comment, { CommentInput } from './Comment'
+import FeelingsComponent from './Feelings'
 
 // Post Item
 function Post(props) {
     let {
         user,
-        _id, index, postBy, createAt, content, likes, comments
+        _id, index, by, createAt, content, comments,
     } = props;
+    let commentInputRef = React.createRef(null);
 
-    let check = likes.some(userId => userId === user._id);
-    let [liked, setLiked] = react.useState(check);
-    let commentInput = react.createRef(null);
-
+    let feelings = props.feelings.filter(fls => fls.kind !== 'none');
+    let check = feelings.length > 0 ?
+        feelings.some(fls => {
+            if(fls.by) {
+                return fls.by._id == user._id
+            }
+        }) : false;
+    let [feel, setFeel] = React.useState(check);
+    
     const onHandleEvent = name => e => {
         e.preventDefault();
-        if (name === 'like') {
-            props.onPostLike(index, { userId: user._id, liked });
-            setLiked(!liked);
+        if (name === 'feel') {
+            props.onPostFeel(index, { 
+                by: user._id, 
+                feel: feel ? 'none' : 'heart',
+            });
+            setFeel(!feel);
         }
-        else if (name === 'viewlikes') {
-            props.onPostViewLikes(likes);
+        else if (name === 'showfeelings') {
+            props.onPostShow(feelings);
         }
     }
 
     const onCommentInput = (e) => {
-        if (e.key === 'Enter' && commentInput.current) {
+        if (e.key === 'Enter' && commentInputRef.current) {
             e.preventDefault();
-            let data = {
-                userId: user._id,
-                content: commentInput.current.value
-            };
-            props.onPostComment(index, data);
-            commentInput.current.value = '';
-            commentInput.current.blur();
+            props.onPostComment(index, {
+                by: user._id,
+                content: commentInputRef.current.value,
+            });
+
+            commentInputRef.current.value = '';
+            commentInputRef.current.blur();
         }
     }
 
@@ -46,9 +56,9 @@ function Post(props) {
             <a className="link black" href="#">
                 <img
                     className="circle mg-r8"
-                    src={postBy.avatarUrl}
+                    src={by.avatarUrl}
                     style={{ width: '20px', height: '20px' }}
-                /> <b className="hv-u">{postBy.displayName}</b>
+                /> <b className="hv-u">{by.displayName}</b>
             </a>
             <i className="right">{createAt}</i>
 
@@ -56,76 +66,52 @@ function Post(props) {
             <hr className="opacity grey" />
             <div className="text-left">{content}</div>
 
-            {/* <!--- Likes ---> */}
+            {/* <!--- Feelings ---> */}
             <hr className="opacity grey" />
-            <LikeBoxComponent
-                liked={liked}
-                total={likes.length}
-                onClickLike={onHandleEvent('like')}
-                onClickView={onHandleEvent('viewlikes')}
+            <FeelingsComponent
+                hasFeel={feel}
+                total={feelings.length}
+                onFeelClick={onHandleEvent('feel')}
+                onShowClick={onHandleEvent('showfeelings')}
             />
 
             {/* <!--- Comments ---> */}
             <hr className="opacity grey" />
             <CommentInput
-                avatarUrl={user.avatarUrl}
-                inputRef={commentInput}
+                avatarUrl={user ? user.avatarUrl : '/assets/avatar.jpg'}
+                inputRef={commentInputRef}
                 onCommentKeyPress={onCommentInput}
             />
 
-            {comments && comments.map((propsComment, iCmt) =>
+            {comments.length > 0 && comments.map((propsComment, iCmt) =>
                 <Comment
                     {...propsComment}
                     user={user}
                     post={{ index, _id }}
                     index={iCmt}
-                    onLike={props.onPostCommentLike}
-                    onViewLikes={props.onPostCommentViewLikes}
+                    onCommentFeel={props.onPostCommentFeel}
+                    onCommentShowFeelings={props.onPostCommentShowFeelings}
                 />)
             }
 
             {/* for DEV */}
             {/* <Comment
                 onComment={props.onPostComment}
-                onCommentLike={props.onPostCommentLike}
-                onComentViewLikes={props.onPostCommentViewLikes}
+                onFeel={props.onPostCommentFeel}
+                onShow={props.onPostCommentShow}
             /> */}
         </div>
     );
 }
 Post.defaultProps = {
-    createAt: '15 minutes ago',
-    postBy: {
+    createAt: 'NaN',
+    by: {
         avatarUrl: "/assets/avatar.jpg",
-        displayName: "No Name",
+        displayName: "NaN",
     },
-    content: 'No content',
-    likes: [],
+    content: 'NaN',
+    feelings: [],
     comments: [],
 }
 
-//#2 Like
-const LikeBoxComponent = (props) => {
-    return (
-        <div className="block">
-            <i
-                className={`fa ${props.liked ? 'fa-heart' : 'fa-heart-o'} 
-                mg-r4 link red`}
-                onClick={props.onClickLike}
-            />
-            <a
-                className="link hv-u"
-                onClick={props.onClickView}
-            >{props.total}</a>
-        </div>
-    )
-}
-LikeBoxComponent.defaultProps = {
-    liked: false,
-    total: 0,
-    onClickLike: () => alert('Like Box Like'),
-    onClickView: () => alert('Like Box View'),
-};
-
 export default Post;
-export { LikeBoxComponent };

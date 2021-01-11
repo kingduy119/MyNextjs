@@ -6,13 +6,12 @@ export default function CreatePost(props) {
     const onSend = (e) => {
         e.preventDefault();
         let content = inputRef.current.value;
-        if (content === '')
-            return inputRef.current.focus();
-
+        if (content === '') return inputRef.current.focus();
         props.onCreate({
-            userId: user._id,
+            by: user._id,
             content
         });
+        
         inputRef.current.value = '';
         inputRef.current.blur();
     }
@@ -35,5 +34,7 @@ export default function CreatePost(props) {
         </div >
     );
 }
+
+
 
 

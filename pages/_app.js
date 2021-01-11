@@ -1,6 +1,7 @@
 import App, { AppInitialProps } from 'next/app';
 import React from 'react';
-import { wrapper } from '../lib/store';
+import Store from '../lib/store';
+import store from "../store";
 import { isMobile } from "../lib/isMobile"
 
 class MyApp extends App {
@@ -32,4 +33,4 @@ class MyApp extends App {
   }
 }
 
-export default wrapper.withRedux(MyApp);
+export default store.withRedux(MyApp);

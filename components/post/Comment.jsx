@@ -1,19 +1,31 @@
-import react from "react";
-import { LikeBoxComponent } from "./Post";
+import react from 'react';
+import FeelingsComponent from './Feelings'
 
 export default function Comment(props) {
-    let { user, post, index, postBy, content, likes } = props;
-    let checkLiked = likes.some(userId => userId === user._id);
-    let [liked, setLiked] = react.useState(checkLiked);
+    let { user, post, index, by, content } = props;
+
+    let feelings = props.feelings.filter(fls => fls.kind !== 'none');
+    let check = feelings.length > 0 ?
+        feelings.some(fls => {
+            if(fls.by) {
+                return fls.by._id == user._id
+            }
+        }) : false;
+    let [feel, setFeel] = React.useState(check);
 
     const onHandleEvent = name => e => {
         e.preventDefault();
-        if (name === 'like') {
-            let data = { iCmt: index, userId: user._id, liked };
-            props.onLike(post.index, data);
-            setLiked(!liked);
+        if (name === "comment-feel") {
+            props.onCommentFeel(post.index, index, { 
+                by: user._id, 
+                feel: feel ? 'none' : 'heart', 
+            });
+            setFeel(!feel);
         }
-        else if (name === 'viewlikes') { props.onViewLikes(likes); }
+        else if (name === "comment-show") { 
+            // props.onShow(feelings);
+            alert(JSON.stringify(feelings));
+        }
     }
 
     return (
@@ -22,33 +34,34 @@ export default function Comment(props) {
             <a className="link black dp-t-l" href="#">
                 <img
                     className="circle mg-r8"
-                    src={postBy.avatarUrl}
+                    src={by.avatarUrl}
                     style={{ width: '20px', height: '20px' }}
                 />
             </a>
             {/* Content */}
             <div style={{ marginLeft: '40px' }} >
                 <div className="round-8 bg-lightgrey pd-4">
-                    <b className="link hv-u">{postBy.displayName}</b><br />
+                    <b className="link hv-u">{by.displayName}</b><br />
                     {content}
                 </div>
-                <LikeBoxComponent
-                    liked={liked}
-                    total={likes.length}
-                    onClickLike={onHandleEvent('like')}
-                    onClickView={onHandleEvent('viewlikes')}
+                <FeelingsComponent
+                    hasFeel={feel}
+                    total={feelings.length}
+                    onFeelClick={onHandleEvent("comment-feel")}
+                    onShowClick={onHandleEvent("comment-show")}
                 />
             </div>
         </div>
     );
 }
 Comment.defaultProps = {
-    postBy: {
+    by: {
         avatarUrl: "/assets/avatar.jpg",
-        displayName: "No Name",
+        displayName: "NaN",
     },
-    content: "No content",
-    likes: [],
+    content: "NaN",
+    feelings: [],
+    onCommentFeel: () => {},
 };
 
 function CommentInput(props) {

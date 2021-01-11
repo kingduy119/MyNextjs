@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
-// const Notification = require("../models/Notification");
+const Notification = require("../models/Notification");
 
 /**
  * CRUD: Post content
@@ -9,12 +9,13 @@ const Comment = require("../models/Comment");
 exports.onCreate = async (req, res) => {
     try {
         let { by, content } = req.body;
+        
         let post = await Post.create({ by, content });
         let user = await User
-            .onUpdateField({ field: 'posts', post })
+            .findByIdAndUpdatePosts(post)
             .select(User.fieldPublic());
+        
         if (user) { post.by = user; }
-
         return res.json({ post });
     } catch (err) {
         return res.status(500).send(err);
@@ -32,7 +33,9 @@ exports.onFindMany = async (req, res) => {
             .pplBy()
             .pplFeelings()
             .pplComments()
-            .limit(10);
+            // .limit(10);
+
+        
         return res.json({ posts });
     } catch (err) {
         return res.status(500).send(err);
@@ -46,27 +49,34 @@ exports.onPostId = (req, res, next, id) => {
         .exec((err, post) => {
             if (err) return res.status(404).send(null);
             req.post = post;
+            console.log(`POST ${JSON.stringify(post)}`);
             next();
         });
 }
 
 exports.onPostIdCreate = async (req, res) => {
     let { action } = req.body
+    action = action.toUpperCase();
     try {
         if (action === 'COMMENT') {
+            let { by, content } = req.body;
             let comment = await Comment.create({
-                by: req.body.by,
-                content: req.body.content,
+                by, content,
             });
             let post = await Post
-                .onComment({ post: req.post, comment })
+                .createComment(req.post, comment)
                 .pplComments();
 
-            if (post) post.onNotification(req.body);
+            // if (post) post.onNotification(req.body);
+            if (post.by !== req.body.by) {
+                post.onNotification({...req.body, comment});
+            }
+
             return res.json({ comments: post.comments });
         }
         else {
-            throw { message: `Update's Post haven't support this action!` };
+            // throw { message: `Update's Post haven't support this action!` };
+            throw new Error("Post create action error!");
         }
     } catch (err) { return res.status(500).send(err); }
 }
@@ -85,6 +95,7 @@ exports.onPostIdRead = (req, res) => {
 
 exports.onPostIdUpdate = async (req, res) => {
     let { action } = req.body;
+    action = action.toUpperCase();
     try {
         if (action == 'FEEL') {
             let idxFls = req.post.feelings.findIndex(fls => fls.by == req.body.by);
@@ -93,23 +104,21 @@ exports.onPostIdUpdate = async (req, res) => {
                 .pplFeelings();
             if (post && idxFls == -1) post.onNotification(req.body);
 
-            return res.json({ feelings: post.feelings });
+            return res.json({ feelings: post.feelings.filter(fls => 
+                fls.kind !== 'none'    
+            ) });
         }
-        else if (action === 'COMMENT_FEEL') {
-            let post = await Post.findById(req.post._id).populate('comments');
-            let idxCmt = post.comments
-                .findIndex(cmt => cmt._id == req.body.commentId);
+        else if (action === 'COMMENT-FEEL') {
+            let { commentId, by, feel } = req.body;
+            let comment = req.post.comments.find(cmt => 
+                cmt._id.toString() === commentId
+            );
+            
+            comment = await Comment
+                .onIdUpdateFeelings(comment, {by, feel})
+                .pplFeelings();
 
-            if (idxCmt == -1) throw null;
-
-            let idxFls = post.comments[idxCmt].feelings
-                .findIndex(fls => fls.by == req.body.by);
-            let comment = await Comment
-                .onFeelings(post.comments[idxCmt].feelings, { ...req.body, idxFls });
-
-            if (comment && idxFls == -1) { comment.onNotification(req.post, req.body); }
-
-            return res.json({ feelings: comment.feelings });
+            return res.json({ feelings: comment.feelings});
         }
         else { throw { message: `Update's Post haven't support this action!` }; }
     } catch (err) { return res.status(500).send(err); }

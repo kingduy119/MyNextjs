@@ -46,7 +46,6 @@ schema.query.pplNotifications = function () {
 
 class User {
     // :: INSTANCE ::
-
     // :: STATIC ::
     static fieldPublic() { return 'avatarUrl displayName'; }
     static onNotification(user, notif) {
@@ -60,12 +59,9 @@ class User {
      * @param {field} doc 
      * {field: posts, post}
      */
-    static onUpdateField(doc) {
-        let query, update;
-        if (doc.field === 'posts') {
-            query = { _id: doc.post.by };
-            update = { $push: { posts: doc.post._id } };
-        }
+    static findByIdAndUpdatePosts(post) {
+        let query = { _id: post.by };
+        let update = { $push: { posts: post._id } };
         return this.findOneAndUpdate(query, update, { new: true });
     }
 

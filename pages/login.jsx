@@ -1,9 +1,12 @@
 import React from "react";
 import Router from "next/router"
+import useAuth from "../lib/useAuth";
 import { Container, Row, Col, Modal } from "../components/common";
 import SigninForm from "../components/login/SigninForm";
 import SignupForm from "../components/login/SignupForm";
 import RecentUser from "../components/login/RecentUser";
+
+export default Page;
 
 function Page(props) {
     let [showModal, setShowModal] = React.useState(false);
@@ -18,10 +21,6 @@ function Page(props) {
         marginLeft: 'auto',
         marginRight: 'auto',
     }
-
-    React.useEffect(() => {
-        if (props.user) { return Router.push('/'); }
-    });
 
     return (
         <>
@@ -60,6 +59,6 @@ function Page(props) {
     );
 }
 
-export default Page;
+
 
 

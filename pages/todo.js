@@ -25,18 +25,6 @@ function DisplayTodo(props) {
                         <Button>Delete</Button>
                     </Col>
                 ))}
-                {/* <Col style={{ border: `solid 1px black` }}>
-                    <h2>Todo Title 1</h2>
-                    <div>Todo Text 1</div>
-                    <Button>Update</Button>
-                    <Button>Delete</Button>
-                </Col>
-                <Col style={{ border: `solid 1px black` }}>
-                    <h2>Todo Title 2</h2>
-                    <div>Todo Text 2</div>
-                    <Button>Update</Button>
-                    <Button>Delete</Button>
-                </Col> */}
                 {props.todos}
             </Row>
         </Container>
@@ -44,7 +32,6 @@ function DisplayTodo(props) {
 }
 
 function TodoPage(props) {
-    // let todos = [{ id: 111, title: "Todo Title 1", text: "Todo Somthing 1" }];
     return (
         <Container>
             <Row>

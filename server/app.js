@@ -67,8 +67,8 @@ app
             console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
         });
     })
-    .catch(ex => {
-        console.error(ex.stack);
+    .catch(err => {
+        console.error(err.stack);
         process.exit(1);
     });
 

@@ -5,9 +5,9 @@
     padding: 0;
     overflow: hidden;
 
-    &__item { float: left; }
+    &-item { float: left; }
 
-    &__link {
+    &-link {
         display: block;
         padding: 8px;
         outline: none;
@@ -19,11 +19,11 @@
     // @extend .inav;
     width: 180px;
 
-    .inav__item {
+    .inav-item {
         float: none !important;
     }
-    .inav__link {
-        @extend .inav__link;
+    .inav-link {
+        @extend .inav-link;
         padding: 8px 16px;
         &:hover {
             @include theme($white, #bbb);
@@ -39,7 +39,7 @@
 
 .iTopbar {
     overflow: hidden;
-    &__item {
+    &-item {
         float:left;
         font-size: 16px;
         text-align: center;
@@ -48,17 +48,17 @@
     }
 }
 .iTopbar {
-    &__idrdown, &__itooltip {
+    &-idrdown, &-itooltip {
         position: static !important;
         float: left;
     }
-    &__tooltip {
+    &-tooltip {
         @extend .itooltip;
         position: static;
         float: left
     }
-    &__tooltip-text {
-        @extend .itooltip__text;
+    &-tooltip-text {
+        @extend .itooltip-text;
         top: 105%;
         transform: translate(-50px);
     }

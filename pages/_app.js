@@ -1,6 +1,5 @@
 import App, { AppInitialProps } from 'next/app';
 import React from 'react';
-import Store from '../lib/store';
 import store from "../store";
 import { isMobile } from "../lib/isMobile"
 
@@ -22,6 +21,20 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+
+    // All dropdowns
+    window.onclick = (e) => {
+      if(!e.target.matches(".idrdown-btn .idrdown-icon")
+      && !e.target.matches(".idrdown-badge") ) {
+        let drdContents = document.getElementsByClassName("idrdown-content");
+        for(let i=0; i < drdContents.length; i++) {
+          if(drdContents[i].classList.contains("show")) {
+            drdContents[i].classList.remove("show");
+          }
+        }
+      }
+    } //End window.onclick
+
   }
 
   render() {

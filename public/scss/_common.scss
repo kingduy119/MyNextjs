@@ -138,7 +138,11 @@ progress { vertical-align: baseline; }
 
 // #hover
 .hv-u:hover { text-decoration: underline; }
-.hv-black-grey:hover { @include theme($white, $grey); }
+
+.hv {
+    &-black-grey:hover { @include theme($white, $grey); }
+    &-black-lightgrey:hover { @include theme($black, $lightgrey); }
+}
 
 .hover-w-b:hover { @extend .white-black; }
 
@@ -221,9 +225,8 @@ progress { vertical-align: baseline; }
 }
 
 // #display
-.hide { 
-    display: none!important; 
-}
+.show { display: block!important; }
+.hide { display: none!important; }
 @media (max-width: 600px) {
     .hide-small { display: none !important; }
     .hide-s { display: none !important; }

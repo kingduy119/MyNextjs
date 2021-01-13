@@ -16,29 +16,6 @@
 @import "./portpolio.scss";
 
 // ************************************************************
-.post {
-    &__avatar { 
-        float: left;
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-    }
-    &__time-ago {
-        float: right;
-        opacity: 0.7;
-    }
-    &__display-name {
-        position: relative;
-        top: -10px;
-    }
-    &__btn {
-        margin-right: 5px;
-    }
-    &__col {
-        padding: 8px;
-    }
-}
-
 
 .signin {
     margin-top: 24px;

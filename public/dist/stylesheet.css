@@ -350,6 +350,10 @@ progress {
   color: #ffffff;
   background-color: #757575;
 }
+.hv-black-lightgrey:hover {
+  color: #000000;
+  background-color: #f1f1f1;
+}
 
 .hv-o-off,
 .hover-opacity-off:hover {
@@ -480,6 +484,10 @@ progress {
 .padding-64 {
   padding-top: 64px !important;
   padding-bottom: 64px !important;
+}
+
+.show {
+  display: block !important;
 }
 
 .hide {
@@ -758,15 +766,15 @@ progress {
   cursor: pointer;
 }
 
-.itooltip, .iTopbar__tooltip {
+.itooltip, .iTopbar-tooltip {
   position: relative;
   display: inline-block;
 }
-.itooltip:hover .itooltip__text, .itooltip:hover .iTopbar__tooltip-text, .iTopbar__tooltip:hover .itooltip__text, .iTopbar__tooltip:hover .iTopbar__tooltip-text {
+.itooltip:hover .itooltip-text, .itooltip:hover .iTopbar-tooltip-text, .iTopbar-tooltip:hover .itooltip-text, .iTopbar-tooltip:hover .iTopbar-tooltip-text {
   visibility: visible;
   opacity: 1;
 }
-.itooltip__text, .iTopbar__tooltip-text {
+.itooltip-text, .iTopbar-tooltip-text {
   z-index: 1;
   position: absolute;
   visibility: hidden;
@@ -778,15 +786,15 @@ progress {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.itooltip__text--l {
+.itooltip-text--l {
   right: 100%;
   top: -5px;
 }
-.itooltip__text--l-arrow {
+.itooltip-text--l-arrow {
   right: 110%;
   top: -5px;
 }
-.itooltip__text--l-arrow:after {
+.itooltip-text--l-arrow:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -796,15 +804,15 @@ progress {
   border-style: solid;
   border-color: transparent transparent transparent black;
 }
-.itooltip__text--r {
+.itooltip-text--r {
   left: 100%;
   top: -5px;
 }
-.itooltip__text--r-arrow {
+.itooltip-text--r-arrow {
   left: 110%;
   top: -5px;
 }
-.itooltip__text--r-arrow:after {
+.itooltip-text--r-arrow:after {
   content: "";
   position: absolute;
   top: 50%;
@@ -814,15 +822,15 @@ progress {
   border-style: solid;
   border-color: transparent black transparent transparent;
 }
-.itooltip__text--t {
+.itooltip-text--t {
   bottom: 100%;
   left: 0;
 }
-.itooltip__text--t-arrow {
+.itooltip-text--t-arrow {
   bottom: 150%;
   left: 0;
 }
-.itooltip__text--t-arrow:after {
+.itooltip-text--t-arrow:after {
   content: "";
   position: absolute;
   top: 100%;
@@ -832,15 +840,15 @@ progress {
   border-style: solid;
   border-color: black transparent transparent transparent;
 }
-.itooltip__text--b {
+.itooltip-text--b {
   top: 100%;
   left: 0;
 }
-.itooltip__text--b-arrow {
+.itooltip-text--b-arrow {
   top: 150%;
   left: 0;
 }
-.itooltip__text--b-arrow:after {
+.itooltip-text--b-arrow:after {
   content: "";
   position: absolute;
   bottom: 100%;
@@ -1084,10 +1092,10 @@ progress {
   padding: 0;
   overflow: hidden;
 }
-.inav__item {
+.inav-item {
   float: left;
 }
-.inav__link, .inav-ver .inav__link {
+.inav-link, .inav-ver .inav-link {
   display: block;
   padding: 8px;
   outline: none;
@@ -1097,13 +1105,13 @@ progress {
 .inav-ver {
   width: 180px;
 }
-.inav-ver .inav__item {
+.inav-ver .inav-item {
   float: none !important;
 }
-.inav-ver .inav__link {
+.inav-ver .inav-link {
   padding: 8px 16px;
 }
-.inav-ver .inav__link:hover {
+.inav-ver .inav-link:hover {
   color: #ffffff;
   background-color: #bbb;
 }
@@ -1115,7 +1123,7 @@ progress {
 .iTopbar {
   overflow: hidden;
 }
-.iTopbar__item {
+.iTopbar-item {
   float: left;
   font-size: 16px;
   text-align: center;
@@ -1123,15 +1131,15 @@ progress {
   text-decoration: none;
 }
 
-.iTopbar__idrdown, .iTopbar__itooltip {
+.iTopbar-idrdown, .iTopbar-itooltip {
   position: static !important;
   float: left;
 }
-.iTopbar__tooltip {
+.iTopbar-tooltip {
   position: static;
   float: left;
 }
-.iTopbar__tooltip-text {
+.iTopbar-tooltip-text {
   top: 105%;
   transform: translate(-50px);
 }
@@ -1190,18 +1198,16 @@ progress {
   position: relative;
   overflow: hidden;
 }
-.idrdown__hv:hover .idrdown__content {
+.idrdown.hv:hover .idrdown-content {
   display: block;
 }
-.idrdown__btn {
+.idrdown-btn {
+  cursor: pointer;
   border: none;
   outline: none;
   margin: 0;
 }
-.idrdown__btn:hover .idrdown__content {
-  display: block;
-}
-.idrdown__content {
+.idrdown-content {
   display: none;
   position: absolute;
   min-width: 80px;
@@ -1209,16 +1215,13 @@ progress {
   color: #000000;
   background-color: #ffffff;
 }
-.idrdown__content a {
+.idrdown-content a {
+  cursor: pointer;
   display: block;
   padding: 4px 6px;
   text-align: left;
   color: #000000;
   text-decoration: none;
-}
-.idrdown__content a:hover {
-  color: #ffffff;
-  background-color: #757575;
 }
 
 .dropdown {
@@ -1358,27 +1361,6 @@ progress {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-.post__avatar {
-  float: left;
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
-}
-.post__time-ago {
-  float: right;
-  opacity: 0.7;
-}
-.post__display-name {
-  position: relative;
-  top: -10px;
-}
-.post__btn {
-  margin-right: 5px;
-}
-.post__col {
-  padding: 8px;
 }
 
 .signin {

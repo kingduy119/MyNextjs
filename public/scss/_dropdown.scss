@@ -2,38 +2,32 @@
 .idrdown {
     position: relative;
     overflow: hidden;
-    &__hv:hover {
-        .idrdown__content {
+
+    &.hv:hover {
+        .idrdown-content {
             display: block;
         }
     }
 
-    &__btn {
+    &-btn {
+        cursor: pointer;
         border: none;
         outline: none;
         margin: 0;
-        &:hover {
-            .idrdown__content {
-                display: block;
-            }
-        }
     }
-    &__content {
+    &-content {
         display: none;
         position: absolute;
         min-width: 80px;
         z-index: 1;
         @include theme($black, $white);
         a {
+            cursor: pointer;
             display: block;
-            // font-size: 16px;
             padding: 4px 6px;
             text-align: left;
             color: $black;
             text-decoration: none;
-            &:hover {
-                @include theme($white, $grey);
-            }
         }
     }
 }

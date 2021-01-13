@@ -3,13 +3,13 @@
     position: relative;
     display: inline-block;
     &:hover { 
-        .itooltip__text { 
+        .itooltip-text { 
             visibility: visible;
             opacity: 1;
          }
     }
 
-    &__text {
+    &-text {
         z-index: 1;
         position: absolute;
 
@@ -25,7 +25,7 @@
 
 // BEM modify
 .itooltip {
-    &__text {
+    &-text {
         // Text Left
         &--l {
             right: 100%;

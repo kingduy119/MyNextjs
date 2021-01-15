@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-
 const schema = new Schema({
     provider: { type: String, require: true, default: "local" },
     userId: { type: String, required: true, unique: [true, 'Username is exited'] },
@@ -20,10 +19,10 @@ const schema = new Schema({
         expiry_date: Number,
     },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    notifications: [{
+    notifications: {
         type: mongoose.Types.ObjectId,
         ref: 'Notification'
-    }]
+    }
 });
 
 // :: QUERY ::
@@ -62,7 +61,7 @@ class User {
     static findByIdAndUpdatePosts(post) {
         let query = { _id: post.by };
         let update = { $push: { posts: post._id } };
-        return this.findOneAndUpdate(query, update, { new: true });
+        return this.findOneAndUpdate(query, update);
     }
 
     

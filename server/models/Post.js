@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const User = require("./User");
-const Notification = require("./Notification");
 
 const schema = new mongoose.Schema({
     createAt: { type: Date, default: Date.now },
@@ -50,18 +49,6 @@ schema.query.pplComments = function () {
 
 class Post {
     // :: METHODS ::
-    onNotification(body) {
-        Notification.create({
-            action: body.action,
-            by: body.by,
-            post: this._id,
-            comment: body.comment._id,
-        }, (err, notif) => {
-            if(err) return "ERROR: Notification unable to create!";
-            User.findOneAndUpdate({_id: this.by}, {$push: { notifications: notif._id } });
-        })
-        return this;
-    }
 
     // :: STATICS ::
     static onFeelings(post, data) {

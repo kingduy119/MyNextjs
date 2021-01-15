@@ -45,6 +45,10 @@ progress {
   vertical-align: baseline;
 }
 
+h1, h2, h3, h4, h5, h5, h6, p {
+  margin: 0;
+}
+
 .left {
   float: left !important;
 }
@@ -73,16 +77,16 @@ progress {
   border: none;
 }
 .bor-l {
-  border-left: 5px solid black !important;
+  border-left: 1px solid black !important;
 }
 .bor-r {
-  border-right: 5px solid black !important;
+  border-right: 1px solid black !important;
 }
 .bor-t {
-  border-top: 5px solid black !important;
+  border-top: 1px solid black !important;
 }
 .bor-b {
-  border-bottom: 5px solid black !important;
+  border-bottom: 1px solid black !important;
 }
 
 .circle {
@@ -714,19 +718,23 @@ progress {
 }
 
 .over-scroll {
-  overflow: scroll !important;
+  overflow: scroll;
+}
+
+.over-scroll-y {
+  overflow-y: scroll;
 }
 
 .over-hidden {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .over-auto {
-  overflow: auto !important;
+  overflow: auto;
 }
 
 .over-visib {
-  overflow: visible !important;
+  overflow: visible;
 }
 
 #mainPortfolio {

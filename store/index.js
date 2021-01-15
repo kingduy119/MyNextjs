@@ -18,6 +18,7 @@ const reducers = combineReducers({
 });
 
 
-const makeStore = context => createStore(reducers, applyMiddleware(...middlewares));
+const makeStore = context => 
+    createStore(reducers, applyMiddleware(...middlewares));
 
 export default createWrapper(makeStore);

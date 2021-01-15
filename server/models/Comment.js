@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const User = require("./User");
-const Notification = require("./Notification");
 
 const schema = new mongoose.Schema({
     createAt: {
@@ -42,19 +40,16 @@ schema.query.pplFeelings = function () {
 
 class Comment {
     // :: METHODS ::
-    async onNotification(post, body) {
-        let notif = await Notification.onPost(post, body);
-        await User.onNotification({ _id: this.by._id }, notif);
-    }
 
     // :: STATICS ::
     static onIdUpdateFeelings(comment, data) {
         let { by, feel } = data;
-        let update, query = { _id: comment._id };
-
+        let update, query;
         let index = comment.feelings.findIndex(fls =>
             fls.by.toString() === by
         );
+
+        query = { _id: comment._id };
         if (index === -1) {
             update = { $push: { feelings: { by, kind: feel } } }
         }

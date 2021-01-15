@@ -1,6 +1,7 @@
 
 const next = require("next");
 const express = require("express");
+const http = require("http");
 const session = require("express-session");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -61,8 +62,8 @@ app
             handle(req, res);
         });
 
-        // const http = createServer(server);
-        server.listen(PORT_API, (err) => {
+        const httpServer = http.Server(server);
+        httpServer.listen(PORT_API, (err) => {
             if (err) throw err;
             console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
         });

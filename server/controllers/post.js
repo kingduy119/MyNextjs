@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
-const Notification = require("../models/Notification");
+// const Notification = require("../models/Notification");
 
 /**
  * CRUD: Post content
@@ -15,6 +15,7 @@ exports.onCreate = async (req, res) => {
             .findByIdAndUpdatePosts(post)
             .select(User.fieldPublic());
         
+            console.log(JSON.stringify(user));
         if (user) { post.by = user; }
         return res.json({ post });
     } catch (err) {
@@ -29,7 +30,7 @@ exports.onFindMany = async (req, res) => {
     try {
         let posts = await Post
             .find()
-            .select('createAt postBy content likes comments')
+            .select('createAt postBy content feelings comments')
             .pplBy()
             .pplFeelings()
             .pplComments()
@@ -66,9 +67,9 @@ exports.onPostIdCreate = async (req, res) => {
                 .createComment(req.post, comment)
                 .pplComments();
 
-            if (post.by != req.body.by) {
-                post.onNotification({...req.body, comment});
-            }
+            // if (post.by != req.body.by) {
+            //     post.onNotification({...req.body, comment});
+            // }
 
             return res.json({ comments: post.comments });
         }
@@ -95,15 +96,16 @@ exports.onPostIdUpdate = async (req, res) => {
     action = action.toUpperCase();
     try {
         if (action == 'FEEL') {
-            let idxFls = req.post.feelings.findIndex(fls => fls.by == req.body.by);
+            let idxFls = req.post.feelings.length > 0 ?
+            req.post.feelings.findIndex(fls => fls.by == req.body.by) : -1;
+
             let post = await Post
                 .onFeelings(req.post, { ...req.body, idxFls })
                 .pplFeelings();
-            if (post && idxFls == -1) post.onNotification(req.body);
+            // if (post && idxFls == -1) post.onNotification(req.body);
 
-            return res.json({ feelings: post.feelings.filter(fls => 
-                fls.kind !== 'none'    
-            ) });
+            let feelings = post.feelings.filter(fls => fls.kind !== "none" );
+            return res.json({ feelings });
         }
         else if (action === 'COMMENT-FEEL') {
             let { commentId, by, feel } = req.body;
@@ -115,7 +117,8 @@ exports.onPostIdUpdate = async (req, res) => {
                 .onIdUpdateFeelings(comment, {by, feel})
                 .pplFeelings();
 
-            return res.json({ feelings: comment.feelings});
+            let feelings = comment.feelings.filter(fls => fls.kind !== "none" );
+            return res.json({ feelings });
         }
         else { throw { message: `Update's Post haven't support this action!` }; }
     } catch (err) { return res.status(500).send(err); }

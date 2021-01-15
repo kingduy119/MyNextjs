@@ -35,6 +35,9 @@ class SocialContent extends React.Component {
    */
   render = () => {
     let { posts } = this.state;
+    posts.sort((a, b) => {
+      console.log(a.createAt >= b.createAt);
+      return a.createAt > b.createAt; });
     let { user } = this.props;
 
     return (

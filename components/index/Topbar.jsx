@@ -24,6 +24,29 @@ function Friends(props) {
     )
 }
 
+const NewsContentLinkItem = (props) => (
+    <a 
+        id={props._id}
+        href={`#post#${props._id}`}
+        className="block round hv-black-grey"
+    >
+        <img 
+            className="circle mg-r4 mg-t4 left"
+            src={props.by.avatarUrl}
+            style={{ width: '20px', height: '20px' }}
+        />
+        <div style={{marginLeft: "25px"}}>
+            <div
+                className="over-hidden pd-4"
+                style={{ width: "280px", maxHeight: "80px"}}
+            >
+                <h3>{props.by.displayName}</h3>
+                <p>Have feel <b>LIKE</b> your post</p>
+            </div>
+            <i>{props.createAt}</i>
+        </div>
+    </a>
+)
 function News(props) {
     let { notifications } = props;
     let newsNotif = notifications.filter(notif => notif.state == "new");
@@ -34,7 +57,7 @@ function News(props) {
                 className="inav-link idrdown-btn"
                 onClick={(e) => {
                     e.preventDefault();
-                    let tag = document.getElementById("idrNews");
+                    let tag = document.getElementById("idrdownNews");
                     tag.classList.toggle("show");
                 }}
             >
@@ -47,49 +70,48 @@ function News(props) {
                 }
             </a>
             <div
-                id="idrNews" 
-                className="idrdown-content card round medium pd-8"
+                id="idrdownNews" 
+                className="idrdown-content card round medium"
             >
-                <h4>Title</h4>
-                <p>Content</p>
-                {notifications && notifications.length > 0 &&
-                    notifications.map(notif => (
-                        <a 
-                            href={`#${notif._id}/`}
-                            className="block round hv-black-grey"
-                        >
-                            <h4>ID: {notif._id}</h4>
-                            <h5>State: {notif.state}</h5>
-                            <p>Comment: {notif.comment}</p>
-                        </a>
-                    ))
-                }
+                <div className="pd-8 bor-b">
+                    <h1>Notifications</h1>
+                </div>
+                <div className="over-scroll-y" style={{maxHeight: "800px"}}>
+                    {notifications && notifications.length > 0 &&
+                        notifications.map(notif => (
+                            <NewsContentLinkItem {...notif} />
+                        ))
+                    }
+                </div>
             </div>
         </li>
     )
 }
 
-function NavItemUser(props) {
-    let [show, setShow] = React.useState(false);
 
+function NavItemUser(props) {
     return (
-        <li className="inav-item right idrdown" id="navitemUser"
-            onClick={(e) => {e.preventDefault(); setShow(!show)}}
-        >
+        <li className="inav-item right idrdown">
             <a className="inav-link idrdown-btn"
                 style={{ padding: '6.5px' }}
+                onClick={(e) => {
+                    e.preventDefault();
+                    let tag = document.getElementById("idrdrownUser");
+                    tag.classList.toggle("show");
+                }}
             >
                 <img
-                    className="circle"
+                    className="circle idrdown-icon"
                     src={ props.avatarUrl || "/assets/avatar.jpg"}
                     style={{ maxWidth: '24x', maxHeight: '24px' }}
                 />
             </a>
-            <div className={`idrdown-content card medium ${show ? "show" : ""}`}
+            <div 
+                id="idrdrownUser"
+                className="idrdown-content card round medium pd-8"
                 style={{ transform: 'translate(-48px)' }}
-                onMouseLeave={(e) => {e.preventDefault(); setShow(false)}}
             >
-                <a onClick={props.onLogoutClick}>Logout</a>
+                <a href="/v1/signout">Logout</a>
                 <a onClick={props.onSettingClick}>Setting</a>
             </div>
         </li>

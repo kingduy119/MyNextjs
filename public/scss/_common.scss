@@ -31,6 +31,8 @@ video {
 summary { display: list-item; }
 progress { vertical-align: baseline; }
 
+h1, h2, h3, h4, h5, h5, h6, p { margin: 0; }
+
 @mixin theme($color, $bachground) {
     color: $color;
     background-color: $bachground;
@@ -48,10 +50,10 @@ progress { vertical-align: baseline; }
 .border-orange { border-color: #ff9800 !important; }
 .bor { 
     &-hide {border: none; }
-    &-l { border-left: 5px solid black !important; }
-    &-r { border-right: 5px solid black !important; }
-    &-t { border-top: 5px solid black !important; }
-    &-b { border-bottom: 5px solid black !important; }
+    &-l { border-left: 1px solid black !important; }
+    &-r { border-right: 1px solid black !important; }
+    &-t { border-top: 1px solid black !important; }
+    &-b { border-bottom: 1px solid black !important; }
 }
 
 .circle { border-radius: 50%; }
@@ -393,10 +395,14 @@ progress { vertical-align: baseline; }
 }
 
 // #overflow
-.over-scroll { overflow: scroll !important; }
-.over-hidden { overflow: hidden !important; }
-.over-auto { overflow: auto !important; }
-.over-visib { overflow: visible !important; }
+.over-scroll { overflow: scroll; }
+.over-scroll-y { overflow-y: scroll; }
+
+.over-hidden { overflow: hidden; }
+.over-auto { overflow: auto; }
+.over-visib { overflow: visible; }
+
+
 
 // #id
 #mainPortfolio { margin-left: 120px; }

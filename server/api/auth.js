@@ -6,19 +6,35 @@ const {
     middlewareSignout,
     middlewareGoogle
 } = require("../validators/auth");
-const {
-    passportSignup, passportSignin,
-    signin, signout,
-    passportGoogle, passportGoogleCallback,
-} = require("../controllers/auth");
+// const {
+//     passportSignup, passportSignin,
+//     signin, signout,
+//     passportGoogle, passportGoogleCallback,
+// } = require("../controllers/auth");
 
-router.post('/signup', middlewareSignup, passportSignup, signin);
-router.get('/signin', middlewareSignin, passportSignin, signin);
-router.get('/signout', middlewareSignout, signout);
+const AuthAPI = require("../controllers/auth");
+
+router.post('/signup', 
+    middlewareSignup, 
+    AuthAPI.passportSignup, 
+    AuthAPI.signin,
+);
+router.get('/signin', 
+    middlewareSignin, 
+    AuthAPI.passportSignin, 
+    AuthAPI.signin,
+);
+router.get('/signout', 
+    middlewareSignout,
+    AuthAPI.signout,
+);
 router.get('/google',
     // middlewareGoogle,
-    passportGoogle,
+    AuthAPI.passportGoogle,
 );
-router.get('/oauth2callback', passportGoogleCallback, signin);
+router.get('/oauth2callback', 
+    AuthAPI.passportGoogleCallback, 
+    AuthAPI.signin,
+);
 
 module.exports = router;

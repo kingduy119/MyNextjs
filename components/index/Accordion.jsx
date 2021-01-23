@@ -8,10 +8,11 @@ const Accordion = (props) => {
     return (
         <Card className="round">
             {/* #1: Groups */}
-            <Button className="theme-l1 block left-align"
+            <Button className="theme-l1 block text-left"
                 onClick={() => setShowGroups(!isGroups)}
             >
-                <i className="accordion-icon fa fa-circle-o-notch fa-fw" />Groups
+                <i className="accordion-icon fa fa-circle-o-notch fa-fw font-medium"
+                /> Groups
             </Button>
             {isGroups &&
                 <Container id="accordion-groups">
@@ -20,10 +21,11 @@ const Accordion = (props) => {
             }
 
             {/* #2: Event */}
-            <Button className="theme-l1 block left-align"
+            <Button className="theme-l1 block text-left"
                 onClick={() => setShowEvents(!isEvents)}
             >
-                <i className="accordion-icon fa fa-calendar-check-o fa-fw" />Events
+                <i className="accordion-icon fa fa-calendar-check-o fa-fw font-medium"
+                /> Events
             </Button>
             {isEvents &&
                 <Container id="accordion-events">
@@ -32,10 +34,11 @@ const Accordion = (props) => {
             }
 
             {/* #3: Photos */}
-            <Button className="theme-l1 block left-align"
+            <Button className="theme-l1 block text-left"
                 onClick={() => setShowPhotos(!isPhotos)}
             >
-                <i className="accordion-icon fa fa-users fa-fw" />Photos
+                <i className="accordion-icon fa fa-users fa-fw font-medium"
+                /> Photos
             </Button>
             {isPhotos &&
                 <Container id="accordion-photos">

@@ -1,68 +1,136 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
+// const Notification = require("../models/Notification");
 
-exports.createPost = async (req, res) => {
+/**
+ * CRUD: Post content
+ */
+exports.onCreate = async (req, res) => {
     try {
-        let post = await Post.create({ content: req.body.content, postBy: req.user._id });
-        let user = await User.findByIdAndUpdate(
-            { _id: req.user._id },
-            { $push: { posts: post._id } }
-        ).select('displayName avatarUrl');
-
-        let docs = Object.assign(post, { postBy: user });
-        return res.json({ post: docs })
+        let { by, content } = req.body;
+        
+        let post = await Post.create({ by, content });
+        let user = await User
+            .findByIdAndUpdatePosts(post)
+            .select(User.fieldPublic());
+        
+            console.log(JSON.stringify(user));
+        if (user) { post.by = user; }
+        return res.json({ post });
     } catch (err) {
-        return res.status(400).json({
-            error: "Failed to create post!"
-        });
+        return res.status(500).send(err);
     }
 }
 
-exports.readPost = (req, res) => {
-    res.json({
-        message: "readPost connect successfully!",
-        query: req.query,
-        body: req.body,
-    });
-}
-
-exports.updatePost = (req, res) => {
-    res.json({
-        message: "update connect successfully!",
-        query: req.query,
-        body: req.body,
-    });
-}
-
-exports.deletePost = (req, res) => {
-    Post.findByIdAndRemove({ _id: req.body.id }, (err, item) => {
-        if (err) return res.status(404).json({ error: err });
-        return res.json({ post: item });
-    })
-}
-
-exports.findPosts = async (req, res) => {
+/** GET
+ * params() return => [posts]
+ */
+exports.onFindMany = async (req, res) => {
     try {
-        let data = await Post
+        let posts = await Post
             .find()
-            .select('createAt postBy content')
-            .populate('postBy', 'avatarUrl displayName')
-            .limit(10);
+            .select('createAt postBy content feelings comments')
+            .pplBy()
+            .pplFeelings()
+            .pplComments()
+            // .limit(10);
 
-        return res.json({ posts: data });
+        
+        return res.json({ posts });
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(500).send(err);
     }
 }
 
-// function showlogRequest(path, req) {
-//     console.log(`
-//     ${path}
-//         query: ${JSON.stringify(req.query)} /n
-//         body: ${JSON.stringify(req.body)} /n
-//         cookie: ${JSON.stringify(req.cookie)} /n
-//         user: ${JSON.stringify(req.user)} /n
-//         token: ${JSON.stringify(req.header["token"])} /n
-//     `);
-// }
+// :: :postId ::
+exports.onPostId = (req, res, next, id) => {
+    Post.findById(id)
+        .populate('comments')
+        .exec((err, post) => {
+            if (err) return res.status(404).send(null);
+            req.post = post;
+            next();
+        });
+}
+
+exports.onPostIdCreate = async (req, res) => {
+    let { action } = req.body
+    action = action.toUpperCase();
+    try {
+        if (action === 'COMMENT') {
+            let { by, content } = req.body;
+            let comment = await Comment.create({
+                by, content,
+            });
+            let post = await Post
+                .createComment(req.post, comment)
+                .pplComments();
+
+            // if (post.by != req.body.by) {
+            //     post.onNotification({...req.body, comment});
+            // }
+
+            return res.json({ comments: post.comments });
+        }
+        else {
+            throw new Error("Post create action error!");
+        }
+    } catch (err) { return res.status(500).send(err); }
+}
+
+exports.onPostIdRead = (req, res) => {
+    Post
+        .findById(req.post._id)
+        .pplBy()
+        .pplFeelings()
+        .pplComments()
+        .exec((err, doc) => {
+            if (err) return res.status(500);
+            return res.json({ post: doc });
+        });
+}
+
+exports.onPostIdUpdate = async (req, res) => {
+    let { action } = req.body;
+    action = action.toUpperCase();
+    try {
+        if (action == 'FEEL') {
+            let idxFls = req.post.feelings.length > 0 ?
+            req.post.feelings.findIndex(fls => fls.by == req.body.by) : -1;
+
+            let post = await Post
+                .onFeelings(req.post, { ...req.body, idxFls })
+                .pplFeelings();
+            // if (post && idxFls == -1) post.onNotification(req.body);
+
+            let feelings = post.feelings.filter(fls => fls.kind !== "none" );
+            return res.json({ feelings });
+        }
+        else if (action === 'COMMENT-FEEL') {
+            let { commentId, by, feel } = req.body;
+            let comment = req.post.comments.find(cmt => 
+                cmt._id.toString() === commentId
+            );
+            
+            comment = await Comment
+                .onIdUpdateFeelings(comment, {by, feel})
+                .pplFeelings();
+
+            let feelings = comment.feelings.filter(fls => fls.kind !== "none" );
+            return res.json({ feelings });
+        }
+        else { throw { message: `Update's Post haven't support this action!` }; }
+    } catch (err) { return res.status(500).send(err); }
+}
+
+exports.onPostIdDelete = (req, res) => { // DELETE One
+    Post.findByIdAndRemove(
+        { _id: req.post._id },
+        (err, doc) => {
+            if (err) return res.status(500).send('ERROR');
+            return res.json(doc);
+        }
+    );
+}
 

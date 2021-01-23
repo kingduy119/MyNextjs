@@ -1,15 +1,40 @@
+const Cache = require("../caches");
 const router = require("express").Router();
-const { validateSignup, validateSignin } = require("../validators/auth");
 const {
-    passportSignup, passportSignin,
-    signin, signout,
-    passportGoogle, passpassGoogleCallback,
-} = require("../controllers/auth");
+    middlewareSignup,
+    middlewareSignin,
+    middlewareSignout,
+    middlewareGoogle
+} = require("../validators/auth");
+// const {
+//     passportSignup, passportSignin,
+//     signin, signout,
+//     passportGoogle, passportGoogleCallback,
+// } = require("../controllers/auth");
 
-router.post('/signup', validateSignup, passportSignup, signin);
-router.get('/signin', validateSignin, passportSignin, signin);
-router.get('/signout', signout);
-router.get('/google', passportGoogle);
-router.get('/oauth2callback', passpassGoogleCallback, signin);
+const AuthAPI = require("../controllers/auth");
+
+router.post('/signup', 
+    middlewareSignup, 
+    AuthAPI.passportSignup, 
+    AuthAPI.signin,
+);
+router.get('/signin', 
+    middlewareSignin, 
+    AuthAPI.passportSignin, 
+    AuthAPI.signin,
+);
+router.get('/signout', 
+    middlewareSignout,
+    AuthAPI.signout,
+);
+router.get('/google',
+    // middlewareGoogle,
+    AuthAPI.passportGoogle,
+);
+router.get('/oauth2callback', 
+    AuthAPI.passportGoogleCallback, 
+    AuthAPI.signin,
+);
 
 module.exports = router;

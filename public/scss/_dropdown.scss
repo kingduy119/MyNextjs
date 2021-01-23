@@ -1,42 +1,59 @@
-.dropdown {
-    float: left;
+
+.idrdown {
+    position: relative;
     overflow: hidden;
-    
-    &-toggle {
-        font-size: 16px;
+
+    &.hv:hover {
+        .idrdown-content {
+            display: block;
+        }
+    }
+
+    &-btn {
+        cursor: pointer;
         border: none;
         outline: none;
-        padding: 12px 24px;
-        color: black;
-        background-color: inherit;
         margin: 0;
     }
-    &:hover>.dropdown-toggle {
-        color: white;
-        background-color: black;
-        opacity: 0.7;
-    }
-
-    &-menu {
+    &-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
+        min-width: 80px;
+        z-index: 1;
+        @include theme($black, $white);
+        a {
+            cursor: pointer;
+            display: block;
+            padding: 4px 6px;
+            text-align: left;
+            color: $black;
+            text-decoration: none;
+        }
+    }
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+    &-content {
+        display: none;
+        position: absolute;
+        color: $black;
+        background-color: $white;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
-    &:hover>.dropdown-menu {
+    &-link {
+        cursor: pointer;
         display: block;
-    }
-
-    &-item {
-        float: none;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
+        padding: 8px 16px;
         text-align: left;
-        display: block;
-
-        &:hover { background-color: #f1f1f1;}
+        text-decoration: none;
+        @include theme($black, $white);
+        
+        &:hover { @include theme($white, $grey); }
+    }
+    &-hv:hover {
+        .dropdown-content { display: block;}
     }
 }

@@ -24,7 +24,7 @@ function TopNav(props) {
             <Dropdown className="topnav-dropdown">
                 <DropdownToggle className="topnav-dropdown-toggle">
                     <i className="fa fa-bell"></i>
-                    <span className="badge red right circle">3</span>
+                    <span className="badge white-red right circle">3</span>
                 </DropdownToggle>
                 <DropdownMenu className="topnav-dropdown-menu">
                     <DropdownItem className="topnav-dropdown-item" href="#">One new friend request</DropdownItem>

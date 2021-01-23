@@ -39,16 +39,16 @@ function PostShow(props) {
                 onComment={(e) => { alert('comment') }}
             />
         ))
-        // <Post
-        //     key={1}
-        //     avatarUrl={'post.postBy.avatarUrl'}
-        //     displayName={'post.postBy.displayName'}
-        //     content={'post.content'}
-        //     onLike={(e) => { alert('like') }}
-        //     onComment={(e) => { alert('comment') }}
-        // />
     )
 }
+// <Post
+//     key={1}
+//     avatarUrl={'post.postBy.avatarUrl'}
+//     displayName={'post.postBy.displayName'}
+//     content={'post.content'}
+//     onLike={(e) => { alert('like') }}
+//     onComment={(e) => { alert('comment') }}
+// />
 PostShow.defaultProps = {
     posts: [],
 }

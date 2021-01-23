@@ -1,5 +1,6 @@
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV === 'development';
+// const dev = process.env.NODE_ENV !== 'development';
 const PORT_APP = process.env.PORT_APP || 3000;
 const PORT_API = process.env.PORT || 8000;
 
@@ -46,6 +47,7 @@ exports.GOOGLE_CLIENT_SECRECT =
     process.env.GOOGLE_CLIENT_SECRECT
     ||
     "gGbet71BJE9X_Of9Giihbquh";
+
 exports.FACEBOOK_CLIENT_ID =
     process.env.FACEBOOK_CLIENT_ID
     ||

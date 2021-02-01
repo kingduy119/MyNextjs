@@ -1,28 +1,27 @@
 
 const next = require("next");
-const express = require("express");
 const http = require("http");
-const session = require("express-session");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const compression = require("compression");
+const mongoose = require("mongoose");
+const express = require("express");
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const mongoose = require("mongoose");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const session = require("express-session");
+const compression = require("compression");
 const passport = require("passport");
 const path = require('path');
 
+const apiREST = require("./api");
 const useSessionMiddleware = require("./middleware/session-middleware");
 const connectToMongoDB = require("./database/mongo-config");
-const apiREST = require("./api");
 
 const { DEV, PORT_API, MONGO_URL } = require("./consts");
-// const { createServer } = require("http");
 
 const app = next({ DEV });
 const handle = app.getRequestHandler();
 
-// Server side rendering Nextjs
+/** Nextjs Server side */
 app
     .prepare()
     .then(async () => {

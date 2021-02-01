@@ -1,8 +1,9 @@
-const { tokenRequire, tokenLogin } = require("../validators/auth")
 const auth = require("./auth");
-const user = require("./user.route");
+const user = require("./user");
 const post = require("./post");
 const notification = require("./notification.route");
+
+const AuthValidator = require("../validators/auth");
 
 function api({ server, app }) {
     let path = '/v1';
@@ -12,10 +13,12 @@ function api({ server, app }) {
     server.use(`${path}/notification`, notification);
 
     // Router with custom special
-    server.get('/', tokenRequire, (req, res) => {
+    server.get('/',  AuthValidator.checkToken, 
+        (req, res) => {
         app.render(req, res, '/');
     })
-    server.get('/login', tokenLogin, (req, res) => {
+
+    server.get('/login', AuthValidator.checkToken, (req, res) => {
         app.render(req, res, '/login');
     })
 }

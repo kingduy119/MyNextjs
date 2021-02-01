@@ -1,40 +1,34 @@
-const Cache = require("../caches");
+// const Cache = require("../caches");
 const router = require("express").Router();
-const {
-    middlewareSignup,
-    middlewareSignin,
-    middlewareSignout,
-    middlewareGoogle
-} = require("../validators/auth");
-// const {
-//     passportSignup, passportSignin,
-//     signin, signout,
-//     passportGoogle, passportGoogleCallback,
-// } = require("../controllers/auth");
+const AuthValidator = require("../validators/auth");
 
 const AuthAPI = require("../controllers/auth");
 
+// Local
 router.post('/signup', 
-    middlewareSignup, 
-    AuthAPI.passportSignup, 
-    AuthAPI.signin,
+    // AuthValidator.checkFieldSignUp,
+    AuthAPI.checkUserExists,
+    AuthAPI.verifySignup, 
+    AuthAPI.redirectIndexAndCreateToken,
 );
 router.get('/signin', 
-    middlewareSignin, 
-    AuthAPI.passportSignin, 
-    AuthAPI.signin,
+    // AuthValidator.checkFieldSignIn,
+    AuthAPI.verifySignin,
+    AuthAPI.redirectIndexAndCreateToken,
 );
 router.get('/signout', 
-    middlewareSignout,
-    AuthAPI.signout,
+    AuthValidator.checkToken,
+    AuthAPI.redirectLoginAndClearToken,
 );
+
+// Google
 router.get('/google',
-    // middlewareGoogle,
-    AuthAPI.passportGoogle,
+    AuthValidator.checkToken,
+    AuthAPI.verifyGoogle,
 );
 router.get('/oauth2callback', 
-    AuthAPI.passportGoogleCallback, 
-    AuthAPI.signin,
+    AuthAPI.verifyGoogleCallback, 
+    AuthAPI.redirectIndexAndCreateToken,
 );
 
 module.exports = router;

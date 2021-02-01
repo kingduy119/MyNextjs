@@ -3,21 +3,19 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
     provider: { type: String, require: true, default: "local" },
-    userId: { type: String, required: true, unique: [true, 'Username is exited'] },
+    userId: { type: String, required: true, unique: true },
     password: { type: String, require: true },
-    createAt: { type: Date, require: true, default: new Date().toISOString(), },
+    displayName: { type: String, default: "New Member" },
     email: { type: String, require: true, },
     isAdmin: { type: Boolean, default: false, },
+    createAt: { type: Date, require: true, default: Date.now() },
+    avatarUrl: String,
+    access_token: {type: String, default: ''},
+    refresh_token: {type: String, default: ''},
     isGithubConnected: { type: Boolean, default: false, },
     githubAccessToken: { type: String, },
-    displayName: { type: String, default: "New Member" },
-    avatarUrl: String,
-    token: {
-        access_token: String,
-        refresh_token: String,
-        token_type: String,
-        expiry_date: Number,
-    },
+
+    // Feautures:
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     notifications: {
         type: mongoose.Types.ObjectId,
@@ -45,6 +43,12 @@ schema.query.pplNotifications = function () {
 
 class User {
     // :: INSTANCE ::
+    async updateToken(accessToken, refreshToken) {
+        this.access_token = accessToken;
+        this.refresh_token = refreshToken;
+        await this.save();
+    }
+
     // :: STATIC ::
     static fieldPublic() { return 'avatarUrl displayName'; }
     static onNotification(user, notif) {
@@ -54,17 +58,11 @@ class User {
         );
     }
 
-    /**
-     * @param {field} doc 
-     * {field: posts, post}
-     */
     static findByIdAndUpdatePosts(post) {
         let query = { _id: post.by };
         let update = { $push: { posts: post._id } };
         return this.findOneAndUpdate(query, update);
     }
-
-    
 
 }
 

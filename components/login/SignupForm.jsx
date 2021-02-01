@@ -61,7 +61,8 @@ class SignupForm extends React.Component {
         }
 
         return (
-            <Form onSubmid={this.onHandleSubmit}>
+            // onSubmid={this.onHandleSubmit}
+            <Form action='/v1/signup' method="POST">
                 <Row>
                     <Col className="mg-b4">
                         <Input
@@ -104,8 +105,8 @@ class SignupForm extends React.Component {
                     <Col className="mg-b4">
                         <Input
                             type="password"
-                            name="repeatpwd"
-                            placeholder="Password"
+                            name="comfirm"
+                            placeholder="Comfirm Password"
                             className="block round"
                             onChange={this.onHandleChange}
                             required />

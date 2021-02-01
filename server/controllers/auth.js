@@ -6,117 +6,118 @@ const User = require("../models/User");
 const { hash, compare } = require("../utils/verify");
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
 
-/**
- * #1 Verify function:
- */
-async function verifyGoogle(accessToken, refreshToken, profile, done) {
-    let email, avatarUrl;
-    if (profile.emails) { email = profile.emails[0].value; }
-    if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
-    try {
-        let user = await User.findOne({ userId: profile.id });
-        if (!user) {
-            user = await User.create({
-                provider: profile.provider,
-                userId: profile.id,
-                token: { accessToken, refreshToken },
-                displayName: profile.displayName,
-                email,
-                avatarUrl,
-            });
-        } else {
-            if (user.token.access_token != accessToken) user.token.access_token = accessToken;
-            if (user.token.refresh_token != refreshToken) user.token.refresh_token = refreshToken;
-            await user.save();
-        }
-        return done(null, user);
-    } catch (err) { return done(null, false); }
-}
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) => {
+    User.findById(id)
+    .select('userId provider displayName avatarUrl')
+    .exec((err, user) => { done(err, user); });
+});
 
-const verifySignup = async (req, username, password, done) => {
-    try {
-        let pwd_hashed = await hash(password);
-        let user = await User.create({
-            userId: username,
-            password: pwd_hashed,
-            displayName: req.body.displayName,
-            avatarUrl: req.body.avatarUrl,
-            email: req.body.email,
-        });
-        return done(null, user);
-    } catch (err) {
-        return done(null, false, { error: err });
-    }
-}
-
-const verifySignin = async (req, username, password, done) => {
-    try {
-        let user = await User.findOne({ userId: username });
-        if (!(await compare(password, user.password))) throw "Wrong password";
-
-        return done(null, user);
-    } catch (err) { return done(null, false, { error: err }); }
-}
-
-/**
- *  #2 Strategy: (option, cb Verify)
- */
-const strategyLocalSignin = new LocalStrategy(
-    { passReqToCallback: true },
-    verifySignin
-);
-const strategyLocalSignup = new LocalStrategy(
-    { passReqToCallback: true },
-    verifySignup
-);
+/** Google */
 const strategyGoogle = new GoogleStrategy(
     {
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRECT,
         callbackURL: `/v1/oauth2callback`,
     },
-    verifyGoogle
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            let user = await User
+                .findOne({ userId: profile.id })
+                .select('displayName avatarUrl access_token refresh_token');
+            if (!user) {
+                let email, avatarUrl;
+                if (profile.emails) { email = profile.emails[0].value; }
+                if (profile.photos && profile.photos.length > 0) { 
+                    avatarUrl = profile.photos[0].value;
+                }
+    
+                user = await User.create({
+                    provider: profile.provider,
+                    userId: profile.id,
+                    displayName: profile.displayName,
+                    access_token: accessToken,
+                    refresh_token: refreshToken,
+                    email,
+                    avatarUrl,
+                });
+            }
+            else if (user.access_token != accessToken
+                || user.refresh_token != refreshToken 
+                ) {
+                user.updateToken(accessToken, refreshToken);
+            }
+            return done(null, user);
+        } catch (err) { return done(err, null); }
+    }
 );
-
-/**
- *  #3 Middleware: (path, Strategy)
- */
-passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .select('userId provider displayName avatarUrl')
-        .exec((err, user) => { done(err, user); });
-});
-
-passport.use('signin', strategyLocalSignin);
-passport.use('signup', strategyLocalSignup);
 passport.use(strategyGoogle);
 
-/**
- * Passport authentice: (path, cb Middleware)
- */
-exports.passportSignup = passport.authenticate('signup', { failureRedirect: '/login' });
-exports.passportSignin = passport.authenticate('signin', { failureRedirect: '/login' });
-exports.passportGoogle = passport.authenticate('google', {
+exports.verifyGoogle = passport.authenticate('google', {
     scope: 'https://www.googleapis.com/auth/plus.login'
 });
-exports.passportGoogleCallback = passport.authenticate('google', { failureRedirect: '/login' });
+exports.verifyGoogleCallback = passport.authenticate('google', { 
+    failureRedirect: '/login',
+});
+/** End Google */
+
+/** Local */
+passport.use('signin',
+    new LocalStrategy(
+        { 
+            passReqToCallback: true
+        },
+        async (req, username, password, done) => {
+            let docs = { id: req.query.id, userId: username};
+            try {
+                let user = await User.findOne(docs);
+                if(!user) { return done('Username is not existed!', null); }
+
+                if (!compare(password, user.password)) { return done('Wrong Password!', null); }
+                return done(null, user);
+            } catch (err) { return done(err, null); }
+        }
+    ),
+);
+exports.verifySignin = passport.authenticate('signin', { failureRedirect: '/login' });
+
+passport.use('signup',
+    new LocalStrategy(
+        { passReqToCallback: true },
+        async (req, username, password, done) => {
+            try {
+                let docs = Object.assign({}, req.query, {
+                    userId: username,
+                    password: hash(password),
+                });
+                let user = await User.create(docs);
+                return done(null, user);
+                
+            } catch (err) { return done(null, false, { error: err }); }
+        }
+    )
+);
+exports.verifySignup = passport.authenticate('signup', { failureRedirect: '/login' });
 
 /**
- * Service
+ * Methods
  */
-exports.signup = (req, res) => {
-    res.redirect(`/?${req.user.userId}`);
-}
-exports.signin = (req, res) => {
-    let exprireTime = 6 * 60 * 60; // 6hour 
-    let access_token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-        expiresIn: exprireTime,
+exports.checkUserExists = (req, res, next) => {
+    User.findOne({userId: req.query.username}, (err, user) => {
+        if(err) return res.status(500).send(err);
+        if(user) return res.status(200).send('Username is existed!');
+        next();
     });
-    res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: exprireTime })
-        .redirect(`/`);
 }
-exports.signout = (req, res) => {
+
+exports.redirectIndexAndCreateToken = (req, res) => {
+    let access_token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
+        expiresIn: 6 * 60 * 60,
+    });
+    res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: 6 * 60 * 60 })
+    .redirect(`/`);
+}
+exports.redirectLoginAndClearToken = (req, res) => {
     req.logout();
     res.clearCookie('access_token').redirect('/login');
 }

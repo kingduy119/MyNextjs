@@ -1,10 +1,11 @@
-const jwt = require('jsonwebtoken');
-const { check } = require("express-validator");
+const { check, query } = require("express-validator");
 const { runAuthValidator } = require("./index");
+const jwt = require('jsonwebtoken');
 
 function verifyToken(token) {
-    if (!token) return { error: "require token" };
-    return jwt.verify( token.split(' ')[1], process.env.JWT_SECRET,
+    return jwt.verify(
+        token.split(' ')[1],
+        process.env.JWT_SECRET,
         (err, result) => {
             if (err) return { error: err };
             return { result };
@@ -13,28 +14,33 @@ function verifyToken(token) {
 }
 
 const checkToken = (req, res, next) => {
+    let token = req.cookies['access_token'];
     switch(req.originalUrl) {
         case '/login':
         case '/v1/signup':
         case '/v1/signin':
-            if(req.cookies['access_token']) { res.redirect('/'); }
+        case '/google':
+            if(token && verifyToken(token)) { return res.redirect('/'); }
             break;
         case '/':
-        case '/v1/signout':
-            if(!req.cookies['access_token']) { res.redirect('/login'); }
+            if(!token || !verifyToken(token)) { return res.redirect('/signout'); }
             break;
         default: break;
     }
     next();
 }
 
-// Validate fields
+
 const username = check('username')
-    .isLength({ min: 6 }).withMessage("The Username must be 5+ chars long");
+    .notEmpty().isString().isLength({min: 6})
+    .custom((value) => {
+        if(value.match(/\W/g)) throw new Error("Invalid value");
+        return true;
+    })
 
 const password = check('password')
-    .isLength({ min: 6 }).withMessage("The Password must be 5+ chars long");
-
+    .notEmpty().isString().isLength({ min: 6 });
+    
 const firstname = check('firstname')
     .isLength({ min: 6 }).withMessage("The Firstname must be 5+ chars long");
 
@@ -42,10 +48,9 @@ const lastname = check('lastname')
     .isLength({ min: 6 }).withMessage("The Lastname must be 5+ chars long");
 
 module.exports = {
-    // token, isToken, tokenRequired, 
     checkToken,
     username, password, firstname, lastname,
-    checkFieldSignUp: [
+    onSignUp: [
         checkToken,
         username,
         password,
@@ -53,7 +58,7 @@ module.exports = {
         lastname,
         runAuthValidator
     ],
-    checkFieldSignIn: [
+    onSignIn: [
         checkToken,
         username,
         password,

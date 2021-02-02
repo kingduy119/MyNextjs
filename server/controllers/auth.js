@@ -117,6 +117,7 @@ exports.redirectIndexAndCreateToken = (req, res) => {
     res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: 6 * 60 * 60 })
     .redirect(`/`);
 }
+
 exports.redirectLoginAndClearToken = (req, res) => {
     req.logout();
     res.clearCookie('access_token').redirect('/login');

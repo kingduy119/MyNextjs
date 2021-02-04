@@ -9,10 +9,11 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const session = require("express-session");
 const compression = require("compression");
+const cors = require('cors');
 const passport = require("passport");
 const path = require('path');
 
-const apiREST = require("./api");
+const apiREST = require("./routes");
 const useSessionMiddleware = require("./middleware/session-middleware");
 const connectToMongoDB = require("./database/mongo-config");
 
@@ -41,6 +42,7 @@ app
         server.use(passport.initialize());
         server.use(passport.session());
         server.use(express.static('public'));
+        server.use(cors());
 
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {

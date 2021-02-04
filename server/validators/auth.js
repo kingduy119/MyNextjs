@@ -23,7 +23,7 @@ const checkToken = (req, res, next) => {
             if(token && verifyToken(token)) { return res.redirect('/'); }
             break;
         case '/':
-            if(!token || !verifyToken(token)) { return res.redirect('/signout'); }
+            if(!token || !verifyToken(token)) { return res.redirect('/v1/signout'); }
             break;
         default: break;
     }

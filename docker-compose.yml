@@ -21,7 +21,7 @@ services:
       - "./:/usr/src/app"
       - "./package.json:/usr/src/package.json"
     ports:
-      - "8000:8000"
+      - "8080:8080"
     environment:
       MONGO_URL: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority"
       MONGO_URL_TEST: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority"

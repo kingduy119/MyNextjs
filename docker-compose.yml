@@ -1,27 +1,18 @@
 version: "3"
 
 services:
-  app-db:
-    image: mongo:latest
-    container_name: app-db
+  frontend:
+    container_name: frontend
     ports:
-      - "27017:27017"
-    expose:
-      - "27017"
-
-  app-service:
-    container_name: app-service
+      - "3000:3000"
     build:
-      context: ./
+      context: frontend
       dockerfile: Dockerfile
     command: npm run dev
-    depends_on:
-      - app-db
     volumes:
-      - "./:/usr/src/app"
-      - "./package.json:/usr/src/package.json"
-    ports:
-      - "8080:8080"
+      - ./frontend:/usr/nextapp
+      - /usr/nextapp/node_modules
+      - /usr/nextapp/.next
     environment:
       MONGO_URL: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority"
       MONGO_URL_TEST: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority"

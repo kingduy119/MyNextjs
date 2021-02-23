@@ -10,15 +10,15 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependecies
-RUN npm install
+RUN npm install --production
 
 # Get all the code needed to run the app
 COPY . .
 
 # Build app
-RUN npm run build
+# RUN npm run build
 
 # Export the port the app runs in
-EXPOSE 8000
+# EXPOSE 8000
 
-CMD [ "node", "server/app" ]
+# CMD [ "node", "server/app" ]

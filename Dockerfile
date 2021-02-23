@@ -16,9 +16,9 @@ RUN npm install --production
 COPY . .
 
 # Build app
-# RUN npm run build
+RUN npm run ssr
 
 # Export the port the app runs in
-# EXPOSE 8000
+EXPOSE 8000
 
-# CMD [ "node", "server/app" ]
+CMD [ "node", "server/app" ]

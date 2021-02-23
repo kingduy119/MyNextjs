@@ -1,25 +1,27 @@
 version: "3"
 services:
-  # nginx:
-  #   image: nginx:latest
-  #   container_name: production_nginx
-  #   volumes:
-  #    - ./nginx.conf:/etc/nginx/nginx.conf
+  # nextssr:
+  #   container_name: nextssr
   #   ports:
-  #    - 80:80
-  #    - 433:433
-  nextssr:
-    container_name: nextssr
-    ports:
-      - "8000:8000"
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    command: node server/appjs
-    volumes:
-      - "./:/usr/src/app"
-      - "./package.json:/usr/src/package.json"
+  #     - "8000:8000"
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #     - /usr/src/app/.next
+  #   environment:
+  #     MONGO_URL: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority"
+  #     MONGO_URL_TEST: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority"
+  #     PORT: "8000"
+  nextjs:
+    build: ./
     environment:
       MONGO_URL: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority"
       MONGO_URL_TEST: "mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority"
       PORT: "8000"
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80

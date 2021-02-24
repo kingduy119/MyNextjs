@@ -5,10 +5,7 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start",
-        "ssr": "npm run build && node server/app.js",
-        "lint": "eslint pages",
-        "lint-fix": "eslint --fix pages"
+        "start": "NODE_ENV=production node server.js"
     },
     "dependencies": {
         "bootstrap": "^4.4.1",

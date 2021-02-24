@@ -16,10 +16,14 @@ RUN npm install --production
 COPY . .
 
 # Build app
-# RUN npm run build
+RUN npm run build
 
 # Export the port the app runs in
-# EXPOSE 3000
+EXPOSE 3000
 
-# CMD [ "node", "server/app.js" ]
+USER node
 
+CMD [ "node", "server.js" ]
+
+
+########################################

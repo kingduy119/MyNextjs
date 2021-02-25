@@ -1,13 +1,13 @@
 FROM node:alpine
 
 # Create workspace directory
-RUN mkdir -p /usr/src/app 
+RUN mkdir -p /usr/src/app/node_modules
+
 # Change a directory where out app wil be placed
 WORKDIR /usr/src/app
 
 # Copy package.json
 COPY package*.json ./
-USER node
 
 # Install dependecies
 RUN npm install --production
@@ -20,8 +20,6 @@ RUN npm run build
 
 # Export the port the app runs in
 EXPOSE 3000
-
-USER node
 
 CMD [ "node", "server.js" ]
 

@@ -7,10 +7,11 @@ services:
       MONGO_URL: mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority
       MONGO_URL_TEST: mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority
       PORT: "3000"
+      
   nginx:
     build: ./nginx
     ports:
-      - 80:80
-      - 433:433
+      - "80:80"
+      - "433:433"
 
       

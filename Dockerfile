@@ -1,7 +1,7 @@
 FROM node:alpine
 
 # Create workspace directory
-RUN mkdir -p /usr/src/app/node_modules
+# RUN mkdir -p /usr/src/app/node_modules
 
 # Change a directory where out app wil be placed
 WORKDIR /usr/src/app

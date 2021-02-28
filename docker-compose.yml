@@ -1,7 +1,7 @@
 version: "3"
 services:
-  app-ssr:
-    container_name: app-ssr
+  nextjs:
+    container_name: nextjs
     build: ./
     environment:
       MONGO_URL: mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority

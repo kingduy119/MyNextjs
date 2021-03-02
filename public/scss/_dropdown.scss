@@ -1,0 +1,59 @@
+
+.idrdown {
+    position: relative;
+    overflow: hidden;
+
+    &.hv:hover {
+        .idrdown-content {
+            display: block;
+        }
+    }
+
+    &-btn {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        margin: 0;
+    }
+    &-content {
+        display: none;
+        position: absolute;
+        min-width: 80px;
+        z-index: 1;
+        @include theme($black, $white);
+        a {
+            cursor: pointer;
+            display: block;
+            padding: 4px 6px;
+            text-align: left;
+            color: $black;
+            text-decoration: none;
+        }
+    }
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+    &-content {
+        display: none;
+        position: absolute;
+        color: $black;
+        background-color: $white;
+        min-width: 160px;
+        z-index: 1;
+    }
+    &-link {
+        cursor: pointer;
+        display: block;
+        padding: 8px 16px;
+        text-align: left;
+        text-decoration: none;
+        @include theme($black, $white);
+        
+        &:hover { @include theme($white, $grey); }
+    }
+    &-hv:hover {
+        .dropdown-content { display: block;}
+    }
+}

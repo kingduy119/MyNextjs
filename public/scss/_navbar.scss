@@ -1,0 +1,125 @@
+
+.inav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    &-item { float: left; }
+
+    &-link {
+        display: block;
+        padding: 8px;
+        outline: none;
+        text-decoration: none;
+    }
+}
+
+.inav-ver {
+    // @extend .inav;
+    width: 180px;
+
+    .inav-item {
+        float: none !important;
+    }
+    .inav-link {
+        @extend .inav-link;
+        padding: 8px 16px;
+        &:hover {
+            @include theme($white, #bbb);
+        }
+    }
+}
+
+.inav {
+    .idrdown {
+        position: static;
+    }
+}
+
+.iTopbar {
+    overflow: hidden;
+    &-item {
+        float:left;
+        font-size: 16px;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+}
+.iTopbar {
+    &-idrdown, &-itooltip {
+        position: static !important;
+        float: left;
+    }
+    &-tooltip {
+        @extend .itooltip;
+        position: static;
+        float: left
+    }
+    &-tooltip-text {
+        @extend .itooltip-text;
+        top: 105%;
+        transform: translate(-50px);
+    }
+}
+
+// #bar
+.bar {
+    width: 100%;
+    overflow: hidden;
+    &:before, &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    &-item {
+        padding:8px 16px;
+        float:left;
+        width:auto;
+        border:none;
+        display:block;
+        outline:0;
+    }
+
+    &-bottom { 
+        border-bottom: 6px solid #ccc !important; 
+    }
+}
+
+.bar-block {
+    .bar-item {
+        display: block;
+        padding: 8px 16px;
+        text-align: left;
+        border: none;
+        white-space: normal;
+        float: none;
+        outline: 0;
+    }
+    // .dropdown-hover { width: 100%; }
+}
+
+
+
+
+// analytics.scss
+.slidebar {
+    height: 100%;
+    width: 200px;
+    background-color: #fff;
+    position: fixed!important;
+    z-index: 1;
+    overflow: auto;
+    @media (min-width: 993px) {
+        &.collapse{
+            display: block!important;
+        }
+    }
+    @media (max-width: 992px) {
+        &.collapse{
+            display: none;
+        }
+    }
+}

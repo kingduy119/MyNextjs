@@ -53,7 +53,7 @@ app
         });
 
         // Customer handle request
-        apiREST({ server, app });
+        // apiREST({ server, app });
 
         server.get('/robots.txt', (req, res) => {
             res.sendFile(path.join(__dirname, '../static', 'robots,txt'));

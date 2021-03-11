@@ -17,7 +17,7 @@ const cors = require('cors');
 // const useSessionMiddleware = require("./middleware/session-middleware");
 // const connectToMongoDB = require("./database/mongo-config");
 
-const { DEV, PORT_API, MONGO_URL } = require("./consts");
+const { DEV, PORT_APP, MONGO_URL } = require("./consts");
 const app = next({ DEV });
 const handle = app.getRequestHandler();
 
@@ -63,9 +63,9 @@ app
         });
 
         const httpServer = http.Server(server);
-        httpServer.listen(PORT_API, (err) => {
+        httpServer.listen(PORT_APP, (err) => {
             if (err) throw err;
-            console.log(`> Ready ${PORT_API} on https://localhost:${PORT_API}`);
+            console.log(`> Ready ${PORT_APP} on https://localhost:${PORT_APP}`);
         });
     })
     .catch(err => {

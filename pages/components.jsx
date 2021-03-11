@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 
 // class ComponentsPage extends React.Component {
 //   render() {
@@ -154,4 +154,10 @@
 //   }
 // }
 
-// export default ComponentsPage;
+const ComponentsPage = () => (
+    <div>
+        ComponentsPage
+    </div>
+)
+
+export default ComponentsPage;

@@ -17,8 +17,7 @@ const cors = require('cors');
 // const useSessionMiddleware = require("./middleware/session-middleware");
 // const connectToMongoDB = require("./database/mongo-config");
 
-// const { DEV, PORT_API, MONGO_URL } = require("./consts");
-
+const { DEV, PORT_API, MONGO_URL } = require("./consts");
 const app = next({ DEV });
 const handle = app.getRequestHandler();
 

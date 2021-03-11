@@ -9,6 +9,7 @@
         "start": "npm run build && node server/app.js",
         "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "server": "nodemon server/app.js",
+        "pm2":"om2 start ecosystem.config.js",
         "test": "jest"
     },
     "jest": {

@@ -6,10 +6,10 @@
         "next": "next",
         "build": "next build",
         "ssr": "npm run build && nodemon server/app.js",
-        "start": "npm run build && node server/app.js",
+        "start": "node server/app.js",
         "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "server": "nodemon server/app.js",
-        "pm2":"om2 start ecosystem.config.js",
+        "pm2":"pm2 start ecosystem.config.js",
         "test": "jest"
     },
     "jest": {
@@ -19,7 +19,6 @@
         ]
     },
     "dependencies": {
-        "amqplib": "^0.5.6",
         "aws-sdk": "^2.715.0",
         "axios": ">=0.21.1",
         "bcryptjs": "^2.4.3",

@@ -17,12 +17,14 @@ RUN npm install pm2 -g
 COPY . .
 
 # Build app
+RUN npm run sass
 RUN npm run build
 
 # Export the port the app runs in
 EXPOSE 3000
 
 # CMD [ "pm2-runtime", "server.js" ]
-CMD ["npm", "run", "pm2"]
+# CMD ["npm", "run", "pm2"]
+CMD "npm start"
 
 ########################################

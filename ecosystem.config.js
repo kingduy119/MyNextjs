@@ -2,7 +2,7 @@
 module.exports = {
     apps: [{
         name: "nextapp",
-        script: "server/app.js",
+        script: "node server/app.js",
         instance: 1,
         exec_mode: "cluster",
         watch: true,

@@ -128,6 +128,9 @@ const Content = () => (
             <h6 className="green"><b>Version control:</b></h6>
             <li>Git, SVN.</li>
 
+            <h6 className="green"><b>Tool:</b></h6>
+            <li>VS Studio, Vs Code, PuTTy, WinSCP...etc.</li>
+
             <h6 className="green"><b>Language:</b></h6>
             <li>English, Viet Nam.</li>
         </div>

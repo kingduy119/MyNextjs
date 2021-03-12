@@ -22,8 +22,9 @@ const Summary = (props) => (
         <p>
             I'm a game developer with 2+ years experience of C++ language. I really like technology
             and i want to be a professional in the future. I hope i can find a good environment to
-            develop for myself.
+            develop for myself. That's the best way for me to contribute and develop for company.
         </p>
+        <p>System, Infrastructure, IoT. That's the way i am heading and is not limited by any programing language.</p>
     </div>
 )
 
@@ -66,7 +67,7 @@ const Content = () => (
             <h4><b>Award:</b></h4> {/* #Award */}
             <div className="mg-t4 mg-b4">
                 <h6 className="green">C++ Certificates | By Hackerrank.com</h6>
-                <img src="assets/cert_inter_cpp.png" style={{width:"80%", height:"auto"}} />
+                <img src="assets/cert_inter_cpp.png" style={{width:"70%", height:"auto"}} />
                 <a href="https://www.hackerrank.com/certificates/882a7879fb3c">https://www.hackerrank.com/certificates/882a7879fb3c</a>
             </div>
         </div>
@@ -123,6 +124,9 @@ const Content = () => (
 
             <h6 className="green"><b>DevOps:</b></h6>
             <li>AWS, Docker, Jenkins, Nginx.</li>
+
+            <h6 className="green"><b>Version control:</b></h6>
+            <li>Git, SVN.</li>
 
             <h6 className="green"><b>Language:</b></h6>
             <li>English, Viet Nam.</li>

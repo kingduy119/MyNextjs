@@ -139,7 +139,7 @@ const Content = () => (
 
 function HoangDuyPage(props) {
     return <>
-        <div className="pd-8">
+        <div className="pd-8" style={{marginBottom: "128px"}}>
             <div className="bg-black mg-b8" style={{height:"10px"}} />
             
             <div className="bor-l pd-l32 mg-r64" style={{marginLeft: "50px", borderWidth:"4px"}}>
@@ -150,7 +150,7 @@ function HoangDuyPage(props) {
                 <Content />
             </div>
 
-            <div className="bg-black mg-t8" style={{height:"10px"}} />
+            {/* <div className="bg-black" style={{height:"10px", marginTop: "128px"}} /> */}
         </div>
         
     </>;

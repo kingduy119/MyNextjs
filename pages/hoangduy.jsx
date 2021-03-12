@@ -22,7 +22,7 @@ const Summary = (props) => (
         <p>
             I'm a game developer with 2+ years experience of C++ language. I really like technology
             and i want to be a professional in the future. I hope i can find a good environment to
-            develop myself.
+            develop for myself.
         </p>
     </div>
 )
@@ -91,7 +91,7 @@ const Content = () => (
             </div>
             <hr />
 
-            <h6 className="green"><b>Algorithm/Structure:</b></h6>
+            <h6 className="green"><b>Algorithm/Data Structure:</b></h6>
             <div className="bg-lightgrey round-16">
                 <div className="white-bluedark round-16 text-center tiny" style={{width:"55%"}}>55%</div>
             </div>
@@ -110,7 +110,10 @@ const Content = () => (
             <hr />
 
             <h6 className="green"><b>Framework/Library:</b></h6>
-            <li>Redux, Express, NextJS, VueJS.</li>
+            <li>Redux, Express, NextJS, VueJS</li>
+
+            <h6 className="green"><b>Database:</b></h6>
+            <li>MongoDB, MySQL</li>
 
             <h6 className="green"><b>Knowledge:</b></h6>
             <li>RestFul API, MERN Stack.</li>

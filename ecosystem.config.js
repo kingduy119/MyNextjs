@@ -1,7 +1,7 @@
 // PM2 config
 module.exports = {
     apps: [{
-        name: "nextapp",
+        name: "nextjs",
         script: "node server/app.js",
         instance: 1,
         exec_mode: "cluster",

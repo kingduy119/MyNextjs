@@ -24,7 +24,7 @@ RUN npm run build
 EXPOSE 3000
 
 # CMD [ "pm2-runtime", "server.js" ]
-# CMD ["npm", "run", "pm2"]
-CMD ["npm", "start"]
+CMD ["npm", "run", "pm2"]
+# CMD ["npm", "start"]
 
 ########################################

@@ -9,7 +9,7 @@
         "start": "node server/app.js",
         "sass": "sass public/scss/stylesheet.scss public/dist/stylesheet.css",
         "server": "nodemon server/app.js",
-        "pm2":"pm2 start ecosystem.config.js",
+        "pm2": "pm2 start",
         "test": "jest"
     },
     "jest": {

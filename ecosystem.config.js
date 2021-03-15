@@ -2,7 +2,7 @@
 module.exports = {
     apps: [{
         name: "nextjs",
-        script: "node server/app.js",
+        script: "server/app.js",
         instance: 1,
         exec_mode: "cluster",
         watch: true,

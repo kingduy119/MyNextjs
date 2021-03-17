@@ -1,7 +1,9 @@
 const passport = require("passport")
 const jwt = require('jsonwebtoken');
+
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
 const User = require("../models/User");
 const { hash, compare } = require("../utils/verify");
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
@@ -10,7 +12,7 @@ passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
     User.findById(id)
     .select('userId provider displayName avatarUrl')
-    .exec((err, user) => { done(err, user); });
+    .exec((err, user) => { done(err, user) });
 });
 
 /** Google */

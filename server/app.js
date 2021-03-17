@@ -1,7 +1,7 @@
 
 const next = require("next");
 const http = require("http");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -9,13 +9,13 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
 const cors = require('cors');
+const passport = require("passport");
 // const session = require("express-session");
-// const passport = require("passport");
 // const path = require('path');
 
-// const apiREST = require("./routes");
+const apiREST = require("./routes");
 // const useSessionMiddleware = require("./middleware/session-middleware");
-// const connectToMongoDB = require("./database/mongo-config");
+const connectToMongoDB = require("./database/mongo-config");
 
 const { DEV, PORT_APP, MONGO_URL } = require("./consts");
 const app = next({ DEV });
@@ -26,22 +26,25 @@ app
     .prepare()
     .then(async () => {
         const server = express();
-
         if (!DEV) { server.set('trust proxy', 1); }
-
-        // useSessionMiddleware(server, session, mongoose);
-        // connectToMongoDB(MONGO_URL, mongoose);
-
+        
         server.use(morgan("dev"));
         server.use(helmet());
         server.use(compression());
         server.use(cookieParser());
         server.use(bodyParser.json());
         server.use(bodyParser.urlencoded({ extended: true }));
-        // server.use(passport.initialize());
-        // server.use(passport.session());
         server.use(express.static('public'));
         server.use(cors());
+
+        // # Init Passpost
+        server.use(passport.initialize());
+        server.use(passport.session());
+        
+        // #Connecting to database
+        connectToMongoDB(MONGO_URL, mongoose);
+        // useSessionMiddleware(server, session, mongoose);
+
 
         // Give all Nextjs's request to Nextjs server
         server.get('/_next/*', (req, res) => {
@@ -51,8 +54,8 @@ app
             handle(req, res);
         });
 
-        // Customer handle request
-        // apiREST({ server, app });
+        // #Custom api
+        apiREST({ server, app });
 
         // server.get('/robots.txt', (req, res) => {
         //     res.sendFile(path.join(__dirname, '../static', 'robots,txt'));

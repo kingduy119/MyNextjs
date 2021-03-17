@@ -3,7 +3,6 @@ services:
   nextjs:
     container_name: nextjs
     build: ./
-    command: "pm2-runtime start ecosystem.config.js"
     environment:
       MONGO_URL: mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/PROD?retryWrites=true&w=majority
       MONGO_URL_TEST: mongodb+srv://hoangduy:hoangduy123@cluster0-4ebzu.mongodb.net/DEV?retryWrites=true&w=majority

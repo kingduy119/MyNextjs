@@ -23,7 +23,7 @@ RUN npm run build
 # Export the port the app runs in
 EXPOSE 3000
 
-# CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
+CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
 # CMD ["npm", "run", "pm2"]
 # CMD ["npm", "start"]
 # CMD ["pm2", "start"]

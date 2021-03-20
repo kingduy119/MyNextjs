@@ -8,19 +8,22 @@ const AuthValidator = require("../validators/auth");
 function api({ server, app }) {
     let path = '/v1';
     server.use(`${path}/`, auth);
-    server.use(`${path}/user`, user);
+    // server.use(`${path}/user`, user);
     // server.use(`${path}/post`, post);
     // server.use(`${path}/notification`, notification);
 
-    // Router with custom special
-    server.get('/',  AuthValidator.checkToken, 
-        (req, res) => {
-        app.render(req, res, '/');
-    })
+    // Publib router
+    server.get(
+        '/',
+        // AuthValidator.checkToken,
+        (req, res) => { app.render(req, res, '/'); }
+    );
 
-    server.get('/login', AuthValidator.checkToken, (req, res) => {
-        app.render(req, res, '/login');
-    })
+    server.get(
+        '/login',
+        // AuthValidator.checkToken, 
+        (req, res) => { app.render(req, res, '/login'); }
+    );
 }
 
 module.exports = api;

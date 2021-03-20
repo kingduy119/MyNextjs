@@ -1,33 +1,34 @@
 // const Cache = require("../caches");
 const router = require("express").Router();
 const AuthValidator = require("../validators/auth");
-const AuthAPI = require("../controllers/auth");
+const AuthCtrl = require("../controllers/auth");
 
 // Google
-router.get('/google',
-    AuthValidator.checkToken,
-    AuthAPI.verifyGoogle,
+router.get('/google', // App verify to Google
+    // AuthValidator.checkToken, // Redirect if there is token
+    AuthCtrl.verifyGoogle, // Start send
 );
-router.get('/oauth2callback', 
-    AuthAPI.verifyGoogleCallback, 
-    AuthAPI.redirectIndexAndCreateToken,
+
+router.get('/oauth2callback', // Google callback then verify
+    AuthCtrl.verifyGoogleCallback, // Passport verify
+    AuthCtrl.redirectIndexAndCreateToken, // Start redirect
 );
 
 // Local
-router.post('/signup', 
+router.post('/signup',
     // AuthValidator.onSignUp,
-    AuthAPI.checkUserExists,
-    AuthAPI.verifySignup, 
-    AuthAPI.redirectIndexAndCreateToken,
+    // AuthCtrl.checkUserExists,
+    AuthCtrl.verifySignup, 
+    AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signin', 
-    AuthValidator.onSignIn,
-    AuthAPI.verifySignin,
-    AuthAPI.redirectIndexAndCreateToken,
+    // AuthValidator.onSignIn,
+    AuthCtrl.verifySignin,
+    AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signout', 
     // AuthValidator.checkToken,
-    AuthAPI.redirectLoginAndClearToken,
+    AuthCtrl.onSignout,
 );
 
 module.exports = router;

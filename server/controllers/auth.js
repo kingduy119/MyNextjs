@@ -15,7 +15,7 @@ passport.deserializeUser((id, done) => {
     .exec((err, user) => { done(err, user) });
 });
 
-/** #STRATEGIES */
+/** #Strategies */
 const strategies = {
     GOOGLE: new GoogleStrategy(
         {
@@ -72,7 +72,7 @@ const strategies = {
     ),
     LOCAL_SIGNIN: new LocalStrategy(
         {
-            passReqToCallback: true 
+            passReqToCallback: true
         },
         async (req, username, password, done) => {
             let docs = { id: req.query.id, userId: username};
@@ -86,13 +86,12 @@ const strategies = {
         }
     ),
 };
-
 passport.use(strategies.GOOGLE);
 passport.use('signin', strategies.LOCAL_SIGNIN);
 passport.use('signup', strategies.LOCAL_SIGNUP);
 
 /**
- * Methods
+ * #Verify
  */
 exports.verifyGoogle = passport.authenticate('google', {
     scope: 'https://www.googleapis.com/auth/plus.login'
@@ -100,13 +99,42 @@ exports.verifyGoogle = passport.authenticate('google', {
 exports.verifyGoogleCallback = passport.authenticate('google', {
     failureRedirect: '/login',
 });
+exports.verifyLocalSignin = passport.authenticate('signin', { 
+    failureRedirect: '/login',
+});
+exports.verifyLocalSignup = passport.authenticate('signup', { 
+    failureRedirect: '/login',
+});
 
-exports.verifySignin = passport.authenticate('signin', { 
-    failureRedirect: '/login' 
-});
-exports.verifySignup = passport.authenticate('signup', { 
-    failureRedirect: '/login' 
-});
+/**
+ * #Methods
+ */
+function isToken(token) {
+    return jwt.verify(
+        token.split(' ')[1],
+        process.env.JWT_SECRET,
+        (err, result) => {
+            if (err) return { error: err };
+            return { result };
+        }
+    );
+}
+
+exports.requiredToken = (req, res, next) => {
+    let token = req.cookies['access_token'];
+    if(!token || !isToken(token)) {
+        return res.redirect('/v1/signout');
+    }
+    next();
+}
+
+exports.checkToken = (req, res, next) => {
+    let token = req.cookies['access_token'];
+    if(token && isToken(token)) {
+        return res.redirect('/');
+    }
+    next();
+}
 
 exports.checkUserExists = (req, res, next) => {
     User.findOne({userId: req.query.username}, (err, user) => {
@@ -124,7 +152,7 @@ exports.redirectIndexAndCreateToken = (req, res) => {
     );
     return res
         .cookie(
-            'access_token', 
+            'access_token',
             `Bearer ${access_token}`,
             { expiresIn: 6 * 60 * 60 },
         )
@@ -135,7 +163,6 @@ exports.onSignout = (req, res) => {
     req.logout();
     res.clearCookie('access_token').redirect('/login');
 }
-
 
 
 

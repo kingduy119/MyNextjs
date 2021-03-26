@@ -2,6 +2,7 @@ const auth = require("./auth");
 const user = require("./user");
 // const post = require("./post");
 // const notification = require("./notification.route");
+const AuthCtl = require("../controllers/auth");
 
 const AuthValidator = require("../validators/auth");
 
@@ -15,13 +16,13 @@ function api({ server, app }) {
     // Publib router
     server.get(
         '/',
-        // AuthValidator.checkToken,
+        AuthCtl.requiredToken,
         (req, res) => { app.render(req, res, '/'); }
     );
 
     server.get(
         '/login',
-        // AuthValidator.checkToken, 
+        AuthCtl.checkToken,
         (req, res) => { app.render(req, res, '/login'); }
     );
 }

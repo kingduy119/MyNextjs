@@ -8,7 +8,6 @@ router.get('/google', // App verify to Google
     // AuthValidator.checkToken, // Redirect if there is token
     AuthCtrl.verifyGoogle, // Start send
 );
-
 router.get('/oauth2callback', // Google callback then verify
     AuthCtrl.verifyGoogleCallback, // Passport verify
     AuthCtrl.redirectIndexAndCreateToken, // Start redirect
@@ -17,16 +16,16 @@ router.get('/oauth2callback', // Google callback then verify
 // Local
 router.post('/signup',
     // AuthValidator.onSignUp,
-    // AuthCtrl.checkUserExists,
-    AuthCtrl.verifySignup, 
+    AuthCtrl.checkToken,
+    AuthCtrl.verifyLocalSignup, 
     AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signin', 
     // AuthValidator.onSignIn,
-    AuthCtrl.verifySignin,
+    AuthCtrl.verifyLocalSignin,
     AuthCtrl.redirectIndexAndCreateToken,
 );
-router.get('/signout', 
+router.get('/signout',
     // AuthValidator.checkToken,
     AuthCtrl.onSignout,
 );

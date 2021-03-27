@@ -5,7 +5,6 @@ const AuthCtrl = require("../controllers/auth");
 
 // Google
 router.get('/google', // App verify to Google
-    // AuthValidator.checkToken, // Redirect if there is token
     AuthCtrl.verifyGoogle, // Start send
 );
 router.get('/oauth2callback', // Google callback then verify
@@ -15,18 +14,17 @@ router.get('/oauth2callback', // Google callback then verify
 
 // Local
 router.post('/signup',
-    // AuthValidator.onSignUp,
+    AuthValidator.onSignUp,
     AuthCtrl.checkToken,
     AuthCtrl.verifyLocalSignup, 
     AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signin', 
-    // AuthValidator.onSignIn,
+    AuthValidator.onSignIn,
     AuthCtrl.verifyLocalSignin,
     AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signout',
-    // AuthValidator.checkToken,
     AuthCtrl.onSignout,
 );
 

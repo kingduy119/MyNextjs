@@ -146,7 +146,7 @@ exports.checkUserExists = (req, res, next) => {
 
 exports.redirectIndexAndCreateToken = (req, res) => {
     let access_token = jwt.sign(
-        { _id: req.user._id }, 
+        { _id: req.user._id },
         process.env.JWT_SECRET,
         { expiresIn: 6 * 60 * 60 }
     );

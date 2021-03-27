@@ -1,4 +1,3 @@
-import React from 'react';
 
 // class ComponentsPage extends React.Component {
 //   render() {
@@ -154,10 +153,22 @@ import React from 'react';
 //   }
 // }
 
-const ComponentsPage = () => (
-    <div>
-        ComponentsPage
+const Grids = () => <>
+    <div className="row">
+        <div className="col-sm-3 col-md-6 bg-success">
+            col-sm-3 col-md-6
+        </div>
+        <div className="col-sm-9 col-md-6 bg-warning">
+            col-sm-9 col-md-6
+        </div>
     </div>
-)
+</>;
+
+const ComponentsPage = () => <>
+    <h4>Grid</h4>
+    <div className="container">
+        <Grids />
+    </div>
+</>;
 
 export default ComponentsPage;

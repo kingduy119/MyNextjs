@@ -20,41 +20,45 @@ function Page(props) {
         marginRight: 'auto',
     }
 
-    return (
-        <>
-            <Container style={stylePage}>
-                <Row>
-                    <Col className="col-8">
-                        <Container>
-                            <div style={{ fontSize: "20px" }}><b>Recent Login</b></div>
-                            <div>Click your picture or add new account:</div>
-                            <br />
-                            <RecentUser />
-                        </Container>
-                    </Col>
+    return <>
 
-                    {/* Signin */}
-                    <Col className="col-4">
-                        <SigninForm
-                            onForgetPwd={() => alert('onForgetPwd')}
-                            onSignup={() => setShowModal(true)} />
-                    </Col>
-                </Row>
-            </Container>
+    </>;
 
-            {/* Signup */}
-            <Modal isShow={showModal}>
-                <Modal.Content className="card round white" style={styleModal}>
-                    <Col>
-                        <Modal.Close onClick={() => setShowModal(false)} />
-                        <h2>Signin Quickly</h2>
-                    </Col>
-                    <hr />
-                    <SignupForm />
-                </Modal.Content>
-            </Modal>
-        </>
-    );
+    // return (
+    //     <>
+    //         <Container style={stylePage}>
+    //             <Row>
+    //                 <Col className="col-8">
+    //                     <Container>
+    //                         <div style={{ fontSize: "20px" }}><b>Recent Login</b></div>
+    //                         <div>Click your picture or add new account:</div>
+    //                         <br />
+    //                         <RecentUser />
+    //                     </Container>
+    //                 </Col>
+
+    //                 {/* Signin */}
+    //                 <Col className="col-4">
+    //                     <SigninForm
+    //                         onForgetPwd={() => alert('onForgetPwd')}
+    //                         onSignup={() => setShowModal(true)} />
+    //                 </Col>
+    //             </Row>
+    //         </Container>
+
+    //         {/* Signup */}
+    //         <Modal isShow={showModal}>
+    //             <Modal.Content className="card round white" style={styleModal}>
+    //                 <Col>
+    //                     <Modal.Close onClick={() => setShowModal(false)} />
+    //                     <h2>Signin Quickly</h2>
+    //                 </Col>
+    //                 <hr />
+    //                 <SignupForm />
+    //             </Modal.Content>
+    //         </Modal>
+    //     </>
+    // );
 }
 
 

@@ -16,7 +16,7 @@ router.get('/oauth2callback', // Google callback then verify
 router.post('/signup',
     AuthValidator.onSignUp,
     AuthCtrl.checkToken,
-    AuthCtrl.verifyLocalSignup, 
+    AuthCtrl.verifyLocalSignup,
     AuthCtrl.redirectIndexAndCreateToken,
 );
 router.get('/signin', 

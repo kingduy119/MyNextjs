@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../config");
 const { hash, compare } = require("../utils/verify");
 const UserModel = require("../models/User");
 
@@ -75,9 +75,9 @@ const strategies = {
             passReqToCallback: true
         },
         async (req, username, password, done) => {
-            let docs = { id: req.query.id, userId: username};
+            let info = { id: req.query.id, userId: username};
             try {
-                let user = await UserModel.findOne(docs);
+                let user = await UserModel.findOne(info);
                 if(!user) { return done('Username is not existed!', null); }
 
                 if (!compare(password, user.password)) { return done('Wrong Password!', null); }
@@ -102,7 +102,7 @@ exports.verifyGoogleCallback = passport.authenticate('google', {
 exports.verifyLocalSignin = passport.authenticate('signin', { 
     failureRedirect: '/login',
 });
-exports.verifyLocalSignup = passport.authenticate('signup', { 
+exports.verifyLocalSignup = passport.authenticate('signup', {
     failureRedirect: '/login',
 });
 

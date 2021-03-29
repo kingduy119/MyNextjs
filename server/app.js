@@ -17,7 +17,7 @@ const apiREST = require("./routes");
 // const useSessionMiddleware = require("./middleware/session-middleware");
 const connectToMongoDB = require("./database/mongo-config");
 
-const { DEV, PORT_APP, MONGO_URL } = require("./consts");
+const { DEV, PORT, MONGO_URL } = require("./config");
 const app = next({ DEV });
 const handle = app.getRequestHandler();
 
@@ -66,9 +66,9 @@ app
         });
 
         const httpServer = http.Server(server);
-        httpServer.listen(PORT_APP, (err) => {
+        httpServer.listen(PORT, (err) => {
             if (err) throw err;
-            console.log(`> Ready ${PORT_APP} on https://localhost:${PORT_APP}`);
+            console.log(`> Ready ${PORT} on https://localhost:${PORT}`);
         });
     })
     .catch(err => {

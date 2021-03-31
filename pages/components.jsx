@@ -77,7 +77,7 @@
 //             <div className="row">
 //                 {/* ################### */}
 //                 <div className="col-sm-4">
-//                     <h2>About Me</h2>
+//                     <h2>#About Me</h2>
 //                     <h5>Photo of me</h5>
 //                     <div style={{height:"200px", backgroundColor:"#ccc"}} />
                     
@@ -102,14 +102,14 @@
 //                 </div>
 //                 {/* ################### */}
 //                 <div className="col-sm-8">
-//                     <h2>TITLE HEADING</h2>
+//                     <h2>#TITLE HEADING</h2>
 //                     <h5>Title description, Dec 7, 2017</h5>
 //                     <div style={{height:"200px", backgroundColor:"#ccc"}} />
 //                     <p>Some text..</p>
 //                     <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
 //                     <br />
 
-//                     <h2>TITLE HEADING</h2>
+//                     <h2>#TITLE HEADING</h2>
 //                     <h5>Title description, Dec 7, 2017</h5>
 //                     <div style={{height:"200px", backgroundColor:"#ccc"}} />
 //                     <p>Some text..</p>
@@ -123,13 +123,13 @@
 //             <div class="media border p-3">
 //                 <img src="assets/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style={{width:"60px"}}/>
 //                 <div class="media-body">
-//                     <h2>John Doe <small><i>Posted on February 19, 2016</i></small></h2>
+//                     <h2>#John Doe <small><i>Posted on February 19, 2016</i></small></h2>
 //                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
 //                     <div class="media p-3">
 //                         <img src="assets/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style={{width:"60px"}}/>
 //                         <div class="media-body">
-//                             <h2>John Doe <small><i>Posted on February 19, 2016</i></small></h2>
+//                             <h2>#John Doe <small><i>Posted on February 19, 2016</i></small></h2>
 //                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 //                         </div>
 //                     </div>
@@ -137,7 +137,7 @@
 //                     <div class="media p-3">
 //                         <img src="assets/img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style={{width:"60px"}}/>
 //                         <div class="media-body">
-//                             <h2>John Doe <small><i>Posted on February 19, 2016</i></small></h2>
+//                             <h2>#John Doe <small><i>Posted on February 19, 2016</i></small></h2>
 //                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 //                         </div>
 //                     </div>
@@ -307,50 +307,130 @@ const Pagination = () =>
     </div>
 </div>
 
+const ListGroup = () => 
+<div className="container" id="list-group">
+    <h4>Basic List Group:</h4>
+    <ul className="list-group">
+        <li className="list-group-item active">First item (.active)</li>
+        <li className="list-group-item d-flex justify-content-between align-items-center">
+            Second item
+            <span className="badge badge-primary badge-pill">119</span>
+        </li>
+        <li className="list-group-item disabled">Third item (.disabled)</li>
+    </ul>
+    <br />
+    <h4>Linked items group: (.list-group-flush)</h4>
+    <div className="list-group list-group-flush">
+        <a href="#list-group" className="list-group-item list-group-item-action active">First item</a>
+        <a href="#list-group" className="list-group-item list-group-item-action">Second item</a>
+        <a href="#list-group" className="list-group-item list-group-item-action disabled">Third item</a>
+    </div>
+    <br />
+    <h4>Horizontal list groups: (.list-group-horizontal)</h4>
+    <ul className="list-group list-group-horizontal">
+        <li className="list-group-item active">First item (.active)</li>
+        <li className="list-group-item list-group-item-warning">Second item (.list-group-item-warning)</li>
+        <li className="list-group-item disabled">Third item (.disabled)</li>
+    </ul>
+</div>
+
+const Card = () =>
+<div className="container">
+    <h4>Basic card:</h4>
+    <div className="card">
+        <div className="card-header">Header</div>
+        <div className="card-body">
+            <h4 className="card-title">Card title</h4>
+            <p className="card-text">Some example text. Some example text.</p>
+            <a className="card-link">Card link</a>
+            <a className="card-link">Another link</a>
+        </div>
+        <div className="card-footer">Footer</div>
+    </div>
+    <br />
+    <h4>Color card:</h4>
+    <div className="card bg-warning text-white" style={{width: "300px"}}>
+        <div className="card-header">Header</div>
+        <img className="card-img-top" src="assets/img_avatar3.png" alt="Card image" />
+        <div className="card-body">
+            <h4 className="card-title">Card title</h4>
+            <p className="card-text">Some example text. Some example text.</p>
+            <a className="card-link">Card link</a>
+            <a className="card-link">Another link</a>
+            <a className="btn btn-primary" href="#">See profile</a>
+        </div>
+        <div className="card-footer">Footer</div>
+    </div>
+    <br />
+    <h4>Card columns:</h4>
+    <div className="card-columns">
+        <div className="card bg-primary">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+        <div className="card bg-warning">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+        <div className="card bg-danger">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+        <div className="card bg-success">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+        <div className="card bg-light">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+        <div className="card bg-info">
+            <p className="card-text">Some text inside the card</p>
+        </div>
+    </div>
+</div>
+
 
 const ComponentsPage = () => 
 <>    
     <div className="container">
-        <h2>Grids:</h2>
+        <h2>#Grids:</h2>
         <Grids />
         <br />
 
-        <h2>Texts:</h2>
+        <h2>#Texts:</h2>
         <Texts />
         <br />
 
-        <h2>Tables:</h2>
+        <h2>#Tables:</h2>
         <Tables />
         <br />
 
-        <h2>Buttons:</h2>
+        <h2>#Buttons:</h2>
         <Buttons />
         <br />
 
-        <h2>Progress Bars:</h2>
+        <h2>#Progress Bars:</h2>
         <ProgressBars />
         <br />
 
-        <h2>Pagination</h2>
+        <h2>#Pagination</h2>
         <Pagination />
         <br />
 
-        <h2>List Groups: </h2>
+        <h2>#List Groups: </h2>
+        <ListGroup />
         <br />
 
-        <h2>Cards:</h2>
+        <h2>#Cards:</h2>
+        <Card />
         <br />
 
-        <h2>Dropdowns:</h2>
+        <h2>#Dropdowns:</h2>
         <br />
 
-        <h2>Collapse</h2>
+        <h2>#Collapse</h2>
         <br />
 
-        <h2>Navs:</h2>
+        <h2>#Navs:</h2>
         <br />
 
-        <h2>Navbar:</h2>
+        <h2>#Navbar:</h2>
         <br />
     </div>
 </>;

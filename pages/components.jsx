@@ -385,6 +385,133 @@ const Card = () =>
     </div>
 </div>
 
+const Dropdown = () =>
+<div className="container">
+    <h4>Basic dropdown:</h4>
+    <div className="dropdown">
+        <button 
+            type="button" 
+            className="btn btn-primary dropdown-toggle"
+            data-toggle="dropdown"
+        >
+            Dropdown button
+        </button>
+        <div className="dropdown-menu">
+            <a className="dropdown-item active">Link 1 (active)</a>
+            <a className="dropdown-item">Link 2</a>
+            <a className="dropdown-item disabled">Link 3 (disabled)</a>
+            <div className="dropdown-divider" />
+            <h5 className="dropdown-header">Dropdown header</h5>
+            <a className="dropdown-item">Another link (dropdown-divider)</a>
+        </div>
+    </div>
+</div>
+
+const Collapse = () => 
+<div className="container">
+    <h4>Basic collapse:</h4>
+    <button 
+        type="button" 
+        className="btn btn-primary" 
+        data-toggle="collapse"
+        data-target="#basic-collapse"
+    >Show content collapse</button>
+    <div id="basic-collapse" className="collapse">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+    <br />
+    <h4>Accordion collapse:</h4>
+    <div id="accordion">
+        <div className="card">
+            <div className="card-header">
+                <a className="card-link" data-toggle="collapse" href="#collapseOne">
+                    Collapsible group item #1
+                </a>
+            </div>
+            <div 
+                id="collapseOne" 
+                className="collapse"
+                // data-parent="#accordion"
+            >
+                <div className="card-body">
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+                </div>
+            </div>
+        </div>
+        <div className="card">
+            <div className="card-header">
+                <a className="card-link" data-toggle="collapse" href="#collapseTwo">
+                    Collapsible group item #2
+                </a>
+            </div>
+            <div
+                id="collapseTwo" 
+                className="collapse"
+            >
+                <div className="card-body">
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+const Nav = () => 
+<div className="container">
+    <h4>1 - Basic Nav:</h4>
+    <ul className="nav nav-pills nav-tabs">
+        <li className="nav-item">
+            <a className="nav-link active" href="#">Link (active)</a>
+        </li>
+        <li className="nav-item dropdown">
+            <a 
+                className="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+            >Dropdown</a>
+            <div className="dropdown-menu">
+                <a className="dropdown-item" href="#">Link #</a>
+                <a className="dropdown-item" href="#">Link #</a>
+                <a className="dropdown-item" href="#">Link #</a>
+            </div>
+        </li>
+        <li className="nav-item">
+            <a className="nav-link disabled" href="#">Link (disabled)</a>
+        </li>
+    </ul>
+    <br />
+    <h4>2 - Vertical nav: <small>.flex-column</small></h4>
+    <h4>3 - Tab nav: <small>nav nav-tabs</small></h4>
+    <h4>4 - Toggleable / Dynamic Tabs Nav:</h4>
+    <ul className="nav nav-tabs" role="tablist">
+        <li className="nav-item">
+            <a className="nav-link" data-toggle="tab" href="#home">Home</a>
+        </li>
+        <li className="nav-item">
+            <a className="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
+        </li>
+        <li className="nav-item">
+            <a className="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+        </li>
+    </ul>
+    <div className="tab-content">
+        <div id="home" className="container tab-pane active">
+            <h3>HOME</h3>
+            <p>Lorem ipsum dolor sit amet.......</p>
+        </div>
+        <div id="menu1" className="container tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Lorem ipsum dolor sit amet.......</p>
+        </div>
+        <div id="menu2" className="container tab-pane fade">
+            <h3>Menu 2</h3>
+            <p>Lorem ipsum dolor sit amet.......</p>
+        </div>
+    </div>
+</div>
+
 
 const ComponentsPage = () => 
 <>    
@@ -422,12 +549,15 @@ const ComponentsPage = () =>
         <br />
 
         <h2>#Dropdowns:</h2>
+        <Dropdown/>
         <br />
 
         <h2>#Collapse</h2>
+        <Collapse />
         <br />
 
         <h2>#Navs:</h2>
+        <Nav />
         <br />
 
         <h2>#Navbar:</h2>

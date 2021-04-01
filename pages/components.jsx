@@ -485,7 +485,7 @@ const Nav = () =>
     <h4>2 - Vertical nav: <small>.flex-column</small></h4>
     <h4>3 - Tab nav: <small>nav nav-tabs</small></h4>
     <h4>4 - Toggleable / Dynamic Tabs Nav:</h4>
-    <ul className="nav nav-tabs" role="tablist">
+    <ul className="nav nav-tabs nav-pills" role="tablist">
         <li className="nav-item">
             <a className="nav-link" data-toggle="tab" href="#home">Home</a>
         </li>
@@ -512,7 +512,57 @@ const Nav = () =>
     </div>
 </div>
 
+const Navbar = () => 
+<div className="container">
+    <h4>Basic navbar:"<small>navbar bg-light</small>"</h4>
+    <h5>Horizontal navbar:</h5>
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        <a className="navbar-brand" href="#">
+            <img src="assets/logo.png" alt="Logo" style={{width: "40px"}} />
+        </a>
 
+        <button
+            type="button"
+            className="navbar-toggler"
+            data-toggle="collapse"
+            data-target="#navCollapse"
+        >
+            <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navCollapse">
+            <ul className="navbar-nav">
+                <li className="nav-item"><a className="nav-link">Link</a></li>
+                <li className="nav-item"><a className="nav-link">Link</a></li>
+                <li className="nav-item"><a className="nav-link">Link</a></li>
+                <li className="nav-item dropdown">
+                    <a
+                        href="#"
+                        id="navbardrop"
+                        data-toggle="dropdown"
+                        className="nav-link dropdown-toggle"
+                    >Dropdown</a>
+                    <div className="dropdown-menu">
+                        <a className="dropdown-item" href="#">Link</a>
+                        <a className="dropdown-item" href="#">Link</a>
+                        <a className="dropdown-item" href="#">Link</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <form className="form-inline">
+            <input
+                type="text" 
+                placeholder="Search"
+                className="form-control mr-sm-2"
+            />
+            <button type="submit" className="btn btn-success">Search</button>
+        </form>
+    </nav>
+</div>
+
+// ################################################
 const ComponentsPage = () => 
 <>    
     <div className="container">
@@ -561,6 +611,7 @@ const ComponentsPage = () =>
         <br />
 
         <h2>#Navbar:</h2>
+        <Navbar />
         <br />
     </div>
 </>;

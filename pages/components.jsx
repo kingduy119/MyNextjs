@@ -562,6 +562,118 @@ const Navbar = () =>
     </nav>
 </div>
 
+const Forms = (props) => 
+<div className="container">
+    <h4>Form inline: <small>"form classname="form-inline"</small></h4>
+    <h4>There are two types of form layouts:</h4>
+    <p>• Stacked (full-width) form</p>
+    <p>• Inline form</p>
+    <h4>Basic form:</h4>
+    <form className={props.className}>
+        <div className="form-group">
+            <label for="email">Email address:</label>
+            <input 
+                type="text" 
+                className="form-control"
+                placeholder="Enter email"
+                id="email"
+            />
+        </div>
+        <div className="form-group">
+            <label for="pwd">Email Password:</label>
+            <input 
+                type="password" 
+                className="form-control"
+                placeholder="Enter password"
+                id="pwd"
+            />
+        </div>
+        <div className="form-group form-check">
+            <label>
+                <input type="checkbox" className="form-check"/> Remember me
+            </label>
+        </div>
+        <button type="submit" className="btn btn-success">Submit</button>
+    </form>
+    <br />
+    <h4>Form validation:</h4>
+    <form className="was-validated">
+        <div className="form-group">
+            <label htmlFor="uname">Username:</label>
+            <input
+                id="uname"
+                type="text"
+                className="form-control"
+                placeholder="Enter username"
+                name="uname"
+                required
+            />
+            <div className="valid-feedback">Valid.</div>
+            <div className="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div className="form-group">
+            <label htmlFor="pwd">Password:</label>
+            <input
+                id="pwd"
+                type="password"
+                className="form-control"
+                placeholder="Enter passwrod"
+                name="pwd"  
+                required
+            />
+            <div className="valid-feedback">Valid.</div>
+            <div className="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div className="form-group form-check">
+            <label className="form-check-label">
+                <input
+                    type="checkbox"
+                    className="form-check-input"
+                    name="remember"
+                    required
+                /> I agree on blabla.
+                <div className="valid-feedback">Valid.</div>
+                <div className="invalid-feedback">Check this checkbox to continue.</div>
+            </label>
+        </div>
+        <button type="submit" className="btn btn-success">Submit</button>
+    </form>
+</div>
+
+const Modals = () => 
+<>
+    <button
+        type="button" 
+        className="btn btn-primary"
+        data-toggle="modal"
+        data-target="#demoModal"
+    >Show Modal</button>
+    <div className="modal" id="demoModal">
+        <div className="modal-dialog">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h4 className="modal-title">Modal heading</h4>
+                    <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                    >&times;</button>
+                </div>
+                <div className="modal-body">
+                    Modal body....
+                </div>
+                <div className="modal-footer">
+                    <button
+                        type="button"
+                        className="btn btn-danger"
+                        data-dismiss="modal"
+                    >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</>
+
 // ################################################
 const ComponentsPage = () => 
 <>    
@@ -612,6 +724,14 @@ const ComponentsPage = () =>
 
         <h2>#Navbar:</h2>
         <Navbar />
+        <br />
+
+        <h2>#Forms:</h2>
+        <Forms />
+        <br />
+
+        <h2>#Modals:</h2>
+        <Modals />
         <br />
     </div>
 </>;

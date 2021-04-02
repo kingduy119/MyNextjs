@@ -1,5 +1,7 @@
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import ModalSystem from "../components/ModalSystem";
+import NotificationSystem from "../components/NotificationSystem";
 
 class MyDocument extends Document {
   render() {
@@ -30,6 +32,8 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <ModalSystem />
+          <NotificationSystem />
         </body>
       </Html>
     );

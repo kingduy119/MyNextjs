@@ -646,7 +646,7 @@ const Modals = () =>
         type="button" 
         className="btn btn-primary"
         data-toggle="modal"
-        data-target="#demoModal"
+        data-target="#modalMain"
     >Show Modal</button>
     <div className="modal" id="demoModal">
         <div className="modal-dialog">
@@ -673,6 +673,18 @@ const Modals = () =>
         </div>
     </div>
 </>
+
+const Alerts = () => 
+<div className="container">
+    <div className="alert alert-success">
+        <button type="button" className="close" data-dismiss="alert">&times;</button>
+        <strong>Sucess!</strong> Indicates a successful or positive action.
+    </div>
+    <div className="alert alert-warning alert-dismissible">
+        <button type="button" className="close" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong>
+    </div>
+</div>
 
 // ################################################
 const ComponentsPage = () => 
@@ -732,6 +744,10 @@ const ComponentsPage = () =>
 
         <h2>#Modals:</h2>
         <Modals />
+        <br />
+
+        <h2>#Alert:</h2>
+        <Alerts />
         <br />
     </div>
 </>;

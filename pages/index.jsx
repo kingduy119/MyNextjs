@@ -1,14 +1,16 @@
 import React from 'react';
-
-import { Navbar } from '../components/Navbar';
+import { connect } from "react-redux";
+import NotificationSystem from "../components/NotificationSystem" ;
 
 class IndexPage extends React.Component {
     render() {
         return  <>
-            <Navbar />
-
+            <h2>Index Page</h2>
+            <NotificationSystem />
         </>;
     }
 }
 
-export default IndexPage;
+
+export default connect()(IndexPage);
+// export default IndexPage;

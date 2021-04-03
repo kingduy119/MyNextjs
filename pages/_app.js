@@ -1,19 +1,19 @@
 import App from 'next/app';
 import React from 'react';
-import store from '../store';
+import { wrapper } from '../store';
 import { isMobile } from '../lib/isMobile';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const pageProps = {
-      isMobile: isMobile({ req: ctx.req }),
-    };
-
-    if (Component.getInitialProps) {
-      Object.assign(pageProps, await Component.getInitialProps(ctx));
+    return {
+      pageProps: {
+        ...(Component.getInitialProps ?
+          await Component.getInitialProps(ctx) : {}
+        ),
+        isMobile: isMobile({ req: ctx.req }),
+        pathname: ctx.pathname,
+      }
     }
-
-    return { pageProps };
   }
 
   componentDidMount() {
@@ -41,9 +41,10 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-
-    return <Component {...pageProps} />;
+    return(
+        <Component {...pageProps} />
+    );
   }
 }
 
-export default store.withRedux(MyApp);
+export default wrapper.withRedux(MyApp);

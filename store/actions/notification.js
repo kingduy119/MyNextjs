@@ -6,11 +6,11 @@ const ALERT_WARNING = "ALERT_WARNING";
 const PUSH_NOTIFICATION = "PUSH_NOTIFICATION";
 const POP_NOTIFICATION = "POP_NOTIFICATION";
 
-const pushNotification = (notif) => ({
-    type: PUSH_NOTIFICATION, notif
+const pushNotification = (notify) => ({
+    type: PUSH_NOTIFICATION, notify
 })
-const popNotification = (notif) => ({
-    type: POP_NOTIFICATION, notif
+const popNotification = (index) => ({
+    type: POP_NOTIFICATION, index
 })
 
 export {

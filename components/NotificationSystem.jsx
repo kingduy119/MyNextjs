@@ -1,3 +1,4 @@
+import React from "react";
 import { connect } from "react-redux";
 import { popNotification } from "../store/actions/notification";
 
@@ -7,7 +8,7 @@ const Alert = (props) =>
             type="button"
             className="close" 
             data-dismiss="alert"
-            onClick={onClose}
+            onClick={props.onClose}
         >&times;</button>
         {props.children}
     </div>;
@@ -21,15 +22,15 @@ function NotificationSystem(props) {
                 className="m_dp-b-r"
                 style={{ padding: "20px" }}
             >
-                {/* {notifications.map(notif => (
-                    <Alert type={notif.type}>
+                {notifications.length > 0 &&
+                 notifications.map((notif, index) => (
+                    <Alert type={notif.type} onClose={() => onClose(index)}>
                         {notif.body}
                     </Alert>
-                ))} */}
+                ))}
 
-                <Alert
+                {/* <Alert
                     type="alert-success"
-                    onClose={() => onClose(notif)}
                 >
                     <strong>Success!</strong> Alert #ModalSystem
                 </Alert>
@@ -37,18 +38,25 @@ function NotificationSystem(props) {
                 <div className="alert alert-warning alert-dismissible">
                     <button type="button" className="close" data-dismiss="alert">&times;</button>
                     <strong>Warning!</strong>
-                </div>
+                </div> */}
             </div>
         </div>
     );
 }
+NotificationSystem.defaultProps = {
+    notifications: []
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
     notifications: state.notifications
 });
 const mapDispatchToProps = (dispatch) => ({
-    onClose: (notif) => {dispatch(popNotification(notif))}
+    onClose: (index) => { dispatch(popNotification(index)); },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationSystem);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NotificationSystem);
+// export default NotificationSystem;
 

@@ -1,28 +1,19 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "../components/common";
-import SigninForm from "../components/login/SigninForm";
-import SignupForm from "../components/login/SignupForm";
-import RecentUser from "../components/login/RecentUser";
+import { connect } from "react-redux";
 
-export default Page;
+import { ModalFormSignUp } from "../components/Dialogs";
 
-function Page(props) {
-    let [showModal, setShowModal] = React.useState(false);
-    let stylePage = {
-        minWidth: '350px',
-        background: '#f0f2f5',
-        padding: '92px 16px 132px 16px',
+class LoginPage extends React.Component {
+    render() {
+        return <>
+            <div>Login Page</div>
+            <ModalFormSignUp />
+        </>;
     }
-    let styleModal = {
-        width: '300px',
-        padding: '5px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    }
+}
 
-    return <>
+export default connect()(LoginPage);
 
-    </>;
 
     // return (
     //     <>
@@ -59,7 +50,6 @@ function Page(props) {
     //         </Modal>
     //     </>
     // );
-}
 
 
 

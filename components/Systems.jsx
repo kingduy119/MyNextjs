@@ -1,22 +1,5 @@
 import { connect } from "react-redux";
 import { popNotification } from "../lib/redux/actions/systems"
-import { RegisterDialog } from "./Dialogs";
-
-/**
- * #Modal system
- */
-function Modal(props) {
-    return (
-        <div className={`modal ${props.className || ''}`} id="modalGlobal">
-            {/* {props.dialog} */}
-            <RegisterDialog />
-        </div>
-    )
-}
-const mapStateToModal = (state) => ({
-    dialog: state.modals.dialog,
-})
-const ModalSystem = connect(mapStateToModal)(Modal)
 
 /**
  * #Notification system
@@ -69,5 +52,5 @@ const NotificationsSystem = connect(
     mapDispatchToNotifications
 )(Notifications);
 
-export { ModalSystem, NotificationsSystem }
+export { NotificationsSystem }
 

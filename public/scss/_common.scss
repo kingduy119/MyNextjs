@@ -659,34 +659,34 @@
 //   width: 100%;
 // }
 
-.m_dp-container {
+.my_dp-container {
   position: relative;
 }
-.m_dp-t-r {
+.my_dp-t-r {
   // top-right
   position: absolute;
   right: 0;
   top: 0;
 }
-.m_dp-t-l {
+.my_dp-t-l {
   // top-left
   position: absolute;
   left: 0;
   top: 0;
 }
-.m_dp-b-l {
+.my_dp-b-l {
   // bottom-left
   position: absolute;
   left: 0;
   bottom: 0;
 }
-.m_dp-b-r {
+.my_dp-b-r {
   // bottom-right
   position: absolute;
   right: 0;
   bottom: 0;
 }
-.m_dp-center {
+.my_dp-center {
   // center
   position: absolute;
   top: 50%;
@@ -694,11 +694,11 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
-.m_dp-hover {
+.my_dp-hover {
   display: none;
 }
-.m_dp-container:hover {
-  > .m_dp-hover {
+.my_dp-container:hover {
+  > .my_dp-hover {
     display: block !important;
   }
 }

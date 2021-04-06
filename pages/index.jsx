@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { NotificationsSystem } from "../components/Systems";
+import { Alerts } from "../components/Systems";
 import { ModalFormSignUp } from "../components/Dialogs";
 import { DIALOG_REGISTER, showDialog } from "../lib/redux/actions/systems";
 
@@ -8,8 +8,8 @@ class IndexPage extends React.Component {
     render() {
         return  <>
             <h2>Index Page</h2>
-            <NotificationsSystem />
-            
+            <Alerts />
+
             <button
                 type="button" 
                 className="btn btn-primary"

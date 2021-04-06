@@ -18,7 +18,6 @@ const reducers = combineReducers({
 });
 
 
-
 const store = (context) => createStore(reducers, applyMiddleware(...middlewares));
 const wrapper = createWrapper(store);
 

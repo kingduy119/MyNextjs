@@ -1,6 +1,6 @@
 import App from 'next/app';
 import React from 'react';
-import { wrapper } from '../store';
+import { wrapper } from "../lib/redux";
 import { isMobile } from '../lib/isMobile';
 
 class MyApp extends App {

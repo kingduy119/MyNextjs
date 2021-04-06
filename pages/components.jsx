@@ -646,9 +646,9 @@ const Modals = () =>
         type="button" 
         className="btn btn-primary"
         data-toggle="modal"
-        data-target="#modalMain"
+        data-target="#demoModal"
     >Show Modal</button>
-    <div className="modal" id="demoModal">
+    <div className="modal fade" id="demoModal">
         <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">

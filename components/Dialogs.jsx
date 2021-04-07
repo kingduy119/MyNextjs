@@ -9,7 +9,7 @@ const InputUsername = (props) => <input
     placeholder="Enter Username"
     required
 />;
-const InputPassword = (props) => <input 
+const InputPassword = (props) => <input
     type="password"
     name="pwd"
     id="pwd"
@@ -17,7 +17,6 @@ const InputPassword = (props) => <input
     placeholder="Enter Password"
     required
 />
-
 
 // #Validate
 const InputUsernameValidate = (props) => (
@@ -35,7 +34,7 @@ const InputPasswordValidate = (props) => (
         <div className="invalid-feedback">Please fill out this field.</div>
     </div>);
 
-
+// #Button
 const ButtonSubmit = (props) => <button
     type="submit"
     className="btn btn-primary"
@@ -77,7 +76,6 @@ export const FormSignInValidate = connect()(props => { return (
         <InputPasswordValidate />
     </form>);
 })
-
 
 export const ModalFormSignUp = connect()((props) => {
     return (

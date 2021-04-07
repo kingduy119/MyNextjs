@@ -4,53 +4,46 @@ import { popNotification } from "../lib/redux/actions/systems"
 /**
  * #Notification system
  */
-const Alert = (props) => 
-    <div className={`alert ${props.type}`}> 
+const Alert = ({type, onClose, children}) => (
+    <div className={`alert ${type}`}> 
         <button
             type="button"
             className="close" 
             data-dismiss="alert"
-            onClick={props.onClose}
+            onClick={onClose}
         >&times;</button>
-        {props.children}
-    </div>;
+        {children}
+    </div>);
 
-function Notifications(props) {
-    const { notifications, onClose } = props;
-
-    return (
-        <div className="m_dp-container" id="notifcationSystem"
-            style={{zIndex: -1}}
-        >
-            <div
-                className="m_dp-b-r"
-                style={{ padding: "20px", maxWidth: "300px" }}
-            >
-                {notifications.length > 0 &&
-                 notifications.map((notif, index) => (
-                    <Alert type={notif.type} onClose={() => onClose(index)}>
-                        {notif.body}
-                    </Alert>
-                ))}
+/**
+ * Alert: connect(mapStateToProps, mapDispatchToProps)(component)
+ */
+export const Alerts = connect(
+    (state) => ({
+        alerts: state.alerts
+    }),
+    (dispatch) => ({
+        onClose: (index) => dispatch(popNotification(index))
+    })
+)((props) => {
+    const listAlert = props.alerts.map((alert, index) => (
+        <div key={index} className={`alert ${alert.type}`}>
+            <button
+                type="button"
+                className="close"
+                data-dismiss="alert"
+                onClick={() => props.onClose(index)}
+            >&times;</button>
+            {alert.body}
+        </div>
+    ));
+    return(
+        <div className="my_dp-container" id="notifcationSystem" style={{zIndex: -1}}>
+            <div className="my_dp-b-r" style={{ padding: "20px", maxWidth: "300px" }}>
+                {listAlert}
             </div>
         </div>
     );
-}
-Notifications.defaultProps = {
-    notifications: []
-}
-
-const mapStateToNotifications = (state, ownProps) => ({
-    notifications: state.notifications
-});
-const mapDispatchToNotifications = (dispatch) => ({
-    onClose: (index) => { dispatch(popNotification(index)); },
 });
 
-const NotificationsSystem = connect(
-    mapStateToNotifications, 
-    mapDispatchToNotifications
-)(Notifications);
-
-export { NotificationsSystem }
 

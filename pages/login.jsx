@@ -2,12 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { ModalFormSignUp } from "../components/Dialogs";
+import { FormLogin } from "../components/Forms";
 
 class LoginPage extends React.Component {
     render() {
         return <>
             <div>Login Page</div>
-            <ModalFormSignUp />
+            {/* <ModalFormSignUp /> */}
+            <div className="container my_dp-container" style={{
+                borderRadius: "5px",
+                borderColor: "#f2f2f2",
+                padding: "20px 0 30px 0"
+            }}>
+               <FormLogin /> 
+            </div>
         </>;
     }
 }

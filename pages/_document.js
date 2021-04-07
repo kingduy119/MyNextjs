@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
+
   render() {
     return (
       <Html lang="en">
@@ -20,12 +21,20 @@ class MyDocument extends Document {
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" />
 
           {/* Icon */}
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          />
+          /> */}
           {/* <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> */}
           <link rel="stylesheet" href="/dist/stylesheet.css" />
+
+          {/* bootstrap icons */}
+          <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+            integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+            crossorigin="anonymous"
+          />
         </Head>
         <body>
           <Main />

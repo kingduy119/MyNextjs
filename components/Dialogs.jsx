@@ -35,7 +35,7 @@ export const FormSignInValidate = connect()(props => { return (
 
 export const ModalFormSignUp = connect()((props) => {
     return (
-    <div className="modal fade" id="modalRegistation">
+    <div className="modal fade" id={props.id}>
         <div className="modal-dialog">
             <form className="was-validated">
                 <div className="modal-content">

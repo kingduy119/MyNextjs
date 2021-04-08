@@ -5,60 +5,43 @@ import { ModalFormSignUp } from "../components/Dialogs";
 import { FormLogin } from "../components/Forms";
 
 class LoginPage extends React.Component {
+
     render() {
+        let btnSignup = <a
+            data-toggle="modal"
+            data-target="#modalRegistation"
+            className="my_btn my_white text-center"
+        >Sign up</a>;
+
+        let btnForget = <a
+            className="my_btn my_white text-center"
+        >Forget password</a>;
+
         return <>
-            <div>Login Page</div>
-            {/* <ModalFormSignUp /> */}
             <div className="container my_dp-container" style={{
-                borderRadius: "5px",
-                borderColor: "#f2f2f2",
-                padding: "20px 0 30px 0"
+                borderRadius: "5px 5px 0 0",
+                backgroundColor: "#f2f2f2",
             }}>
-               <FormLogin /> 
+               <FormLogin />
             </div>
+            
+            <div className="container" style={{
+                borderRadius: "0 0 4px 4px",
+                backgroundColor: "#666"
+            }}>
+                <div className="row">
+                    <div className="col-sm-6">
+                        {btnSignup}
+                    </div>
+                    <div className="col-sm-6">
+                        {btnForget}
+                    </div>
+                </div>
+            </div>
+            <ModalFormSignUp id="modalRegistation" />
         </>;
     }
 }
 
 export default connect()(LoginPage);
-
-
-    // return (
-    //     <>
-    //         <Container style={stylePage}>
-    //             <Row>
-    //                 <Col className="col-8">
-    //                     <Container>
-    //                         <div style={{ fontSize: "20px" }}><b>Recent Login</b></div>
-    //                         <div>Click your picture or add new account:</div>
-    //                         <br />
-    //                         <RecentUser />
-    //                     </Container>
-    //                 </Col>
-
-    //                 {/* Signin */}
-    //                 <Col className="col-4">
-    //                     <SigninForm
-    //                         onForgetPwd={() => alert('onForgetPwd')}
-    //                         onSignup={() => setShowModal(true)} />
-    //                 </Col>
-    //             </Row>
-    //         </Container>
-
-    //         {/* Signup */}
-    //         <Modal isShow={showModal}>
-    //             <Modal.Content className="card round white" style={styleModal}>
-    //                 <Col>
-    //                     <Modal.Close onClick={() => setShowModal(false)} />
-    //                     <h2>Signin Quickly</h2>
-    //                 </Col>
-    //                 <hr />
-    //                 <SignupForm />
-    //             </Modal.Content>
-    //         </Modal>
-    //     </>
-    // );
-
-
-
 

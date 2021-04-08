@@ -3,47 +3,48 @@ import {
     InputUsername, InputPassword,
     InputUsernameValidate, InputPasswordValidate 
 } from "./Inputs";
-import {} from "./Buttons";
+import { 
+    ButtonSubmit,ButtonLogin,
+    ButtonGoogle, ButtonFacebook, ButtonTwitter
+} from "./Buttons";
 
 const LoginComponent = (props) => {
 
-    const facebook = <a
-        href="#"
-        className="facebook btn"
-    >
-        <i className="fab fa-facebook-f"></i> Login with Facebook
-    </a>;
-    const twitter = <a
-        href="#"
-        className="twitter btn"
-    >
-        <i className="fab fa-twitter"></i> Login with Twitter
-    </a>;
-    const google = <a
-        href="#"
-        className="google btn"
-    >
-        <i className="fab fa-google"></i> Login with Google
-    </a>;
+    const btnFacebook = <ButtonFacebook />
+    const btnTwitter = <ButtonTwitter />
+    const btnGoogle = <ButtonGoogle />
 
-    const username = <InputUsername />;
-    const passsword = <InputPassword />;
-
-    const login = <div>...</div>
+    const inUsername = <InputUsername />;
+    const inPassword = <InputPassword />;
+    const btnLogin = <ButtonLogin />;
 
     return (
     <form>
-        <div className="row">
-            <h2>Login with Social Media or Manually</h2>
+        <div className="row" style={{padding: "30px"}}>
+            <h2 className="my_text-center" style={{width: "100%"}}
+            >Login with Social Media or Manually</h2>
             
-            <div className="col-sm">
-                {facebook}
-                {twitter}
-                {google}
+            <div className="col-sm-6">
+                <div className="form-group">
+                    {btnFacebook}
+                </div>
+                <div className="form-group">
+                    {btnTwitter}
+                </div>
+                <div className="form-group">
+                    {btnGoogle} 
+                </div>
             </div>
-            <div className="col-sm">
-                {username}
-                {passsword}
+            <div className="col-sm-6">
+                <div className="form-group">
+                    {inUsername}
+                </div>
+                <div className="form-group">
+                    {inPassword}
+                </div>
+                <div className="form-group">
+                    {btnLogin}
+                </div>
             </div>
         </div>
     </form>);

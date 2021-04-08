@@ -4,7 +4,7 @@ export const InputUsername = (props) => (
         type="text"
         name="uname"
         id="uname"
-        className={`form-control ${props.className || props.class}`}
+        className={`form-control ${props.className || props.class || ''}`}
         placeholder="Enter Username"
         required
     />);

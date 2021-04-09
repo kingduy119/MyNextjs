@@ -7,6 +7,7 @@ export const InputUsername = (props) => (
         className={`form-control ${props.className || props.class || ''}`}
         placeholder="Enter Username"
         required
+        onChange={props.onChange}
     />);
 
 export const InputPassword = (props) => (
@@ -17,12 +18,13 @@ export const InputPassword = (props) => (
         className={`form-control ${props.className || props.class}`}
         placeholder="Enter Password"
         required
+        onChange={props.onChange}
     />);
 
 // #Validate
 export const InputUsernameValidate = (props) => (
     <div className="form-group">
-        <label htmlFor="uname">Username</label>
+        {/* <label htmlFor="uname">Username</label> */}
         <InputUsername />
         <div className="valid-feedback">Valid.</div>
         <div className="invalid-feedback">Please fill out this field.</div>
@@ -30,7 +32,7 @@ export const InputUsernameValidate = (props) => (
 
 export const InputPasswordValidate = (props) => (
     <div className="form-group">
-        <label htmlFor="pwd">Password</label>
+        {/* <label htmlFor="pwd">Password</label> */}
         <InputPassword />
         <div className="valid-feedback">Valid.</div>
         <div className="invalid-feedback">Please fill out this field.</div>

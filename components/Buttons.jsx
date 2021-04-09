@@ -20,10 +20,11 @@ export const ButtonCloseModal = (props) => (
     >Close</button>);
 
 export const ButtonGoogle = (props) => (
-    <a href="#" className={`
+    <a href="/v1/google" className={`
         form-control
-        my_google
-        my_text-left
+        my-google
+        my-text-left
+        my-hide-text-decor
     `}>
         <i className="fab fa-google" 
         /> Login with Google
@@ -32,8 +33,9 @@ export const ButtonGoogle = (props) => (
 export const ButtonFacebook = (props) => (
     <a href="#" className={`
         form-control
-        my_facebook
-        my_text-left
+        my-facebook
+        my-text-left
+        my-hide-text-decor
     `}>
         <i className="fab fa-facebook" 
         /> Login with Facebook
@@ -42,8 +44,9 @@ export const ButtonFacebook = (props) => (
 export const ButtonTwitter = (props) => (
     <a href="#" className={`
         form-control
-        my_twitter 
-        my_text-left
+        my-twitter 
+        my-text-left
+        my-hide-text-decor
     `}>
         <i className="fab fa-twitter" 
         /> Login with Twitter
@@ -53,5 +56,5 @@ export const ButtonLogin = (props) => (
     <input
         type="submit"
         value="Login"
-        className="form-control my_white my_bg-green"
+        className="form-control my-white my-bg-green"
     />);

@@ -510,39 +510,39 @@
 //     display: none !important;
 //   }
 // }
-.my_block {
+.my-block {
   display: block;
   width: 100%;
 }
 
-.my_dp-container {
+.my-dp-container {
   position: relative;
 }
-.my_dp-t-r {
+.my-dp-t-r {
   // top-right
   position: absolute;
   right: 0;
   top: 0;
 }
-.my_dp-t-l {
+.my-dp-t-l {
   // top-left
   position: absolute;
   left: 0;
   top: 0;
 }
-.my_dp-b-l {
+.my-dp-b-l {
   // bottom-left
   position: absolute;
   left: 0;
   bottom: 0;
 }
-.my_dp-b-r {
+.my-dp-b-r {
   // bottom-right
   position: absolute;
   right: 0;
   bottom: 0;
 }
-.my_dp-center {
+.my-dp-center {
   // center
   position: absolute;
   top: 50%;
@@ -550,23 +550,23 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
-.my_dp-hover {
+.my-dp-hover {
   display: none;
 }
-.my_dp-container:hover {
-  > .my_dp-hover {
+.my-dp-container:hover {
+  > .my-dp-hover {
     display: block !important;
   }
 }
 
 // #text-align
-.my_text-center {
+.my-text-center {
   text-align: center !important;
 }
-.my_text-left {
+.my-text-left {
   text-align: left !important;
 }
-.my_text-right {
+.my-text-right {
   text-align: right !important;
 }
 
@@ -578,90 +578,90 @@
 // }
 
 // #color
-.my_red {
+.my-red {
   color: $red !important;
 }
-.my_green {
+.my-green {
   color: $green !important;
 }
-.my_blue {
+.my-blue {
   color: $blue !important;
 }
-.my_white {
+.my-white {
   color: $white !important;
 }
-.my_black {
+.my-black {
   color: $black !important;
 }
-.my_yellow {
+.my-yellow {
   color: $yellow !important;
 }
-.my_grey {
+.my-grey {
   color: $grey !important;
 }
-.my_lightgrey {
+.my-lightgrey {
   color: $lightgrey !important;
 }
-.my_darkteal {
+.my-darkteal {
   color: $darkteal !important;
 }
 
 // #background
-.my_bg-red {
+.my-bg-red {
   background-color: $red !important;
 }
-.my_bg-green {
+.my-bg-green {
   background-color: $green !important;
 }
-.my_bg-blue {
+.my-bg-blue {
   background-color: $blue !important;
 }
-.my_bg-white {
+.my-bg-white {
   background-color: $white !important;
 }
-.my_bg-black {
+.my-bg-black {
   background-color: $black !important;
 }
-.my_bg-yellow {
+.my-bg-yellow {
   background-color: $yellow !important;
 }
-.my_bg-grey {
+.my-bg-grey {
   background-color: $grey !important;
 }
-.my_bg-darkteal {
+.my-bg-darkteal {
   background-color: $darkteal !important;
 }
-.my_bg-lightgrey {
+.my-bg-lightgrey {
   background-color: $lightgrey !important;
 }
-.my_google {
-  color: $white;
+.my-google {
+  color: $white !important;
   background-color: #dd4b39 !important;
 }
-.my_facebook {
-  color: $white;
+.my-facebook {
+  color: $white !important;
   background-color: #3b5998 !important;
 }
-.my_twitter {
-  color: $white;
+.my-twitter {
+  color: $white !important;
   background-color: #55acee !important;
 }
 
 // #border
-.my_border {
+.my-border {
   border: 1px solid #ccc !important;
 }
-.my_border-red {
+.my-border-red {
   border-color: #f44336 !important;
 }
-.my_border-green {
+.my-border-green {
   border-color: #4caf50 !important;
 }
-.my_border-orange {
+.my-border-orange {
   border-color: #ff9800 !important;
 }
-.my_border,
-.my_bor {
+.my-border,
+.my-bor {
   &-hide {
     border: none;
   }
@@ -706,8 +706,8 @@
 // }
 
 // #input
-.my_input,
-.my_btn {
+.my-input,
+.my-btn {
   width: 100%;
   padding: 12px;
   border: none;
@@ -717,8 +717,24 @@
   display: inline-block;
   font-size: 17px;
   line-height: 20px;
-  text-decoration: none; /* remove underline from anchors */
+  cursor: pointer;
+  text-decoration: none !important;
 }
+
+// #link
+.my-link {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+// #hide
+.my-hide {
+  &-text-decor {
+    text-decoration: none !important;
+  }
+}
+
+// #hover
 
 // // #transition
 // .main {
@@ -912,5 +928,3 @@
 // .hd-actice {
 //   @include theme($white, $black);
 // }
-
-// #button

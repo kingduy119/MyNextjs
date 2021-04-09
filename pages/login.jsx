@@ -10,15 +10,15 @@ class LoginPage extends React.Component {
         let btnSignup = <a
             data-toggle="modal"
             data-target="#modalRegistation"
-            className="my_btn my_white text-center"
+            className="my-btn my-white text-center my-link"
         >Sign up</a>;
 
         let btnForget = <a
-            className="my_btn my_white text-center"
+            className="my-btn my-white text-center"
         >Forget password</a>;
 
         return <>
-            <div className="container my_dp-container" style={{
+            <div className="container my-dp-container" style={{
                 borderRadius: "5px 5px 0 0",
                 backgroundColor: "#f2f2f2",
             }}>

@@ -1,6 +1,7 @@
 // #Button
 export const ButtonSubmit = (props) => (
     <button
+        {...props}
         type="submit"
         className="btn btn-primary"
     >Submit</button>);
@@ -26,8 +27,8 @@ export const ButtonGoogle = (props) => (
         my-text-left
         my-hide-text-decor
     `}>
-        <i className="fab fa-google" 
-        /> Login with Google
+        <i className="fab fa-google"
+        />  Login with Google
     </a>);
 
 export const ButtonFacebook = (props) => (
@@ -38,7 +39,7 @@ export const ButtonFacebook = (props) => (
         my-hide-text-decor
     `}>
         <i className="fab fa-facebook" 
-        /> Login with Facebook
+        />  Login with Facebook
     </a>);
 
 export const ButtonTwitter = (props) => (
@@ -58,3 +59,14 @@ export const ButtonLogin = (props) => (
         value="Login"
         className="form-control my-white my-bg-green"
     />);
+
+
+
+
+
+
+
+
+
+
+    

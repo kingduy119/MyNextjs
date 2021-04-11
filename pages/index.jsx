@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Alerts } from "../components/Systems";
-import { ModalFormSignUp } from "../components/Dialogs";
+import { ModalFormSignUp } from "../components/Modals";
 import { DIALOG_REGISTER, showDialog } from "../lib/redux/actions/systems";
 
 class IndexPage extends React.Component {

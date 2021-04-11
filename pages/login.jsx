@@ -1,21 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ModalFormSignUp } from "../components/Dialogs";
+import { ModalFormSignUp } from "../components/Modals";
 import { FormLogin } from "../components/Forms";
+
+const ButtonSignUp = (props) => 
+    <a
+        data-toggle="modal"
+        data-target="#modalRegistation"
+        className="my-btn my-white text-center my-link"
+    >Sign up</a>;
+
+const ButtnForget = (props) => 
+    <a
+        className="my-btn my-white text-center"
+    >Forget password</a>;
 
 class LoginPage extends React.Component {
 
     render() {
-        let btnSignup = <a
-            data-toggle="modal"
-            data-target="#modalRegistation"
-            className="my-btn my-white text-center my-link"
-        >Sign up</a>;
-
-        let btnForget = <a
-            className="my-btn my-white text-center"
-        >Forget password</a>;
 
         return <>
             <div className="container my-dp-container" style={{
@@ -31,14 +34,14 @@ class LoginPage extends React.Component {
             }}>
                 <div className="row">
                     <div className="col-sm-6">
-                        {btnSignup}
+                        <ButtonSignUp />
+                        <ModalFormSignUp id="modalRegistation" />
                     </div>
                     <div className="col-sm-6">
-                        {btnForget}
+                        <ButtnForget />
                     </div>
                 </div>
             </div>
-            <ModalFormSignUp id="modalRegistation" />
         </>;
     }
 }

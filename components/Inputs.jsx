@@ -75,7 +75,6 @@ export const InputFirstName = (props) => (
     placeholder="First Name"
     className="form-control"
 />);
-
 export const InputLastName = (props) => (
 <input
     {...props}
@@ -86,5 +85,34 @@ export const InputLastName = (props) => (
     className="form-control"
 />);
 
+export const InputCheckboxList = (props) => ( 
+<>
+    {props.options.map(value => (
+    <div className={props.class || props.className || "form-check"}>
+        <label className="form-check-label">
+            <input type="checkbox" className="form-check-input"/>
+            {value}
+        </label>
+    </div>
+    ))}
+</>);
 
+export const InputRadioList = (props) => ( 
+<>
+    {props.options.map(value => (
+    <div className={props.class || props.className || "form-check"}>
+        <label className="form-check-label">
+            <input type="radio" className="form-check-input" name="radio"/>
+            {value}
+        </label>
+    </div>
+    ))}
+</>);
 
+export const InputSelectList = (props) => (
+<div class="form-group">
+  {/* <label for={props.for}>Select list:</label> */}
+  <select class="form-control" id={props.id}>
+    {props.options.map(value => <option>{value}</option> )}
+  </select>
+</div>);

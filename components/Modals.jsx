@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { 
     InputUsernameValidate, InputPasswordValidate,
     InputFirstName, InputLastName,
+    InputCheckboxList, InputRadioList, InputSelectList,
 } from "./Inputs";
 import {
     ButtonClose, ButtonSubmit, ButtonCloseModal
@@ -56,6 +57,23 @@ export const ModalFormSignUp = connect()((props) => {
                                 isValid={pwd.length >= 6}
                                 onChange={e => setPwd(e.target.value)}
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <InputCheckboxList 
+                                className="form-check-inline"
+                                options={["opt1", "opt1", "opt1"]}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <InputRadioList 
+                                className="form-check-inline"
+                                options={["opt1", "opt1", "opt1"]}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <InputSelectList options={[1, 2, 3]} />
                         </div>
                     </div>
                     <div className="modal-footer">

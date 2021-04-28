@@ -2,20 +2,6 @@ import { connect } from "react-redux";
 import { popNotification } from "../lib/redux/actions/systems"
 
 /**
- * #Notification system
- */
-// const Alert = ({type, onClose, children}) => (
-//     <div className={`alert ${type}`}> 
-//         <button
-//             type="button"
-//             className="close" 
-//             data-dismiss="alert"
-//             onClick={onClose}
-//         >&times;</button>
-//         {children}
-//     </div>);
-
-/**
  * Alert: connect(mapStateToProps, mapDispatchToProps)(component)
  */
 export const Alerts = connect(

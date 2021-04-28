@@ -1,126 +1,168 @@
 const passport = require("passport")
 const jwt = require('jsonwebtoken');
+
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-const User = require("../models/User");
+
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../config");
 const { hash, compare } = require("../utils/verify");
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRECT } = require("../consts");
+const UserModel = require("../models/User");
 
-/**
- * #1 Verify function:
- */
-async function verifyGoogle(accessToken, refreshToken, profile, done) {
-    let email, avatarUrl;
-    if (profile.emails) { email = profile.emails[0].value; }
-    if (profile.photos && profile.photos.length > 0) { avatarUrl = profile.photos[0].value; }
-    try {
-        let user = await User.findOne({ userId: profile.id });
-        if (!user) {
-            user = await User.create({
-                provider: profile.provider,
-                userId: profile.id,
-                token: { accessToken, refreshToken },
-                displayName: profile.displayName,
-                email,
-                avatarUrl,
-            });
-        } else {
-            if (user.token.access_token != accessToken) user.token.access_token = accessToken;
-            if (user.token.refresh_token != refreshToken) user.token.refresh_token = refreshToken;
-            await user.save();
-        }
-        return done(null, user);
-    } catch (err) { return done(null, false); }
-}
-
-const verifySignup = async (req, username, password, done) => {
-    try {
-        let pwd_hashed = await hash(password);
-        let user = await User.create({
-            userId: username,
-            password: pwd_hashed,
-            displayName: req.body.displayName,
-            avatarUrl: req.body.avatarUrl,
-            email: req.body.email,
-        });
-        return done(null, user);
-    } catch (err) {
-        return done(null, false, { error: err });
-    }
-}
-
-const verifySignin = async (req, username, password, done) => {
-    try {
-        let user = await User.findOne({ userId: username });
-        if (!(await compare(password, user.password))) throw "Wrong password";
-
-        return done(null, user);
-    } catch (err) { return done(null, false, { error: err }); }
-}
-
-/**
- *  #2 Strategy: (option, cb Verify)
- */
-const strategyLocalSignin = new LocalStrategy(
-    { passReqToCallback: true },
-    verifySignin
-);
-const strategyLocalSignup = new LocalStrategy(
-    { passReqToCallback: true },
-    verifySignup
-);
-const strategyGoogle = new GoogleStrategy(
-    {
-        clientID: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRECT,
-        callbackURL: `/v1/oauth2callback`,
-    },
-    verifyGoogle
-);
-
-/**
- *  #3 Middleware: (path, Strategy)
- */
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
     User.findById(id)
-        .select('userId provider displayName avatarUrl')
-        .exec((err, user) => { done(err, user); });
+    .select('userId provider displayName avatarUrl')
+    .exec((err, user) => { done(err, user) });
 });
 
-passport.use('signin', strategyLocalSignin);
-passport.use('signup', strategyLocalSignup);
-passport.use(strategyGoogle);
+/** #Strategies */
+const strategies = {
+    GOOGLE: new GoogleStrategy(
+        {
+            clientID: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRECT,
+            callbackURL: `/v1/oauth2callback`,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                let user = await UserModel
+                    .findOne({ userId: profile.id })
+                    .select('displayName avatarUrl access_token refresh_token');
+                if (!user) {
+                    let email, avatarUrl;
+                    if (profile.emails) { email = profile.emails[0].value; }
+                    if (profile.photos && profile.photos.length > 0) { 
+                        avatarUrl = profile.photos[0].value;
+                    }
+        
+                    user = await UserModel.create({
+                        provider: profile.provider,
+                        userId: profile.id,
+                        displayName: profile.displayName,
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                        email,
+                        avatarUrl,
+                    });
+                }
+                else if (user.access_token != accessToken
+                    || user.refresh_token != refreshToken 
+                    ) {
+                    user.updateToken(accessToken, refreshToken);
+                }
+                return done(null, user);
+            } catch (err) { return done(err, null); }
+        }
+    ),
+    LOCAL_SIGNUP: new LocalStrategy(
+        { 
+            passReqToCallback: true 
+        },
+        async (req, username, password, done) => {
+            try {
+                let docs = Object.assign({}, req.query, {
+                    userId: username,
+                    password: hash(password),
+                });
+                let user = await UserModel.create(docs);
+                return done(null, user);
+                
+            } catch (err) { return done(null, false, { error: err }); }
+        }
+    ),
+    LOCAL_SIGNIN: new LocalStrategy(
+        {
+            passReqToCallback: true
+        },
+        async (req, username, password, done) => {
+            let info = { id: req.query.id, userId: username};
+            try {
+                let user = await UserModel.findOne(info);
+                if(!user) { return done('Username is not existed!', null); }
+
+                if (!compare(password, user.password)) { return done('Wrong Password!', null); }
+                return done(null, user);
+            } catch (err) { return done(err, null); }
+        }
+    ),
+};
+passport.use(strategies.GOOGLE);
+passport.use('signin', strategies.LOCAL_SIGNIN);
+passport.use('signup', strategies.LOCAL_SIGNUP);
 
 /**
- * Passport authentice: (path, cb Middleware)
+ * #Verify
  */
-exports.passportSignup = passport.authenticate('signup', { failureRedirect: '/login' });
-exports.passportSignin = passport.authenticate('signin', { failureRedirect: '/login' });
-exports.passportGoogle = passport.authenticate('google', {
+exports.verifyGoogle = passport.authenticate('google', {
     scope: 'https://www.googleapis.com/auth/plus.login'
 });
-exports.passportGoogleCallback = passport.authenticate('google', { failureRedirect: '/login' });
+exports.verifyGoogleCallback = passport.authenticate('google', {
+    failureRedirect: '/login',
+});
+exports.verifyLocalSignin = passport.authenticate('signin', { 
+    failureRedirect: '/login',
+});
+exports.verifyLocalSignup = passport.authenticate('signup', {
+    failureRedirect: '/login',
+});
 
 /**
- * Service
+ * #Methods
  */
-exports.signup = (req, res) => {
-    res.redirect(`/?${req.user.userId}`);
+function isToken(token) {
+    return jwt.verify(
+        token.split(' ')[1],
+        process.env.JWT_SECRET,
+        (err, result) => {
+            if (err) return { error: err };
+            return { result };
+        }
+    );
 }
-exports.signin = (req, res) => {
-    let exprireTime = 6 * 60 * 60; // 6hour 
-    let access_token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-        expiresIn: exprireTime,
+
+exports.requiredToken = (req, res, next) => {
+    let token = req.cookies['access_token'];
+    if(!token || !isToken(token)) {
+        return res.redirect('/v1/signout');
+    }
+    next();
+}
+
+exports.checkToken = (req, res, next) => {
+    let token = req.cookies['access_token'];
+    if(token && isToken(token)) {
+        return res.redirect('/');
+    }
+    next();
+}
+
+exports.checkUserExists = (req, res, next) => {
+    User.findOne({userId: req.query.username}, (err, user) => {
+        if(err) return res.status(500).send(err);
+        if(user) return res.status(200).send('Username is existed!');
+        next();
     });
-    res.cookie('access_token', `Bearer ${access_token}`, { expiresIn: exprireTime })
+}
+
+exports.redirectIndexAndCreateToken = (req, res) => {
+    let access_token = jwt.sign(
+        { _id: req.user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: 6 * 60 * 60 }
+    );
+    return res
+        .cookie(
+            'access_token',
+            `Bearer ${access_token}`,
+            { expiresIn: 6 * 60 * 60 },
+        )
         .redirect(`/`);
 }
-exports.signout = (req, res) => {
+
+exports.onSignout = (req, res) => {
     req.logout();
     res.clearCookie('access_token').redirect('/login');
 }
-
 
 
 

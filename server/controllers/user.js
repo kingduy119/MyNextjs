@@ -1,22 +1,21 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Notification = require("../models/Notification");
-const STT_ERROR = 500;
+
+exports.onQueryUser = async (req, res) => {
+    let { id, username } = req.query;
+    try {
+        let condition = {id, userId: username};
+        let user = await User.findOne(condition);
+        return res.json({ user });
+    } catch (err) { return res.status(500).send(err); }
+}
+
 // /:userId
 exports.onPramUserId = async (req, res, next, id) => {
     User.findById(id, (err, user) => {
         if (err) return res.status(404);
         req.user = user;
-        next();
-    })
-}
-
-// /:postId
-exports.onPramPostId = (req, res, next, id) => {
-    console.log('onPramPostId');
-    Post.findById(id, (err, post) => {
-        if (err) return res.status(404).send('Not found');
-        req.post = post;
         next();
     })
 }
@@ -57,20 +56,20 @@ exports.onIdDelete = (req, res) => {
 /**
  * [POST]/create-post => response{post}
  */
-exports.onPostCreate = async (req, res) => {
-    try {
-        let { content } = req.body;
-        let data = { content, postBy: req.user._id };
-        let post = await Post.create(data);
-        let user = await User.findByIdAndUpdate(
-            { _id: req.user._id },
-            { $push: { posts: post._id } }
-        ).select('displayName avatarUrl');
+// exports.onPostCreate = async (req, res) => {
+//     try {
+//         let { content } = req.body;
+//         let data = { content, postBy: req.user._id };
+//         let post = await Post.create(data);
+//         let user = await User.findByIdAndUpdate(
+//             { _id: req.user._id },
+//             { $push: { posts: post._id } }
+//         ).select('displayName avatarUrl');
 
-        Object.assign(post, { postBy: user })
-        return res.json({ post });
-    } catch (err) { return res.status(500).send(err); }
-}
+//         Object.assign(post, { postBy: user })
+//         return res.json({ post });
+//     } catch (err) { return res.status(500).send(err); }
+// }
 
 /**
  * [GET]/:userId/post/:postId/
@@ -97,7 +96,7 @@ exports.onPostFindMany = async (req, res) => {
         console.log(`onPostFindMany: ${JSON.stringify(data.posts.reverse())}`)
         res.json(data.posts);
     } catch (err) {
-        res.status(STT_ERROR).json({ error: err });
+        res.status(500).json({ error: err });
     }
 }
 

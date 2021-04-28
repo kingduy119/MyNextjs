@@ -1,19 +1,19 @@
 import App from 'next/app';
 import React from 'react';
-import store from "../store";
-import { isMobile } from "../lib/isMobile"
+import { wrapper } from "../lib/redux";
+import { isMobile } from '../lib/isMobile';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const pageProps = {
-      isMobile: isMobile({ req: ctx.req })
+    return {
+      pageProps: {
+        ...(Component.getInitialProps ?
+          await Component.getInitialProps(ctx) : {}
+        ),
+        isMobile: isMobile({ req: ctx.req }),
+        pathname: ctx.pathname,
+      }
     }
-
-    if (Component.getInitialProps) {
-      Object.assign(pageProps, await Component.getInitialProps(ctx));
-    }
-
-    return { pageProps };
   }
 
   componentDidMount() {
@@ -21,32 +21,14 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-
-    // All dropdowns
-    window.onclick = (e) => {
-      if(
-        !e.target.matches(".idrdown-btn .idrdown-icon") &&
-        !e.target.matches(".idrdown-badge") &&
-        !e.target.matches(".idrdown-content")
-      ) {
-        let drdContents = document.getElementsByClassName("idrdown-content");
-        for(let i=0; i < drdContents.length; i++) {
-          if(drdContents[i].classList.contains("show")) {
-            drdContents[i].classList.remove("show");
-          }
-        }
-      }//End if
-    } //End window.onclick
-
   }
 
   render() {
     const { Component, pageProps } = this.props;
-
-    return (
-      <Component {...pageProps} />
+    return(
+        <Component {...pageProps} />
     );
   }
 }
 
-export default store.withRedux(MyApp);
+export default wrapper.withRedux(MyApp);

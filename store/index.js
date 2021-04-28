@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
 import { createWrapper } from "next-redux-wrapper";
+import thunkMiddleware from 'redux-thunk';
 
-import { topbar } from "./static/topbar.reduce";
+import notifications from "./reducers/notification";
 
 // Middleware Handle:
 const loggerMiddleware = createLogger();
@@ -14,11 +14,12 @@ const middlewares = [
 
 // All reducer:
 const reducers = combineReducers({
-    topbar,
+    notifications,
 });
 
 
-const makeStore = context => 
-    createStore(reducers, applyMiddleware(...middlewares));
+const store = (context) => createStore(reducers, applyMiddleware(...middlewares));
+const wrapper = createWrapper(store);
 
-export default createWrapper(makeStore);
+export { store, wrapper };
+

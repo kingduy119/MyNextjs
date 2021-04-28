@@ -21,22 +21,6 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-
-    // All dropdowns
-    // window.onclick = (e) => {
-    //   if (
-    //     !e.target.matches('.idrdown-btn .idrdown-icon') &&
-    //     !e.target.matches('.idrdown-badge') &&
-    //     !e.target.matches('.idrdown-content')
-    //   ) {
-    //     const drdContents = document.getElementsByClassName('idrdown-content');
-    //     for (let i = 0; i < drdContents.length; i++) {
-    //       if (drdContents[i].classList.contains('show')) {
-    //         drdContents[i].classList.remove('show');
-    //       }
-    //     }
-    //   } // End if
-    // }; // End window.onclick
   }
 
   render() {

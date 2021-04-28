@@ -1,0 +1,7 @@
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":5672,"level":"error"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":5672,"level":"error"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":5672,"level":"error"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":5672,"level":"error"}
+{"errno":"ECONNREFUSED","code":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":5672,"level":"error"}
+{"message":"error0: Error: connect ECONNREFUSED 127.0.0.1:5672","level":"error"}
+{"message":"error1: Error: Channel ended, no reply will be forthcoming","level":"error"}

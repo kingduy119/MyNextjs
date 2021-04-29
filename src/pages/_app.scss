@@ -1,0 +1,56 @@
+.m {
+  // sm
+
+  // md
+
+  // lg
+  @media screen and (max-width: 992px) {
+    &__hide-l {
+      visibility: hidden !important;
+    }
+    &__show-l {
+      visibility: visible !important;
+    }
+  }
+
+  // xl
+  @media screen and (max-width: 1199px) {
+    &__hide-xl {
+      visibility: hidden !important;
+    }
+  }
+  @media screen and (min-width: 1199px) {
+    &__show-xl {
+      visibility: visible !important;
+    }
+  }
+}
+
+.dashboard {
+  &__slidebar {
+    // visibility: hidden;
+    position: fixed;
+    // position: sticky;
+    width: 0px;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 64px;
+    background-color: #ddd;
+    transition: 0.5s;
+
+    @media (min-width: 1200px) {
+      // visibility: visible;
+      width: 200px;
+    }
+  }
+  &__content {
+    padding: 1rem;
+
+    @media (min-width: 1200px) {
+      margin-left: 200px;
+    }
+  }
+}

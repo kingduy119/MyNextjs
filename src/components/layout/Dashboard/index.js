@@ -1,16 +1,16 @@
 
 import Topbar from './Topbar';
-import Navbar from './Navbar';
+import Slidebar from './Slidebar';
 
 
-
-
-const Dashboard = ({children}) => {
+const Dashboard = ({pathname, children}) => {
     return(
-        <div>
+        <div className="dashboard">
             <Topbar />
-            <Navbar />
-            {children}
+            <Slidebar pathname={pathname} />
+            <div className="dashboard__content">
+                {children}
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 
+import Jumbotron from './Jumbotron';
 import Topbar from './Topbar';
 import Slidebar from './Slidebar';
 
@@ -6,10 +7,18 @@ import Slidebar from './Slidebar';
 const Dashboard = ({pathname, children}) => {
     return(
         <div className="dashboard">
-            <Topbar />
-            <Slidebar pathname={pathname} />
-            <div className="dashboard__content">
-                {children}
+            <div className="dashboard__slidebar">
+                <Slidebar />
+            </div>
+            <div className="dashboard__main">
+                <Jumbotron />
+                <Topbar />
+                <div className="dashboard__content">
+                    {children}
+                </div>
+                <div className="dashboard__footer">
+
+                </div>
             </div>
         </div>
     )

@@ -1,55 +1,42 @@
-.m {
-  // sm
-
-  // md
-
-  // lg
-  @media screen and (max-width: 992px) {
-    &__hide-l {
-      visibility: hidden !important;
-    }
-    &__show-l {
-      visibility: visible !important;
-    }
+.dashboard {
+  &__jumbotron,
+  &__topnav {
+    z-index: 2002;
   }
 
-  // xl
-  @media screen and (max-width: 1199px) {
-    &__hide-xl {
-      visibility: hidden !important;
-    }
+  &__slidebar {
+    z-index: 2001;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 100%;
+    transition: 0.5s;
+    overflow-x: hidden;
+    background-color: #ddd; // dev
   }
-  @media screen and (min-width: 1199px) {
-    &__show-xl {
-      visibility: visible !important;
-    }
+
+  &__content {
+    padding: 2rem;
+  }
+  &__footer {
+    z-index: 2001;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px; //dev
+    background: #ccc; // dev
   }
 }
 
-.dashboard {
-  &__slidebar {
-    // visibility: hidden;
-    position: fixed;
-    // position: sticky;
-    width: 0px;
-    height: 100%;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    padding-top: 64px;
-    background-color: #ddd;
-    transition: 0.5s;
-
-    @media (min-width: 1200px) {
-      // visibility: visible;
+// XL screen
+@media (min-width: 1200px) {
+  .dashboard {
+    &__slidebar {
       width: 200px;
     }
-  }
-  &__content {
-    padding: 1rem;
-
-    @media (min-width: 1200px) {
+    &__main {
       margin-left: 200px;
     }
   }

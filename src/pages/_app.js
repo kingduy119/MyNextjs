@@ -2,8 +2,7 @@ import App from 'next/app';
 import React from 'react';
 import { wrapper } from '../redux/store';
 import { isMobile } from '../utils/isMobile';
-import 'bootstrap/dist/css/bootstrap.css';
-import './_app.scss';
+// import './_app.scss';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

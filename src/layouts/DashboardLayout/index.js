@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Topnav from './Topnav';
+import Slidebar from './Slidebar';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -11,10 +12,16 @@ const useStyles = makeStyles((theme) => ({
 
 function MuiDashboard() {
   const classes = useStyles();
+  let [isOpen, setIsOpen] = React.useState(true);
+
   return (
     <div className={classes.grow}>
       <CssBaseline />
-      <Topnav />
+      <Topnav openSlidebar={() => setIsOpen(true)} />
+      <Slidebar
+        open={isOpen}
+        closeSlidebar={() => setIsOpen(false)}
+      />
     </div>
   )
 }

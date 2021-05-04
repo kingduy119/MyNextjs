@@ -1,21 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
   IconButton,
   Collapse,
   Divider,
-  Drawer
+  Drawer,
+  Hidden
 } from "@material-ui/core";
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons";
 import SlidebarList from "./SlidebarList";
 
-const drawerWidth = 250;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -40,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Slidebar({ open, closeSlidebar }) {
+function Slidebar({ open, closeSlidebar }) {
   const classes = useStyles();
+
   return (
     <Drawer
       achor="left"
@@ -62,3 +60,65 @@ export default function Slidebar({ open, closeSlidebar }) {
     </Drawer>
   );
 }
+
+// Response Navigation
+// ----------------------------------------------------------
+const useStylesResponsive = makeStyles((theme) => ({
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
+  },
+  drawerPaper: {
+    width: drawerWidth
+  },
+  toolbar: theme.mixins.toolbar
+}));
+
+function SlidebarResponsive({ isMobileOpen, handleToggle }) {
+  const classes = useStylesResponsive();
+  const theme = useTheme();
+  // const container =
+  //   typeof window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <nav className={classes.drawer} aria-label="slidebar responsive">
+      <Hidden smUp>
+        <Drawer
+          // container={container}
+          variant="temporary"
+          achor={theme.direction === "rtl" ? "right" : "left"}
+          open={isMobileOpen}
+          onClose={handleToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile
+          }}
+        >
+          <Divider />
+          drawer list
+        </Drawer>
+      </Hidden>
+      <Hidden smDown>
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          variant="permanent"
+          open
+        >
+          <Divider />
+          drawer list
+        </Drawer>
+      </Hidden>
+    </nav>
+  );
+}
+SlidebarResponsive.propTypes = {
+  isMobileOpen: PropTypes.bool
+};
+
+export default SlidebarResponsive;

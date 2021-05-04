@@ -8,7 +8,7 @@ import Mail from "./Mail";
 import Notifications from "./Notifications";
 import Account from "./Account";
 
-const drawerW = 250;
+const drawerW = 220;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Topnav({ open, openSlidebar }) {
+const Topnav = ({ open, openSlidebar }) => {
   const classes = useStyles();
 
   return (
@@ -86,4 +86,48 @@ export default function Topnav({ open, openSlidebar }) {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+// Response Navigation
+// ----------------------------------------------------------
+const useStylesResponse = makeStyles((theme) => ({
+  appBar: {
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${drawerW}px)`,
+      marginLeft: drawerW
+    }
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
+  }
+}));
+
+const TopbarResponse = ({ handleDrawerToggle }) => {
+  const classes = useStylesResponse();
+
+  return (
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        {/*  */}
+        <Typography variant="h6" noWrap>
+          Responsive drawer
+        </Typography>
+        {/*  */}
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default TopbarResponse;

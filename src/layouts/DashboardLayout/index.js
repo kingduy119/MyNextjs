@@ -20,10 +20,10 @@ function MuiDashboard() {
 
   return (
     <div className={classes.root}>
-      <Slidebar open={isOpen} closeSlidebar={() => setIsOpen(false)} />
       <Topnav open={isOpen} openSlidebar={() => setIsOpen(true)} />
+      <Slidebar open={isOpen} closeSlidebar={() => setIsOpen(false)} />
 
-      <main className={classes.content}>
+      {/* <main className={classes.content}>
         <div className={classes.appbarSpacer} />
         <Container className={classes.container} maxWidth="lg">
           <Grid container spacing={3}>
@@ -32,7 +32,7 @@ function MuiDashboard() {
             </Grid>
           </Grid>
         </Container>
-      </main>
+      </main> */}
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import App from 'next/app';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { wrapper } from '../redux/store';
 import { isMobile } from '../utils/isMobile';
-// import './_app.scss';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Head from 'next/head';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -27,9 +30,24 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return(
-        <Component {...pageProps} />
+      <React.Fragment>
+        <Head>
+          <meta charSet="utf-8" />
+          <meta name="google" content="notranslate" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Head>
+        <ThemeProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </React.Fragment>
     );
   }
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired,
 }
 
 export default wrapper.withRedux(MyApp);

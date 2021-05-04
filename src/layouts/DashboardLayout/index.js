@@ -1,13 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Topnav from './Topnav';
-import Slidebar from './Slidebar';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Grid, Paper } from "@material-ui/core";
+import Topnav from "./Topnav";
+import Slidebar from "./Slidebar";
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  }
+  root: {
+    display: "flex"
+  },
+  content: {},
+  appBarSpacer: {},
+  container: {},
+  papaer: {}
 }));
 
 function MuiDashboard() {
@@ -15,15 +19,22 @@ function MuiDashboard() {
   let [isOpen, setIsOpen] = React.useState(true);
 
   return (
-    <div className={classes.grow}>
-      <CssBaseline />
-      <Topnav openSlidebar={() => setIsOpen(true)} />
-      <Slidebar
-        open={isOpen}
-        closeSlidebar={() => setIsOpen(false)}
-      />
+    <div className={classes.root}>
+      <Slidebar open={isOpen} closeSlidebar={() => setIsOpen(false)} />
+      <Topnav open={isOpen} openSlidebar={() => setIsOpen(true)} />
+
+      <main className={classes.content}>
+        <div className={classes.appbarSpacer} />
+        <Container className={classes.container} maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xa={12} lg={9}>
+              <p>Fist Content</p>
+            </Grid>
+          </Grid>
+        </Container>
+      </main>
     </div>
-  )
+  );
 }
 
 export default MuiDashboard;

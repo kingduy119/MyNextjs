@@ -8,7 +8,7 @@ import {
   Label,
   ResponsiveContainer
 } from "recharts";
-import Title from "./Title";
+import { Title } from "./utils";
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -50,7 +50,7 @@ export default function Chart() {
               position="left"
               style={{ textAnchor: "middle", fill: theme.palette.text.primary }}
             >
-              Sales ($)
+              $ Sales
             </Label>
           </YAxis>
           <Line

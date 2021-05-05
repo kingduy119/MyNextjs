@@ -4,10 +4,13 @@ import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   IconButton,
-  Collapse,
   Divider,
   Drawer,
-  Hidden
+  Hidden,
+  List,
+  ListItem,
+  ListItemText,
+  Collapse
 } from "@material-ui/core";
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons";
 import SlidebarList from "./SlidebarList";
@@ -55,7 +58,6 @@ function Slidebar({ open, closeSlidebar }) {
           <ChevronLeftIcon />
         </IconButton>
       </div>
-      {/* <SlideList /> */}
       <SlidebarList />
     </Drawer>
   );
@@ -76,21 +78,31 @@ const useStylesResponsive = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar
 }));
 
-function SlidebarResponsive({ isMobileOpen, handleToggle }) {
+function SlidebarResLayout({ isMobileOpen, handleDrawerToggle }) {
   const classes = useStylesResponsive();
   const theme = useTheme();
   // const container =
   //   typeof window !== undefined ? () => window().document.body : undefined;
 
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+        <SlidebarList />
+      </List>
+    </div>
+  );
+
   return (
     <nav className={classes.drawer} aria-label="slidebar responsive">
-      <Hidden smUp>
+      <Hidden smUp implementation="css">
         <Drawer
           // container={container}
           variant="temporary"
           achor={theme.direction === "rtl" ? "right" : "left"}
           open={isMobileOpen}
-          onClose={handleToggle}
+          onClose={handleDrawerToggle}
           classes={{
             paper: classes.drawerPaper
           }}
@@ -98,11 +110,10 @@ function SlidebarResponsive({ isMobileOpen, handleToggle }) {
             keepMounted: true // Better open performance on mobile
           }}
         >
-          <Divider />
-          drawer list
+          {drawer}
         </Drawer>
       </Hidden>
-      <Hidden smDown>
+      <Hidden xsDown implementation="css">
         <Drawer
           classes={{
             paper: classes.drawerPaper
@@ -110,15 +121,14 @@ function SlidebarResponsive({ isMobileOpen, handleToggle }) {
           variant="permanent"
           open
         >
-          <Divider />
-          drawer list
+          {drawer}
         </Drawer>
       </Hidden>
     </nav>
   );
 }
-SlidebarResponsive.propTypes = {
+SlidebarResLayout.propTypes = {
   isMobileOpen: PropTypes.bool
 };
 
-export default SlidebarResponsive;
+export default SlidebarResLayout;

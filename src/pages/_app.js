@@ -32,8 +32,6 @@ class MyApp extends App {
     return(
       <React.Fragment>
         <Head>
-          <meta charSet="utf-8" />
-          <meta name="google" content="notranslate" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Head>
         <ThemeProvider>
